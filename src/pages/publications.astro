@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Filter from "../components/Filter.astro";
+import Tag from "../components/Tag.astro";
+
+const filters = [
+  { label: "workshops", value: "workshops" },
+  { label: "workshops", value: "workshops" },
+  { label: "workshops", value: "workshops" },
+  { label: "workshops", value: "workshops" },
+];
+
+import fetchApi from "../lib/strapi";
+import type Publication from "../interfaces/publication";
+
+const publications = await fetchApi<Publication[]>({
+  endpoint: "publications", // the content type to fetch
+  wrappedByKey: "data", // the key to unwrap the response
+  query: {
+    // @ts-ignore
+    populate: ["featuredImage", "tags"],
+    // @ts-ignore
+    pagination: {
+      pageSize: 100,
+    },
+  }, // any query params to include
+});
+---
+
+<BaseLayout>
+  <ul class="flex flex-wrap gap-3 mb-14">
+    {
+      filters.map((data) => (
+        <li>
+          <Filter label={data.value} />
+        </li>
+      ))
+    }
+  </ul>
+  <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
+    {
+      publications.map((publication: Publication) => (
+        <li class="leading-none">
+          <a
+            href={`/publications/${publication.attributes.slug}/`}
+            class="inline-block aspect-[9/7] mb-5 lg:mb-4"
+          >
+            <img
+              class="object-cover w-full h-full text-xl font-display"
+              alt={
+                publication.attributes.featuredImage.data.attributes.caption ??
+                "image"
+              }
+              src={
+                import.meta.env.STRAPI_URL +
+                publication.attributes.featuredImage.data.attributes.url
+              }
+              loading="lazy"
+            />
+          </a>
+          <a
+            href={`/publications/${publication.attributes.slug}/`}
+            class="block"
+          >
+            <h2 class="text-xl font-display">{publication.attributes.title}</h2>
+          </a>
+          {publication.attributes.tags.data &&
+            publication.attributes.tags.data.length > 0 && (
+              <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
+                {publication.attributes.tags.data.map((tag) => (
+                  <li>
+                    <Tag label={tag.attributes.title} />
+                  </li>
+                ))}
+              </ul>
+            )}
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
