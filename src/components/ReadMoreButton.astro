@@ -1,0 +1,9 @@
+---
+interface Props {
+  label: string;
+	url: string;
+}
+
+const { label, url } = Astro.props;
+---
+<a class="bg-gray-medium px-4 py-2.5 rounded-10 font-display inline-block mt-8" href={ url }>{ label }</a>

@@ -14,13 +14,15 @@ export default {
 			},
 			borderRadius: {
 				'menu': '0.6875rem',
+				'10': '10px',
 			},
       gap: {
         'menu': '3.4375rem',
       },
 			colors: {
 				accent: '#FF6EB7',
-				dark: '#1A1A1A'
+				dark: '#1A1A1A',
+				'gray-medium': '#D9D9D9'
 			},
 			backgroundImage: {
         'carousel-background': "url('/carousel-bg.svg')",

@@ -1,0 +1,41 @@
+---
+import ReadMoreButton from "./ReadMoreButton.astro"
+---
+
+<div class="grid grid-cols-1 gap-6 mb-20 lg:gap-20 lg:grid-cols-2">
+  <div class="aspect-square">
+    <svg class="w-full h-auto" viewBox="0 0 508 508">
+      <defs>
+        <mask id="mask">
+          <path
+            d="M506 2V435.629C506 496.865 427.502 539.831 365.636 469.397V328.592L188.165 506H2L2 309.881L169.454 142.427H72.371C11.135 142.364 -31.831 63.929 38.666 2L506 2Z"
+            fill="#FFFFFF"></path>
+        </mask>
+      </defs>
+      <image
+        class="absolute top-0 left-0 w-full h-full"
+        mask="url(#mask)"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xlink:href="https://picsum.photos/1000/1000"
+      />
+      <g class="frame-border" stroke="#FF6EB7" stroke-width="4" fill="none">
+        <path
+          d="M506 2V435.629C506 496.865 427.502 539.831 365.636 469.397V328.592L188.165 506H2L2 309.881L169.454 142.427H72.371C11.135 142.364 -31.831 63.929 38.666 2L506 2Z"
+          stroke-linecap="round"></path>
+      </g>
+    </svg>
+  </div>
+  <div>
+    <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">Lectus ac, dapibus euismod urna Suspendisse</h3>
+    <div class="text-xl">
+      <p>
+        Edisse at pellentesque mi. Quisque elementum justo id ligula hendrerit,
+        id dapibus ex vehicula. Vivamus a mollis augue. Donec ultricies enim
+        eget luctus pellentesque. In et dui at est convallis finibus ac vitae
+        eros. In viverra convallis quam nec imperdiet. Fusce interdum vehicula
+        dolor, vitae mollis libero iaculis eget.
+      </p>
+    </div>
+    <ReadMoreButton label="Read more" url="#"  />
+  </div>
+</div>
