@@ -7,17 +7,19 @@ import { SITE_TITLE } from "../consts";
 <header class="container flex mx-auto">
   <nav class="flex items-center justify-between w-full px-4 py-8">
     <!-- <h2><a href="/">{SITE_TITLE}</a></h2> -->
-    <svg
-      class="w-32 lg:w-40 h-auto"
-      viewBox="0 0 160 53"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M160 0H141.007C138.126 2.5075 139.887 5.70856 142.394 5.70856H146.342L125.322 26.7289L98.5929 0L71.864 26.7289L45.1351 0L5.70858 39.4265V33.7713C3.20107 30.8903 0 32.6509 0 35.1584V52.8176H18.993C21.874 50.3101 20.1134 47.109 17.6059 47.109H13.6045L34.6249 26.0887L61.3538 52.8176L67.1691 47.0023L88.0827 26.0887L114.812 52.8176L154.291 13.3378V19.0463C156.799 21.9273 160 20.1667 160 17.6592V0Z"
-        fill="#FF6EB7"></path>
-    </svg>
-    <button id="em_navigation_button" class="relative lg:hidden z-20 w-8 h-8">
+    <a href="/">
+      <svg
+        class="w-32 h-auto lg:w-40"
+        viewBox="0 0 160 53"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M160 0H141.007C138.126 2.5075 139.887 5.70856 142.394 5.70856H146.342L125.322 26.7289L98.5929 0L71.864 26.7289L45.1351 0L5.70858 39.4265V33.7713C3.20107 30.8903 0 32.6509 0 35.1584V52.8176H18.993C21.874 50.3101 20.1134 47.109 17.6059 47.109H13.6045L34.6249 26.0887L61.3538 52.8176L67.1691 47.0023L88.0827 26.0887L114.812 52.8176L154.291 13.3378V19.0463C156.799 21.9273 160 20.1667 160 17.6592V0Z"
+          fill="#FF6EB7"></path>
+      </svg>
+    </a>
+    <button id="em_navigation_button" class="relative z-20 w-8 h-8 lg:hidden">
       <span class="sr-only">Open main menu</span>
       <div class="block w-8">
         <span
@@ -36,10 +38,10 @@ import { SITE_TITLE } from "../consts";
     </button>
     <div
       id="em_navigation"
-      class="opacity-0 lg:opacity-100 -z-10 lg:z-0 fixed top-0 left-0 flex flex-col lg:flex-row w-full lg:w-auto h-full pt-8 pl-4 pr-4 lg:p-0 bg-accent lg:bg-transparent lg:static lg:flex gap-4 lg:gap-menu lg:items-center font-display ease-in-out transition-opacity"
+      class="fixed top-0 left-0 flex flex-col w-full h-full gap-4 pt-8 pl-4 pr-4 transition-opacity ease-in-out opacity-0 lg:opacity-100 -z-10 lg:z-0 lg:flex-row lg:w-auto lg:p-0 bg-accent lg:bg-transparent lg:static lg:flex lg:gap-menu lg:items-center font-display"
     >
       <svg
-        class="w-32 lg:w-40 h-auto mb-4"
+        class="w-32 h-auto mb-4 lg:w-40 lg:hidden"
         viewBox="0 0 160 53"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

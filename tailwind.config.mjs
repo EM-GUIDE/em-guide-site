@@ -21,7 +21,10 @@ export default {
 			colors: {
 				accent: '#FF6EB7',
 				dark: '#1A1A1A'
-			}
+			},
+			backgroundImage: {
+        'carousel-background': "url('/carousel-bg.svg')",
+      }
 		},
 
 	},

@@ -30,7 +30,7 @@ export default async function fetchApi<T>({
     });
   }
 
-  const res = await fetch(url.toString() + "?populate=*");
+  const res = await fetch(url.toString());
   let data = await res.json();
 
   if (wrappedByKey) {
