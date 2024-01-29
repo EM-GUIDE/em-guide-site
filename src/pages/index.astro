@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import fetchApi from "../lib/strapi";
 import FeaturedContent from "../components/FeaturedContent.astro";
+import ContentPreview from "../components/ContentPreview.astro";
 
 import type NetworkMember from "../interfaces/network-member";
 const networkMembers = await fetchApi<NetworkMember[]>({
@@ -22,7 +23,13 @@ const homePageData = await fetchApi({
   wrappedByKey: "data",
   query: {
     // @ts-ignore
-    populate: ["slide", "slide.image"],
+    populate: [
+      "slide",
+      "slide.image",
+      "featuredContent",
+      "featuredContent.image",
+      "featuredContent.button",
+    ],
   },
 });
 ---
@@ -119,8 +126,38 @@ const homePageData = await fetchApi({
       )
   }
 
-  <section class="container px-4 mx-auto">
-    <FeaturedContent />
+  {
+    homePageData.attributes.featuredContent && (
+      <section class="container px-4 mx-auto mb-20">
+        <FeaturedContent
+          title={homePageData.attributes.featuredContent.title}
+          description={homePageData.attributes.featuredContent.description}
+          image={homePageData.attributes.featuredContent.image.data[0]}
+          button={homePageData.attributes.featuredContent.button}
+        />
+      </section>
+    )
+  }
+
+  <section class="container px-4 mx-auto mb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 lg:gap-y-14">
+      <ContentPreview
+        title="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con"
+        featuredTag={{ title: "time & money" }}
+      />
+      <ContentPreview
+        title="Ut viverra sem id egestas porttitor. Vivamus molestie turpis eu eros interdum, sed ultrices massa gravida. Suspendisse at "
+        featuredTag={{ title: "health & environment" }}
+      />
+      <ContentPreview
+        title="Donec ultricies enim eget luctus pellentesque. In et dui at est convallis finibus ac vitae eros. In viverra convallis quam nec imperdiet"
+        featuredTag={{ title: "algorithms & tech" }}
+      />
+      <ContentPreview
+        title="Ectus a, eleifend fermentum arcu. Nullam et vehicula elit aliquam "
+        featuredTag={{ title: "time & money" }}
+      />
+    </div>
   </section>
 
   <section class="container px-4 mx-auto mb-20">
@@ -149,9 +186,9 @@ const homePageData = await fetchApi({
                 )}
               </div>
               <div>
-                <h1 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display">
+                <h3 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display">
                   {member.attributes.name}
-                </h1>
+                </h3>
               </div>
             </div>
           );

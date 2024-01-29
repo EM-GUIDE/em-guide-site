@@ -1,10 +1,27 @@
 ---
-import ReadMoreButton from "./ReadMoreButton.astro"
+import ReadMoreButton from "./ReadMoreButton.astro";
+import type StrapiImage from "../interfaces/image";
+
+interface Props {
+  title: string;
+  description: string;
+  image: StrapiImage;
+  button: {
+    label: string;
+    url: string;
+  };
+}
+const { title, description, image, button } = Astro.props;
+console.log(image);
 ---
 
-<div class="grid grid-cols-1 gap-6 mb-20 lg:gap-20 lg:grid-cols-2">
+<div class="grid grid-cols-1 gap-6 lg:gap-20 lg:grid-cols-2">
   <div class="aspect-square">
-    <svg class="w-full h-auto" viewBox="0 0 508 508">
+    <svg
+      class="w-full h-auto"
+      viewBox="0 0 508 508"
+      preserveAspectRatio="xMinYMin slice"
+    >
       <defs>
         <mask id="mask">
           <path
@@ -16,7 +33,14 @@ import ReadMoreButton from "./ReadMoreButton.astro"
         class="absolute top-0 left-0 w-full h-full"
         mask="url(#mask)"
         xmlns:xlink="http://www.w3.org/1999/xlink"
-        xlink:href="https://picsum.photos/1000/1000"
+        xlink:href={`${import.meta.env.PUBLIC_ASSET_URL}${
+          image.attributes.url
+        }`}
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
       />
       <g class="frame-border" stroke="#FF6EB7" stroke-width="4" fill="none">
         <path
@@ -26,16 +50,8 @@ import ReadMoreButton from "./ReadMoreButton.astro"
     </svg>
   </div>
   <div>
-    <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">Lectus ac, dapibus euismod urna Suspendisse</h3>
-    <div class="text-xl">
-      <p>
-        Edisse at pellentesque mi. Quisque elementum justo id ligula hendrerit,
-        id dapibus ex vehicula. Vivamus a mollis augue. Donec ultricies enim
-        eget luctus pellentesque. In et dui at est convallis finibus ac vitae
-        eros. In viverra convallis quam nec imperdiet. Fusce interdum vehicula
-        dolor, vitae mollis libero iaculis eget.
-      </p>
-    </div>
-    <ReadMoreButton label="Read more" url="#"  />
+    <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">{title}</h3>
+    <div class="text-xl" set:html={description} />
+    {button && <ReadMoreButton label={button.label} url={button.url} />}
   </div>
 </div>

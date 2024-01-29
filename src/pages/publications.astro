@@ -28,54 +28,58 @@ const publications = await fetchApi<Publication[]>({
 ---
 
 <BaseLayout>
-  <ul class="flex flex-wrap gap-3 mb-14">
-    {
-      filters.map((data) => (
-        <li>
-          <Filter label={data.value} />
-        </li>
-      ))
-    }
-  </ul>
-  <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
-    {
-      publications.map((publication: Publication) => (
-        <li class="leading-none">
-          <a
-            href={`/publications/${publication.attributes.slug}/`}
-            class="inline-block aspect-[9/7] mb-5 lg:mb-4"
-          >
-            <img
-              class="object-cover w-full h-full text-xl font-display"
-              alt={
-                publication.attributes.featuredImage.data.attributes.caption ??
-                "image"
-              }
-              src={
-                import.meta.env.STRAPI_URL +
-                publication.attributes.featuredImage.data.attributes.url
-              }
-              loading="lazy"
-            />
-          </a>
-          <a
-            href={`/publications/${publication.attributes.slug}/`}
-            class="block"
-          >
-            <h2 class="text-xl font-display">{publication.attributes.title}</h2>
-          </a>
-          {publication.attributes.tags.data &&
-            publication.attributes.tags.data.length > 0 && (
-              <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
-                {publication.attributes.tags.data.map((tag) => (
-                  <li>
-                    <Tag label={tag.attributes.title} />
-                  </li>
-                ))}
-              </ul>
-            )}
-        </li>
-      ))
-    }
-  </ul>
+  <section class="container px-4 mx-auto">
+    <ul class="flex flex-wrap gap-3 mb-14">
+      {
+        filters.map((data) => (
+          <li>
+            <Filter label={data.value} />
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
+      {
+        publications.map((publication: Publication) => (
+          <li class="leading-none">
+            <a
+              href={`/publications/${publication.attributes.slug}/`}
+              class="inline-block aspect-[9/7] mb-5 lg:mb-4"
+            >
+              <img
+                class="object-cover w-full h-full text-xl font-display"
+                alt={
+                  publication.attributes.featuredImage.data.attributes
+                    .caption ?? "image"
+                }
+                src={
+                  import.meta.env.STRAPI_URL +
+                  publication.attributes.featuredImage.data.attributes.url
+                }
+                loading="lazy"
+              />
+            </a>
+            <a
+              href={`/publications/${publication.attributes.slug}/`}
+              class="block"
+            >
+              <h2 class="text-xl font-display">
+                {publication.attributes.title}
+              </h2>
+            </a>
+            {publication.attributes.tags.data &&
+              publication.attributes.tags.data.length > 0 && (
+                <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
+                  {publication.attributes.tags.data.map((tag) => (
+                    <li>
+                      <Tag label={tag.attributes.title} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>

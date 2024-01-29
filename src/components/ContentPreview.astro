@@ -1,0 +1,22 @@
+---
+import FeaturedTag from "../components/FeaturedTag.astro";
+import ReadMoreButton from "./ReadMoreButton.astro";
+
+interface Props {
+  title: string;
+  featuredTag?: any;
+}
+
+const { title, featuredTag } = Astro.props;
+---
+
+<div>
+  {
+    featuredTag && (
+      <div class="mb-5">
+        <FeaturedTag label={featuredTag.title} />
+      </div>
+    )
+  }
+  <h3 class="max-w-screen-sm font-display textl-xl lg:text-2xl">{title}</h3>
+</div>

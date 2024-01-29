@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fetchApi from '../../lib/strapi';
+import type Publication from '../../interfaces/publication';
+
+export async function getStaticPaths() {
+  const publications = await fetchApi<Publication[]>({
+    endpoint: 'publications',
+    wrappedByKey: 'data',
+  });
+
+  return publications.map((publication: Publication) => ({
+    params: { slug: publication.attributes.slug },
+    props: publication,
+  }));
+}
+type Props = Publication;
+
+const publication = Astro.props;
+---
+
+<BaseLayout>
+  <h1>{ publication.attributes.title }</h1>
+  <div set:html={ publication.attributes.excerpt }></div>
+</BaseLayout>
