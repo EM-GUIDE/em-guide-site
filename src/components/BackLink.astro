@@ -1,0 +1,26 @@
+---
+const { url } = Astro.props;
+---
+
+<a href={ url } class="flex items-center justify-end space-x-1">
+  <svg
+    class="text-accent lg:w-5 h-auto"
+    width="17"
+    height="13"
+    viewBox="0 0 17 13"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M7.68392 1.68668L3 6.37061L7.68392 11.0545"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"></path>
+    <path
+      d="M15.044 1.7233L10.36 6.40723L15.044 11.0911"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"></path>
+  </svg>
+  <span class="text-base text-accent font-black lg:text-2xl tracking-[-1%]">back</span>
+</a>

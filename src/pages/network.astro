@@ -1,39 +1,44 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
+import BackLink from "../components/BackLink.astro";
 import fetchApi from "../lib/strapi";
 import type NetworkMember from "../interfaces/network-member";
 
-const networkMembers = await fetchApi<NetworkMember[]>({
-  endpoint: "network-members",
-  wrappedByKey: "data",
-  query: {
-		// @ts-ignore
-    populate: ["*"],
-		// @ts-ignore
-    pagination: {
-      pageSize: 100,
-    },
-  },
-});
+// const networkMembers = await fetchApi<NetworkMember[]>({
+//   endpoint: "network-members",
+//   wrappedByKey: "data",
+//   query: {
+// 		// @ts-ignore
+//     populate: ["*"],
+// 		// @ts-ignore
+//     pagination: {
+//       pageSize: 100,
+//     },
+//   },
+// });
 ---
 
-<BaseLayout>
+<!-- <BaseLayout>
   <div class="space-y-20">
     {
       networkMembers.map((member) => {
         return (
           <section class="flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
             <div class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0">
-							{ member.attributes.logo.data &&
-								<img loading="lazy" src={ `${import.meta.env.PUBLIC_ASSET_URL}${member.attributes.logo.data.attributes.url}` } alt="" class="w-40 h-auto"/>
-							}
-						</div>
+              {member.attributes.logo.data && (
+                <img
+                  loading="lazy"
+                  src={member.attributes.logo.data.attributes.url}
+                  alt=""
+                  class="w-40 h-auto"
+                />
+              )}
+            </div>
             <div>
               <h1 class="text-xl font-normal lg:text-2xl font-display">
-                { member.attributes.name }
+                {member.attributes.name}
               </h1>
-              <div class="mt-5 lg:mt-7 [&>p]:mb-4">
+              <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
                 <p>
                   Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
                   augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
@@ -58,5 +63,204 @@ const networkMembers = await fetchApi<NetworkMember[]>({
         );
       })
     }
+  </div>
+</BaseLayout> -->
+<BaseLayout>
+  <div class="mb-14 w-full lg:container px-4 mx-auto">
+    <BackLink url="/" />
+  </div>
+  <div class="space-y-20">
+    <section
+      class="container flex flex-col px-4 mx-auto lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8"
+    >
+      <div
+        class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0"
+      >
+        <img loading="lazy" src="logo_mmn.png" alt="" class="w-40 h-auto" />
+      </div>
+      <div>
+        <h1 class="text-xl font-normal lg:text-2xl font-display">MMN mag</h1>
+        <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+          <p>
+            Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
+            augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
+            pellentesque orci non tempor. Sed auctor imperdiet tempus. Fusce a
+            purus nisl. Morbi tristique congue luctus. Quisque quis scelerisque
+            tellus, sagittis auctor nulla.
+          </p>
+          <p>
+            Nam sagittis id felis id luctus. Morbi semper urna vitae augue
+            varius, a semper elit interdum. Donec auctor risus quam, ut volutpat
+            enim semper ut.Mauris euismod auctor arcu, blandit posuere risus
+            commodo ac. Nulla sit amet commodo sapien. Nullam urna lacus,
+            vehicula vitae neque sit amet, mattis molestie enim. Sed rhoncus
+            sodales porttitor. In laoreet volutpat arcu a accumsan. Curabitur
+            vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
+            fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+            interdum magna.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="container flex flex-col px-4 mx-auto lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8"
+    >
+      <div
+        class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0"
+      >
+        <img loading="lazy" src="logo_struma_iodine.png" alt="" class="w-40 h-auto" />
+      </div>
+      <div>
+        <h1 class="text-xl font-normal lg:text-2xl font-display">Struma + Iodine</h1>
+        <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+          <p>
+            Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
+            augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
+            pellentesque orci non tempor. Sed auctor imperdiet tempus. Fusce a
+            purus nisl. Morbi tristique congue luctus. Quisque quis scelerisque
+            tellus, sagittis auctor nulla.
+          </p>
+          <p>
+            Nam sagittis id felis id luctus. Morbi semper urna vitae augue
+            varius, a semper elit interdum. Donec auctor risus quam, ut volutpat
+            enim semper ut.Mauris euismod auctor arcu, blandit posuere risus
+            commodo ac. Nulla sit amet commodo sapien. Nullam urna lacus,
+            vehicula vitae neque sit amet, mattis molestie enim. Sed rhoncus
+            sodales porttitor. In laoreet volutpat arcu a accumsan. Curabitur
+            vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
+            fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+            interdum magna.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="container flex flex-col px-4 mx-auto lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8"
+    >
+      <div
+        class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0"
+      >
+        <img loading="lazy" src="logo_kaput.png" alt="" class="w-40 h-auto" />
+      </div>
+      <div>
+        <h1 class="text-xl font-normal lg:text-2xl font-display">Kaput</h1>
+        <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+          <p>
+            Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
+            augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
+            pellentesque orci non tempor. Sed auctor imperdiet tempus. Fusce a
+            purus nisl. Morbi tristique congue luctus. Quisque quis scelerisque
+            tellus, sagittis auctor nulla.
+          </p>
+          <p>
+            Nam sagittis id felis id luctus. Morbi semper urna vitae augue
+            varius, a semper elit interdum. Donec auctor risus quam, ut volutpat
+            enim semper ut.Mauris euismod auctor arcu, blandit posuere risus
+            commodo ac. Nulla sit amet commodo sapien. Nullam urna lacus,
+            vehicula vitae neque sit amet, mattis molestie enim. Sed rhoncus
+            sodales porttitor. In laoreet volutpat arcu a accumsan. Curabitur
+            vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
+            fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+            interdum magna.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="container flex flex-col px-4 mx-auto lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8"
+    >
+      <div
+        class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0"
+      >
+        <img loading="lazy" src="logo_on_cologne.png" alt="" class="w-40 h-auto" />
+      </div>
+      <div>
+        <h1 class="text-xl font-normal lg:text-2xl font-display">On Cologne</h1>
+        <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+          <p>
+            Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
+            augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
+            pellentesque orci non tempor. Sed auctor imperdiet tempus. Fusce a
+            purus nisl. Morbi tristique congue luctus. Quisque quis scelerisque
+            tellus, sagittis auctor nulla.
+          </p>
+          <p>
+            Nam sagittis id felis id luctus. Morbi semper urna vitae augue
+            varius, a semper elit interdum. Donec auctor risus quam, ut volutpat
+            enim semper ut.Mauris euismod auctor arcu, blandit posuere risus
+            commodo ac. Nulla sit amet commodo sapien. Nullam urna lacus,
+            vehicula vitae neque sit amet, mattis molestie enim. Sed rhoncus
+            sodales porttitor. In laoreet volutpat arcu a accumsan. Curabitur
+            vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
+            fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+            interdum magna.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="container flex flex-col px-4 mx-auto lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8"
+    >
+      <div
+        class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0"
+      >
+        <img loading="lazy" src="logo_3_4.png" alt="" class="w-40 h-auto" />
+      </div>
+      <div>
+        <h1 class="text-xl font-normal lg:text-2xl font-display">3/4</h1>
+        <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+          <p>
+            Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
+            augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
+            pellentesque orci non tempor. Sed auctor imperdiet tempus. Fusce a
+            purus nisl. Morbi tristique congue luctus. Quisque quis scelerisque
+            tellus, sagittis auctor nulla.
+          </p>
+          <p>
+            Nam sagittis id felis id luctus. Morbi semper urna vitae augue
+            varius, a semper elit interdum. Donec auctor risus quam, ut volutpat
+            enim semper ut.Mauris euismod auctor arcu, blandit posuere risus
+            commodo ac. Nulla sit amet commodo sapien. Nullam urna lacus,
+            vehicula vitae neque sit amet, mattis molestie enim. Sed rhoncus
+            sodales porttitor. In laoreet volutpat arcu a accumsan. Curabitur
+            vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
+            fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+            interdum magna.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="container flex flex-col px-4 mx-auto lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8"
+    >
+      <div
+        class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0 min-w-40"
+      >
+        <!-- <img loading="lazy" src="logo_mmn.png" alt="" class="w-40 h-auto" /> -->
+      </div>
+      <div>
+        <h1 class="text-xl font-normal lg:text-2xl font-display">Easterndaze</h1>
+        <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+          <p>
+            Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
+            augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
+            pellentesque orci non tempor. Sed auctor imperdiet tempus. Fusce a
+            purus nisl. Morbi tristique congue luctus. Quisque quis scelerisque
+            tellus, sagittis auctor nulla.
+          </p>
+          <p>
+            Nam sagittis id felis id luctus. Morbi semper urna vitae augue
+            varius, a semper elit interdum. Donec auctor risus quam, ut volutpat
+            enim semper ut.Mauris euismod auctor arcu, blandit posuere risus
+            commodo ac. Nulla sit amet commodo sapien. Nullam urna lacus,
+            vehicula vitae neque sit amet, mattis molestie enim. Sed rhoncus
+            sodales porttitor. In laoreet volutpat arcu a accumsan. Curabitur
+            vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
+            fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+            interdum magna.
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>

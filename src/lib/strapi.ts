@@ -1,3 +1,5 @@
+import qs from "qs";
+
 interface Props {
   endpoint: string;
   query?: Record<string, string>;
@@ -23,16 +25,20 @@ export default async function fetchApi<T>({
     endpoint = endpoint.slice(1);
   }
 
-  const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint}`);
+  let url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint}`);
+
+  
   if (query) {
-    Object.entries(query).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
-    });
+    const params = qs.stringify(query)
+
+    url = new URL(url.toString() + "?" + params);
   }
 
   const res = await fetch(url.toString());
-  let data = await res.json();
 
+  console.log(url.toString())
+  let data = await res.json();
+  
   if (wrappedByKey) {
     data = data[wrappedByKey];
   }

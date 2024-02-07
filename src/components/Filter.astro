@@ -1,5 +1,5 @@
 ---
-const { label } = Astro.props;
+const { label, value } = Astro.props;
 ---
 
-<button class="bg-accent inline-block font-display text-xs text-white rounded-lg px-3 py-2">{ label }</button>
+<a class="inline-block px-3 py-2 text-xs text-white rounded-lg bg-accent font-display" href={ value }>{ label }</a>

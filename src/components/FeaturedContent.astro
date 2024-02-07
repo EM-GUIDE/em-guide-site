@@ -11,8 +11,8 @@ interface Props {
     url: string;
   };
 }
+
 const { title, description, image, button } = Astro.props;
-console.log(image);
 ---
 
 <div class="grid grid-cols-1 gap-6 lg:gap-20 lg:grid-cols-2">
@@ -33,9 +33,7 @@ console.log(image);
         class="absolute top-0 left-0 w-full h-full"
         mask="url(#mask)"
         xmlns:xlink="http://www.w3.org/1999/xlink"
-        xlink:href={`${import.meta.env.PUBLIC_ASSET_URL}${
-          image.attributes.url
-        }`}
+        xlink:href="https://picsum.photos/seed/grilll/900/1000"
         x="0"
         y="0"
         width="100%"
@@ -50,8 +48,14 @@ console.log(image);
     </svg>
   </div>
   <div>
-    <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">{title}</h3>
-    <div class="text-xl" set:html={description} />
+    {
+      title && (
+        <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">
+          {title}
+        </h3>
+      )
+    }
+    {description && <div class="text-xl" set:html={description} />}
     {button && <ReadMoreButton label={button.label} url={button.url} />}
   </div>
 </div>

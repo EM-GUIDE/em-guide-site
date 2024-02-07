@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import fetchApi from "../../../lib/strapi";
+import TagComponent from "../../../components/Tag.astro";
+import type Tag from "../../../interfaces/tag";
+import type Publication from "../../../interfaces/publication";
+
+export async function getStaticPaths() {
+  const tags = await fetchApi<Tag[]>({
+    endpoint: "tags",
+    wrappedByKey: "data",
+    query: {
+      // @ts-expect-error
+      populate: ["publications", "publications.featuredImage", "publications.tags"],
+      // @ts-expect-error
+      pagination: {
+        pageSize: 9999,
+      },
+    },
+  });
+
+  // console.log("Fetched tags: ", tags[0].attributes.publications.data[0].attributes.featuredImage); // Debugging line
+
+  return tags.map((tag: Tag) => ({
+    params: { slug: tag.attributes.slug },
+    props: tag,
+  }));
+}
+type Props = Tag;
+
+const tag = Astro.props;
+
+console.log(tag.attributes.publications);
+---
+
+<BaseLayout>
+  <h2
+    class="mb-6 text-2xl font-bold text-center md:mb-10 lg:mb-20 md:text-3xl lg:text-4xl font-display"
+  >
+    #{ tag.attributes.title }
+  </h2>
+  <section class="container px-4 mx-auto">
+    <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
+      {
+        tag.attributes.publications.data.map((publication: Publication) => (
+          <li class="leading-none">
+            <a
+              href={`/publications/${publication.attributes.slug}/`}
+              class="inline-block aspect-[9/7] mb-5 lg:mb-4"
+            >
+              <img
+                class="object-cover w-full h-full text-xl font-display"
+                alt={
+                  publication.attributes.featuredImage.data.attributes
+                    .caption ?? "image"
+                }
+                src={
+                  import.meta.env.STRAPI_URL +
+                  publication.attributes.featuredImage.data.attributes.url
+                }
+                loading="lazy"
+              />
+            </a>
+            <a
+              href={`/publications/${publication.attributes.slug}/`}
+              class="block"
+            >
+              <h2 class="text-xl font-display">
+                {publication.attributes.title}
+              </h2>
+            </a>
+            {publication.attributes.tags.data &&
+              publication.attributes.tags.data.length > 0 && (
+                <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
+                  {publication.attributes.tags.data.map((tag) => (
+                    <li>
+                      <TagComponent label={tag.attributes.title} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

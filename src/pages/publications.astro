@@ -2,38 +2,47 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Filter from "../components/Filter.astro";
 import Tag from "../components/Tag.astro";
+import BackLink from "../components/BackLink.astro";
+
+import json from './mock.json'
 
 const filters = [
-  { label: "workshops", value: "workshops" },
-  { label: "workshops", value: "workshops" },
-  { label: "workshops", value: "workshops" },
-  { label: "workshops", value: "workshops" },
+  { label: "test", value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d" },
+  { label: "cool", value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d" },
+  { label: "what", value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d" },
+  { label: "lets go", value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d" },
 ];
 
 import fetchApi from "../lib/strapi";
 import type Publication from "../interfaces/publication";
 
-const publications = await fetchApi<Publication[]>({
-  endpoint: "publications", // the content type to fetch
-  wrappedByKey: "data", // the key to unwrap the response
-  query: {
-    // @ts-ignore
-    populate: ["featuredImage", "tags"],
-    // @ts-ignore
-    pagination: {
-      pageSize: 100,
-    },
-  }, // any query params to include
-});
+// const publications = await fetchApi<Publication[]>({
+//   endpoint: "publications", // the content type to fetch
+//   wrappedByKey: "data", // the key to unwrap the response
+//   query: {
+//     // @ts-ignore
+//     populate: ["featuredImage", "tags"],
+//     // @ts-ignore
+//     pagination: {
+//       pageSize: 100,
+//     },
+//   }, // any query params to include
+// });
+// console.log(publications);
+// @ts-ignore
+const publications: Publication[] = json.data
 ---
 
 <BaseLayout>
+  <div class="mb-14 w-full lg:container px-4 mx-auto">
+    <BackLink url="/" />
+  </div>
   <section class="container px-4 mx-auto">
     <ul class="flex flex-wrap gap-3 mb-14">
       {
         filters.map((data) => (
           <li>
-            <Filter label={data.value} />
+            <Filter label={data.label} value={data.value} />
           </li>
         ))
       }
@@ -53,7 +62,6 @@ const publications = await fetchApi<Publication[]>({
                     .caption ?? "image"
                 }
                 src={
-                  import.meta.env.STRAPI_URL +
                   publication.attributes.featuredImage.data.attributes.url
                 }
                 loading="lazy"
