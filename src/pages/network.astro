@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BackLink from "../components/BackLink.astro";
 import fetchApi from "../lib/strapi";
 import type NetworkMember from "../interfaces/network-member";
 
@@ -20,7 +19,7 @@ const networkMembers = await fetchApi<NetworkMember[]>({
 
 <BaseLayout>
   <div class="space-y-20 bg-arrow-pink-background bg-no-repeat bg-[right_center]">
-    { networkMembers && networkMembers.length > 0 &&
+    { networkMembers?.length > 0 &&
       networkMembers.map((member) => {
         return (
           <section class="flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">

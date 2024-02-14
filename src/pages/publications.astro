@@ -2,9 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Filter from "../components/Filter.astro";
 import Tag from "../components/Tag.astro";
-import BackLink from "../components/BackLink.astro";
-
-import json from "./mock.json";
 
 const filters = [
   {
@@ -49,7 +46,7 @@ const publications = await fetchApi<Publication[]>({
   <section class="container px-4 mx-auto">
     <ul class="flex flex-wrap gap-3 mb-14">
       {
-        filters.map((data) => (
+        filters?.length > 0 && filters.map((data) => (
           <li>
             <Filter label={data.label} value={data.value} />
           </li>
@@ -58,7 +55,7 @@ const publications = await fetchApi<Publication[]>({
     </ul>
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
       {
-        publications.map((publication: Publication) => (
+        publications?.length > 0 && publications.map((publication: Publication) => (
           <li class="leading-none">
             <a
               href={`/publications/${publication.attributes.slug}/`}
