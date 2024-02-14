@@ -36,9 +36,9 @@ const homePageData = await fetchApi({
 <BaseLayout>
   {
     // @ts-expect-error
-    homePageData.attributes.slide &&
+    homePageData?.attributes.slide &&
       // @ts-expect-error
-      homePageData.attributes.slide.length > 0 && (
+      homePageData.attributes?.slide.length > 0 && (
         <section class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 pb-28 mb-28 bg-carousel-background bg-[-50%] lg:bg-[160%] xl:bg-[120%]">
           <div
             id="image-carousel"
@@ -140,7 +140,7 @@ const homePageData = await fetchApi({
 
   {
     // @ts-expect-error
-    homePageData.attributes.featuredContent && (
+    homePageData?.attributes.featuredContent && (
       <section class="container px-4 mx-auto mb-20">
         <FeaturedContent
           title={
