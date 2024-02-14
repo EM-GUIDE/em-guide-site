@@ -1,12 +1,16 @@
-<footer class="relative pt-5">
+<footer
+  class="mt-8 relative pt-5 after:content-[''] after:bg-triangle-background after:bg-repeat-x after:absolute after:top-[-1.75rem] after:left-0 after:w-full after:h-12 after:bg-center after:bg-[length:6rem_3rem]"
+>
   <div class="bg-dark">
     <div class="container px-4 pt-12 pb-32 mx-auto">
-      <div class="flex flex-col lg:flex-row lg:justify-between">
+      <div
+        class="flex flex-col lg:justify-between items-center lg:items-start text-center lg:text-left"
+      >
         <div class="flex flex-col lg:flex-row gap-2.5">
           <img
             src="co_funded_eu.png"
             alt=""
-            class="self-start max-w-64 lg:w-64 shrink-0"
+            class="self-start max-w-64 lg:w-64 shrink-0 mx-auto lg:mx-0"
           />
           <p class="max-w-md text-xs text-white shrink-0">
             Funded by the European Union. Views and opinions expressed are
@@ -17,20 +21,12 @@
           </p>
         </div>
         <div
-          class="flex items-center self-start justify-center w-full mt-16 space-x-4 lg:mt-0 lg:justify-end"
+          class="flex items-center self-start justify-center w-full mt-16 space-x-4 text-white"
         >
-          <svg
-            width="32"
-            height="26"
-            viewBox="0 0 32 26"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <a href="./privacy-policy" class="text-sm text-white font-display"
+            >Privacy Policy</a
           >
-            <path
-              d="M32 7.488V20.7188C32 23.5349 29.8296 25.8362 27.095 25.9917L26.8 26H5.2C2.42715 26 0.1612 23.7957 0.00822411 21.0184L0 20.7188V7.488L15.4432 15.7046C15.792 15.8901 16.208 15.8901 16.5568 15.7046L32 7.488ZM5.2 0H26.8C29.4955 0 31.7122 2.0831 31.9741 4.75077L16 13.2491L0.0259041 4.75077C0.278176 2.1819 2.34291 0.155106 4.90254 0.00849867L5.2 0Z"
-              fill="white"></path>
-          </svg>
-
+          <span>|</span>
           <a
             href="mailto:info@emguide.hu"
             class="text-sm text-white font-display">info@emguide.hu</a

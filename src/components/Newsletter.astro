@@ -1,0 +1,43 @@
+---
+const currentPath = Astro.url.pathname;
+const isJustSubscribed = Astro.url.searchParams.get('subscribed')! || '';
+---
+
+<div class="">
+  <h2 class="text-white font-display text-sm mb-4">
+    Subscribe to our newsletter:
+  </h2>
+  <form
+    action=`http://localhost:1337/api/newsletter`
+    method="post"
+    id="em_newsletter_form"
+    name="newsletter-form"
+    class="flex flex-col items-center lg:items-baseline space-y-4"
+  >
+    <input
+      id="em_newsletter_form_input"
+      class="p-2 rounded-lg text-sm leading-4 min-w-64"
+      placeholder="email"
+      type="email"
+      required
+    />
+    <div class="flex text-white text-xs items-center space-x-2">
+      <input
+        id="em_newsletter_form_policy"
+        name="policy"
+        type="checkbox"
+        required
+      />
+      <label for="policy"
+        >I accept the <a href="#" class="underline">Privacy Policy.</a></label
+      >
+    </div>
+    <input id="em_newsletter_form_botpot" name="borpot" type="checkbox" class="hidden" />
+    <input id="em_newsletter_form_url" name="nextpage" class="hidden" value={ `${currentPath}#subscribed` } />
+    {isJustSubscribed ? <p>you just subscribeded for: {isJustSubscribed}</p> : ''}
+    <button
+      class="inline-block px-3 py-2 text-xs text-white rounded-lg bg-accent font-display"
+      type="submit">subscribe</button
+    >
+  </form>
+</div>
