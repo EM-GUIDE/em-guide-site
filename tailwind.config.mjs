@@ -29,6 +29,7 @@ export default {
         'triangle-background': "url('/triangle-bg.svg')",
 				'arrow-gray-background': "url('/arrow-up-gray-bg.svg')",
         'arrow-pink-background': "url('/arrow-up-pink-bg.svg')",
+        'saw-long-background': "url('/saw-long-bg.svg')",
       }
 		},
 

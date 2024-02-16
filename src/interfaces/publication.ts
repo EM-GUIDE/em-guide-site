@@ -1,5 +1,6 @@
 import type Tag from "./tag";
 import type StrapiImage from "./image";
+import { type WysiwygComponent, type ImagesWithDecorationComponent } from "./components";
 
 export default interface Publication {
   id: number;
@@ -7,7 +8,7 @@ export default interface Publication {
     title: string;
     slug: string;
     excerpt: string;
-    content: string;
+    content: (ImagesWithDecorationComponent | WysiwygComponent)[];
     featuredImage: {
       data: StrapiImage
     }

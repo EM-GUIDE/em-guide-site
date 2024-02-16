@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BackLink from "../../components/BackLink.astro";
 import Tag from "../../components/Tag.astro";
 import fetchApi from "../../lib/strapi";
 import type Publication from "../../interfaces/publication";
@@ -9,6 +8,11 @@ export async function getStaticPaths() {
   const publications = await fetchApi<Publication[]>({
     endpoint: "publications",
     wrappedByKey: "data",
+    query: {
+      // @ts-ignore
+      populate: ["deep"],
+      // populate: "*"
+    },
   });
 
   return publications.map((publication: Publication) => ({
@@ -19,13 +23,12 @@ export async function getStaticPaths() {
 type Props = Publication;
 
 const publication = Astro.props;
+
+// console.log(publication.attributes.content);
 ---
 
 <BaseLayout>
   <section class="container px-4 mx-auto">
-    <!-- <div class="mb-14 w-full">
-      <BackLink url="/publications" />
-    </div> -->
     <h1 class="mb-8 text-2xl font-bold font-display lg:text-4xl">
       {publication.attributes.title}
     </h1>
@@ -36,45 +39,82 @@ const publication = Astro.props;
       <Tag label="super" />
       <Tag label="something" />
     </div>
-    <div class="relative aspect-[358/280] lg:aspect-[1120/713.37] mb-14">
-      <img
-        class="absolute top-0 left-0 inline-block object-cover w-full h-full"
-        src="https://picsum.photos/900/300"
-        alt=""
-      />
-      <svg
-        class="absolute block object-cover w-full h-full text-accent lg:hidden"
-        viewBox="0 0 358 280"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M358 239.543C358 274.769 313.048 299.45 277.61 258.94V178L176 280H358V239.543Z"
-          fill="currentColor"></path>
-        <path
-          d="M20.9975 0H0V176L96 80.2498H40.3633C5.24268 80.2498 -19.3658 35.4028 20.9975 0Z"
-          fill="currentColor"></path>
-      </svg>
+    {
+      publication.attributes.featuredImage?.data.attributes.url && (
+        <div class="relative aspect-[358/280] lg:aspect-[1120/713.37] mb-14">
+          <img
+            class="absolute top-0 left-0 inline-block object-cover w-full h-full"
+            src={
+              import.meta.env.STRAPI_URL +
+              publication.attributes.featuredImage?.data.attributes.url
+            }
+            alt={
+              publication.attributes.featuredImage?.data.attributes
+                .alternativeText
+            }
+          />
+          <svg
+            class="absolute block object-cover w-full h-full text-accent lg:hidden"
+            viewBox="0 0 358 280"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M358 239.543C358 274.769 313.048 299.45 277.61 258.94V178L176 280H358V239.543Z"
+              fill="currentColor"
+            />
+            <path
+              d="M20.9975 0H0V176L96 80.2498H40.3633C5.24268 80.2498 -19.3658 35.4028 20.9975 0Z"
+              fill="currentColor"
+            />
+          </svg>
 
-      <svg
-        class="absolute hidden object-cover w-full h-full text-accent lg:block"
-        viewBox="0 0 1120 714"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1120 609.335C1120 699.916 1003.67 763.385 911.958 659.214V451.077L649 713.369H1120V609.335Z"
-          fill="currentColor"></path>
-        <path
-          d="M54.293 0H0V455.113L248.226 207.515H104.367C13.5559 207.515 -50.074 91.5468 54.293 0Z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
+          <svg
+            class="absolute hidden object-cover w-full h-full text-accent lg:block"
+            viewBox="0 0 1120 714"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1120 609.335C1120 699.916 1003.67 763.385 911.958 659.214V451.077L649 713.369H1120V609.335Z"
+              fill="currentColor"
+            />
+            <path
+              d="M54.293 0H0V455.113L248.226 207.515H104.367C13.5559 207.515 -50.074 91.5468 54.293 0Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      )
+    }
+    {
+      publication.attributes.content.map((component) => {
+        if (component.__component === "static.wysiwyg") {
+          return (
+            <div
+              class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
+              set:html={component.content}
+            />
+          );
+        }
+        if (component.__component === "static.images-with-decoration") {
+          return component.images.data?.length > 0 && (
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-saw-long-background bg-no-repeat">
+              {component.images.data.map((image) => (
+                <div class="inline-block mb-8 aspect-[544/362]">
+                  <img
+                    src={import.meta.env.STRAPI_URL + image.attributes.url}
+                    alt={image.attributes.alternativeText}
+                    class="w-full h-full object-contain"
+                  />
+                  </div>
+              ))}
+            </div>
+          );
+        }
+      })
+    }
     <!-- <div
-      class="[&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
-      set:html={publication.attributes.content}
-    /> -->
-    <div
       class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
     >
       <p>
@@ -169,6 +209,6 @@ const publication = Astro.props;
         sollicitudin sagittis, ipsum leo tincidunt nibh, eget sagittis tellus
         ante tempor leo. Morbi et malesuada felis.
       </p><p></p>
-    </div>
+    </div> -->
   </section>
 </BaseLayout>
