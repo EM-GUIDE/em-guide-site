@@ -2,65 +2,129 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import fetchApi from "../lib/strapi";
 import type NetworkMember from "../interfaces/network-member";
+import type NetworkPage from "../interfaces/network-page";
+import { SEO } from "astro-seo";
 
 const networkMembers = await fetchApi<NetworkMember[]>({
   endpoint: "network-members",
   wrappedByKey: "data",
   query: {
-		// @ts-ignore
+    // @ts-ignore
     populate: "*",
-		// @ts-ignore
+    // @ts-ignore
     pagination: {
       pageSize: 100,
     },
   },
 });
+
+const networkPageData = await fetchApi<NetworkPage>({
+  endpoint: "network-page",
+  wrappedByKey: "data",
+  query: {
+    // @ts-ignore
+    populate: [
+      "seo",
+      "seo.title",
+      "seo.description",
+      "seo.canonical",
+      "seo.ogTitle",
+      "seo.ogDescription",
+      "seo.ogImage",
+      "seo.twitterTitle",
+      "seo.twitterDescription",
+      "seo.twitterImage",
+    ],
+  },
+});
 ---
 
 <BaseLayout>
-  <div class="space-y-20 bg-arrow-pink-background bg-no-repeat bg-[right_center]">
-    { networkMembers?.length > 0 &&
-      networkMembers.map((member) => {
-        return (
-          <section class="flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
-            <div class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0">
-              {member.attributes.logo.data && (
-                <img
-                  loading="lazy"
-                  src={member.attributes.logo.data.attributes.url}
-                  alt=""
-                  class="w-40 h-auto"
-                />
-              )}
-            </div>
-            <div>
-              <h1 class="text-xl font-normal lg:text-2xl font-display">
-                {member.attributes.name}
-              </h1>
-              <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
-                <p>
-                  Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur
-                  augue, vel aliquam sapien mi et tortor. Vestibulum lacinia
-                  pellentesque orci non tempor. Sed auctor imperdiet tempus.
-                  Fusce a purus nisl. Morbi tristique congue luctus. Quisque
-                  quis scelerisque tellus, sagittis auctor nulla.
-                </p>
-                <p>
-                  Nam sagittis id felis id luctus. Morbi semper urna vitae augue
-                  varius, a semper elit interdum. Donec auctor risus quam, ut
-                  volutpat enim semper ut.Mauris euismod auctor arcu, blandit
-                  posuere risus commodo ac. Nulla sit amet commodo sapien.
-                  Nullam urna lacus, vehicula vitae neque sit amet, mattis
-                  molestie enim. Sed rhoncus sodales porttitor. In laoreet
-                  volutpat arcu a accumsan. Curabitur vulputate lectus tortor,
-                  ac feugiat eros interdum sed. Nulla fringilla nunc vel nisi
-                  cursus, ut laoreet justo bibendum. Etiam vel interdum magna.
-                </p>
+  {
+    networkPageData && (
+      <SEO
+        title={networkPageData?.attributes.seo.title}
+        description={networkPageData?.attributes.seo.description}
+        canonical={networkPageData?.attributes.seo.canonical ?? ""}
+        openGraph={{
+          basic: {
+            title:
+              networkPageData?.attributes.seo.ogTitle ??
+              networkPageData?.attributes.seo.title,
+            type: "website",
+            image:
+              `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes.seo.ogImage?.data.attributes.url}` ??
+              "",
+            url: networkPageData?.attributes.seo.canonical ?? "",
+          },
+          optional: {
+            description:
+              networkPageData?.attributes.seo.ogDescription ??
+              networkPageData?.attributes.seo.description,
+          },
+        }}
+        twitter={{
+          card: "summary_large_image",
+          title:
+            networkPageData?.attributes.seo.twitterTitle ??
+            networkPageData?.attributes.seo.title,
+          description:
+            networkPageData?.attributes.seo.twitterDescription ??
+            networkPageData?.attributes.seo.description,
+          image:
+            `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            "",
+        }}
+      />
+    )
+  }
+  <div
+    class="space-y-20 bg-arrow-pink-background bg-no-repeat bg-[right_center]"
+  >
+    {
+      networkMembers?.length > 0 &&
+        networkMembers.map((member) => {
+          return (
+            <section class="flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
+              <div class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0">
+                {member.attributes.logo.data && (
+                  <img
+                    loading="lazy"
+                    src={member.attributes.logo.data.attributes.url}
+                    alt=""
+                    class="w-40 h-auto"
+                  />
+                )}
               </div>
-            </div>
-          </section>
-        );
-      })
+              <div>
+                <h1 class="text-xl font-normal lg:text-2xl font-display">
+                  {member.attributes.name}
+                </h1>
+                <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
+                  <p>
+                    Etiam ornare, lectus sed blandit pulvinar, nisl elit
+                    efficitur augue, vel aliquam sapien mi et tortor. Vestibulum
+                    lacinia pellentesque orci non tempor. Sed auctor imperdiet
+                    tempus. Fusce a purus nisl. Morbi tristique congue luctus.
+                    Quisque quis scelerisque tellus, sagittis auctor nulla.
+                  </p>
+                  <p>
+                    Nam sagittis id felis id luctus. Morbi semper urna vitae
+                    augue varius, a semper elit interdum. Donec auctor risus
+                    quam, ut volutpat enim semper ut.Mauris euismod auctor arcu,
+                    blandit posuere risus commodo ac. Nulla sit amet commodo
+                    sapien. Nullam urna lacus, vehicula vitae neque sit amet,
+                    mattis molestie enim. Sed rhoncus sodales porttitor. In
+                    laoreet volutpat arcu a accumsan. Curabitur vulputate lectus
+                    tortor, ac feugiat eros interdum sed. Nulla fringilla nunc
+                    vel nisi cursus, ut laoreet justo bibendum. Etiam vel
+                    interdum magna.
+                  </p>
+                </div>
+              </div>
+            </section>
+          );
+        })
     }
   </div>
 </BaseLayout>

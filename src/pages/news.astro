@@ -2,31 +2,33 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Filter from "../components/Filter.astro";
 import Tag from "../components/Tag.astro";
+import type NewsPage from "../interfaces/news-page";
+import { SEO } from "astro-seo";
 
 const filters = [
   {
     label: "test",
-    value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
+    value: "/news/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
   },
   {
     label: "cool",
-    value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
+    value: "/news/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
   },
   {
     label: "what",
-    value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
+    value: "/news/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
   },
   {
     label: "lets go",
-    value: "/publications/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
+    value: "/news/tag/Caveo-70227b9d-777e-42b8-b6ab-360d5fbd4b2d",
   },
 ];
 
 import fetchApi from "../lib/strapi";
 import type Publication from "../interfaces/publication";
 
-const publications = await fetchApi<Publication[]>({
-  endpoint: "publications", // the content type to fetch
+const news = await fetchApi<Publication[]>({
+  endpoint: "posts", // the content type to fetch
   wrappedByKey: "data", // the key to unwrap the response
   query: {
     // @ts-ignore
@@ -37,62 +39,117 @@ const publications = await fetchApi<Publication[]>({
     },
   }, // any query params to include
 });
+
+const newsPageData = await fetchApi<NewsPage>({
+  endpoint: "news-page",
+  wrappedByKey: "data",
+  query: {
+    // @ts-ignore
+    populate: [
+      "seo",
+      "seo.title",
+      "seo.description",
+      "seo.canonical",
+      "seo.ogTitle",
+      "seo.ogDescription",
+      "seo.ogImage",
+      "seo.twitterTitle",
+      "seo.twitterDescription",
+      "seo.twitterImage",
+    ],
+  },
+});
+console.log(news[0].attributes.featuredImage.data);
 ---
 
 <BaseLayout>
-  <!-- <div class="mb-14 w-full lg:container px-4 mx-auto">
-    <BackLink url="/" />
-  </div> -->
+  {
+    newsPageData && (
+      <SEO
+        title={newsPageData?.attributes.seo.title}
+        description={newsPageData?.attributes.seo.description}
+        canonical={newsPageData?.attributes.seo.canonical ?? ""}
+        openGraph={{
+          basic: {
+            title:
+              newsPageData?.attributes.seo.ogTitle ??
+              newsPageData?.attributes.seo.title,
+            type: "website",
+            image:
+              `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo.ogImage?.data.attributes.url}` ??
+              "",
+            url: newsPageData?.attributes.seo.canonical ?? "",
+          },
+          optional: {
+            description:
+              newsPageData?.attributes.seo.ogDescription ??
+              newsPageData?.attributes.seo.description,
+          },
+        }}
+        twitter={{
+          card: "summary_large_image",
+          title:
+            newsPageData?.attributes.seo.twitterTitle ??
+            newsPageData?.attributes.seo.title,
+          description:
+            newsPageData?.attributes.seo.twitterDescription ??
+            newsPageData?.attributes.seo.description,
+          image:
+            `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            "",
+        }}
+      />
+    )
+  }
   <section class="container px-4 mx-auto">
     <ul class="flex flex-wrap gap-3 mb-14">
       {
-        filters?.length > 0 && filters.map((data) => (
-          <li>
-            <Filter label={data.label} value={data.value} />
-          </li>
-        ))
+        filters?.length > 0 &&
+          filters.map((data) => (
+            <li>
+              <Filter label={data.label} value={data.value} />
+            </li>
+          ))
       }
     </ul>
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
-      { publications?.length > 0 &&
-        publications.map((publication: Publication) => (
-          <li class="leading-none">
-            <a
-              href={`/publications/${publication.attributes.slug}/`}
-              class="inline-block aspect-[9/7] mb-5 lg:mb-4"
-            >
-              <img
-                class="object-cover w-full h-full text-xl font-display"
-                alt={
-                  publication.attributes.featuredImage.data.attributes
-                    .caption ?? "image"
-                }
-                src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                  publication.attributes.featuredImage.data.attributes.url
-                }`}
-                loading="lazy"
-              />
-            </a>
-            <a
-              href={`/publications/${publication.attributes.slug}/`}
-              class="block"
-            >
-              <h2 class="text-xl font-display">
-                {publication.attributes.title}
-              </h2>
-            </a>
-            {publication.attributes.tags.data &&
-              publication.attributes.tags.data.length > 0 && (
-                <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
-                  {publication.attributes.tags.data.map((tag) => (
-                    <li>
-                      <Tag label={tag.attributes.title} />
-                    </li>
-                  ))}
-                </ul>
-              )}
-          </li>
-        ))
+      {
+        news?.length > 0 &&
+          news.map((publication: Publication) => (
+            <li class="leading-none">
+              <a
+                href={`/news/${publication.attributes.slug}/`}
+                class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
+              >
+                <img
+                  class="object-cover w-full h-full text-xl font-display"
+                  alt={
+                    publication.attributes.featuredImage.data?.attributes
+                      .caption ?? "image"
+                  }
+                  src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                    publication.attributes.featuredImage.data?.attributes.url
+                  }`}
+                  loading="lazy"
+                />
+              </a>
+              <a href={`/news/${publication.attributes.slug}/`} class="block">
+                <h2 class="text-xl font-display">
+                  {publication.attributes.title}
+                </h2>
+              </a>
+              {publication.attributes.tags.data &&
+                publication.attributes.tags.data.length > 0 && (
+                  <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
+                    {publication.attributes.tags.data.map((tag) => (
+                      <li>
+                        <Tag label={tag.attributes.title} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            </li>
+          ))
       }
     </ul>
   </section>

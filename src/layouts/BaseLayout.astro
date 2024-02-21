@@ -1,24 +1,27 @@
 ---
-import '@fontsource-variable/unbounded';
-import '@fontsource-variable/dm-sans';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
----
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
+import "@fontsource-variable/unbounded";
+import "@fontsource-variable/dm-sans";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
-	<body>
-		<Header />
-		<main class="flex-grow lg:py-8 pt-28">
-			<slot />
-		</main>
-		<Footer />
-	</body>
-	<script>
-		import "../scripts/menu.js";
-	</script>
+const { seo } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION}/>
+  </head>
+
+  <body>
+    <Header />
+    <main class="flex-grow lg:py-8 pt-28">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import "../scripts/menu.js";
+    </script>
+  </body>
 </html>

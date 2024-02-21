@@ -3,8 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import fetchApi from "../lib/strapi";
 import FeaturedContent from "../components/FeaturedContent.astro";
 import ContentPreview from "../components/ContentPreview.astro";
+import { SEO } from "astro-seo";
 
 import type NetworkMember from "../interfaces/network-member";
+import type HomePage from "../interfaces/home-page";
 const networkMembers = await fetchApi<NetworkMember[]>({
   endpoint: "network-members",
   wrappedByKey: "data",
@@ -17,7 +19,7 @@ const networkMembers = await fetchApi<NetworkMember[]>({
   },
 });
 
-const homePageData = await fetchApi({
+const homePageData = await fetchApi<HomePage>({
   endpoint: "home-page",
   wrappedByKey: "data",
   query: {
@@ -28,12 +30,60 @@ const homePageData = await fetchApi({
       "featuredContent",
       "featuredContent.image",
       "featuredContent.button",
+      "seo",
+      "seo.title",
+      "seo.description",
+      "seo.canonical",
+      "seo.ogTitle",
+      "seo.ogDescription",
+      "seo.ogImage",
+      "seo.twitterTitle",
+      "seo.twitterDescription",
+      "seo.twitterImage",
     ],
   },
 });
 ---
 
 <BaseLayout>
+  {
+    homePageData && (
+      <SEO
+        title={homePageData?.attributes.seo.title}
+        description={homePageData?.attributes.seo.description}
+        canonical={homePageData?.attributes.seo.canonical ?? ""}
+        openGraph={{
+          basic: {
+            title:
+              homePageData?.attributes.seo.ogTitle ??
+              homePageData?.attributes.seo.title,
+            type: "website",
+            image:
+              `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo.ogImage?.data.attributes.url}` ??
+              "",
+            url: homePageData?.attributes.seo.canonical ?? "",
+          },
+          optional: {
+            description:
+              homePageData?.attributes.seo.ogDescription ??
+              homePageData?.attributes.seo.description,
+          },
+        }}
+        twitter={{
+          card: "summary_large_image",
+          title:
+            homePageData?.attributes.seo.twitterTitle ??
+            homePageData?.attributes.seo.title,
+          description:
+            homePageData?.attributes.seo.twitterDescription ??
+            homePageData?.attributes.seo.description,
+          image:
+            `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            "",
+        }}
+      />
+    )
+  }
   {
     // @ts-expect-error
     homePageData?.attributes.slide &&

@@ -1,6 +1,6 @@
 import type StrapiImage from "./image";
 
-export default interface HomePage {
+export default interface NewsPage {
   id: number;
   attributes: {
     seo: {

@@ -1,20 +1,72 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BackLink from "../components/BackLink.astro";
-import Tag from "../components/Tag.astro";
 import FeaturedContent from "../components/FeaturedContent.astro";
+import type AboutPage from "../interfaces/about-page";
+import fetchApi from "../lib/strapi";
+import { SEO } from "astro-seo";
+
+const aboutPageData = await fetchApi<AboutPage>({
+  endpoint: "about-us-page",
+  wrappedByKey: "data",
+  query: {
+    // @ts-ignore
+    populate: [
+      "seo",
+      "seo.title",
+      "seo.description",
+      "seo.canonical",
+      "seo.ogTitle",
+      "seo.ogDescription",
+      "seo.ogImage",
+      "seo.twitterTitle",
+      "seo.twitterDescription",
+      "seo.twitterImage",
+    ],
+  },
+});
 ---
 
 <BaseLayout>
+  {
+    aboutPageData && (
+      <SEO
+        title={aboutPageData?.attributes.seo.title}
+        description={aboutPageData?.attributes.seo.description}
+        canonical={aboutPageData?.attributes.seo.canonical ?? ""}
+        openGraph={{
+          basic: {
+            title:
+              aboutPageData?.attributes.seo.ogTitle ??
+              aboutPageData?.attributes.seo.title,
+            type: "website",
+            image:
+              `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes.seo.ogImage?.data.attributes.url}` ??
+              "",
+            url: aboutPageData?.attributes.seo.canonical ?? "",
+          },
+          optional: {
+            description:
+              aboutPageData?.attributes.seo.ogDescription ??
+              aboutPageData?.attributes.seo.description,
+          },
+        }}
+        twitter={{
+          card: "summary_large_image",
+          title:
+            aboutPageData?.attributes.seo.twitterTitle ??
+            aboutPageData?.attributes.seo.title,
+          description:
+            aboutPageData?.attributes.seo.twitterDescription ??
+            aboutPageData?.attributes.seo.description,
+          image:
+            `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            "",
+        }}
+      />
+    )
+  }
   <section class="container px-4 mx-auto mb-8">
-    <!-- <div class="mb-14 w-full">
-      <BackLink url="/" />
-    </div> -->
-    <!-- <div
-      class="[&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
-      set:html={publication.attributes.content}
-    /> -->
-		<h2 class="inline-block mb-8 text-2xl font-bold lg:text-4xl font-display">
+    <h2 class="inline-block mb-8 text-2xl font-bold lg:text-4xl font-display">
       Ut viverra sem id egestas porttitor. Vivamus molestie turpis eu eros
       interdum, sed ultrices massa gravida.
     </h2>
