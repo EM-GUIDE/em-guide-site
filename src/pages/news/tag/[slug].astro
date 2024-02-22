@@ -4,6 +4,7 @@ import fetchApi from "../../../lib/strapi";
 import TagComponent from "../../../components/Tag.astro";
 import type Tag from "../../../interfaces/tag";
 import type Publication from "../../../interfaces/publication";
+import { SEO } from "astro-seo";
 
 export async function getStaticPaths() {
   const tags = await fetchApi<Tag[]>({
@@ -11,15 +12,17 @@ export async function getStaticPaths() {
     wrappedByKey: "data",
     query: {
       // @ts-expect-error
-      populate: ["publications", "publications.featuredImage", "publications.tags"],
+      populate: [
+        "publications",
+        "publications.featuredImage",
+        "publications.tags",
+      ],
       // @ts-expect-error
       pagination: {
         pageSize: 9999,
       },
     },
   });
-
-  // console.log("Fetched tags: ", tags[0].attributes.publications.data[0].attributes.featuredImage); // Debugging line
 
   return tags.map((tag: Tag) => ({
     params: { slug: tag.attributes.slug },
@@ -29,15 +32,39 @@ export async function getStaticPaths() {
 type Props = Tag;
 
 const tag = Astro.props;
-
-console.log(tag.attributes.publications);
 ---
 
 <BaseLayout>
+  <!-- <SEO
+    title={tag?.attributes.title}
+    description={`News with the tag ${tag?.attributes.slug}`}
+    canonical={`${Astro.site}//${tag?.attributes.slug}`}
+    openGraph={{
+      basic: {
+        title: tag?.attributes.title,
+        type: "article",
+        image:
+          `${import.meta.env.PUBLIC_ASSET_URL}${tag?.attributes.featuredImage.data.attributes.url}` ??
+          "",
+        url: `${Astro.site}/tags/${tag?.attributes.slug}`,
+      },
+      optional: {
+        description: tag?.attributes.excerpt,
+      },
+    }}
+    twitter={{
+      card: "summary_large_image",
+      title: tag?.attributes.title,
+      description: tag?.attributes.excerpt,
+      image:
+        `${import.meta.env.PUBLIC_ASSET_URL}${tag?.attributes.featuredImage.data.attributes.url}` ??
+        "",
+    }}
+  /> -->
   <h2
     class="mb-6 text-2xl font-bold text-center md:mb-10 lg:mb-20 md:text-3xl lg:text-4xl font-display"
   >
-    #{ tag.attributes.title }
+    #{tag.attributes.title}
   </h2>
   <section class="container px-4 mx-auto">
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">

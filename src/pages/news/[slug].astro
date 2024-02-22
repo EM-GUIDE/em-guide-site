@@ -6,8 +6,8 @@ import type Publication from "../../interfaces/publication";
 import { SEO } from "astro-seo";
 
 export async function getStaticPaths() {
-  const publications = await fetchApi<Publication[]>({
-    endpoint: "post",
+  const news = await fetchApi<Publication[]>({
+    endpoint: "posts",
     wrappedByKey: "data",
     query: {
       // @ts-ignore
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     },
   });
 
-  return publications.map((publication: Publication) => ({
+  return news.map((publication: Publication) => ({
     params: { slug: publication.attributes.slug },
     props: publication,
   }));
@@ -31,7 +31,7 @@ const publication = Astro.props;
   <SEO
     title={publication?.attributes.title}
     description={publication?.attributes.excerpt}
-    canonical={`${Astro.site}/publications/${publication?.attributes.slug}`}
+    canonical={`${Astro.site}/news/${publication?.attributes.slug}`}
     openGraph={{
       basic: {
         title: publication?.attributes.title,
@@ -39,7 +39,7 @@ const publication = Astro.props;
         image:
           `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes.featuredImage.data.attributes.url}` ??
           "",
-        url: `${Astro.site}/publications/${publication?.attributes.slug}`,
+        url: `${Astro.site}/news/${publication?.attributes.slug}`,
       },
       optional: {
         description: publication?.attributes.excerpt,
