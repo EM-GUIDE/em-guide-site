@@ -59,12 +59,11 @@ const newsPageData = await fetchApi<NewsPage>({
     ],
   },
 });
-console.log(news[0].attributes.featuredImage.data);
 ---
 
 <BaseLayout>
   {
-    newsPageData && (
+    newsPageData && newsPageData?.attributes.seo && (
       <SEO
         title={newsPageData?.attributes.seo.title}
         description={newsPageData?.attributes.seo.description}
