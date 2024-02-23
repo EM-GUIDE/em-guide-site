@@ -120,22 +120,24 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
         publications?.length > 0 &&
           publications.map((publication: Publication) => (
             <li class="leading-none">
-              <a
-                href={`/publications/${publication.attributes.slug}/`}
-                class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
-              >
-                <img
-                  class="object-cover w-full h-full text-xl font-display"
-                  alt={
-                    publication.attributes.featuredImage.data?.attributes
-                      .caption ?? "image"
-                  }
-                  src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                    publication.attributes.featuredImage.data?.attributes.url
-                  }`}
-                  loading="lazy"
-                />
-              </a>
+              {publication.attributes.featuredImage.data && (
+                <a
+                  href={`/publications/${publication.attributes.slug}/`}
+                  class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
+                >
+                  <img
+                    class="object-cover w-full h-full text-xl font-display"
+                    alt={
+                      publication.attributes.featuredImage.data?.attributes
+                        .caption ?? "image"
+                    }
+                    src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                      publication.attributes.featuredImage.data?.attributes.url
+                    }`}
+                    loading="lazy"
+                  />
+                </a>
+              )}
               <a
                 href={`/publications/${publication.attributes.slug}/`}
                 class="block"
@@ -149,7 +151,10 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
                   <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
                     {publication.attributes.tags.data.map((tag) => (
                       <li>
-                        <Tag label={tag.attributes.title} />
+                        <Tag
+                          label={tag.attributes.title}
+                          url={`/publications/tag/${tag.attributes.slug}`}
+                        />
                       </li>
                     ))}
                   </ul>

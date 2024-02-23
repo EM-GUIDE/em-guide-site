@@ -120,22 +120,24 @@ const newsPageData = await fetchApi<NewsPage>({
         news?.length > 0 &&
           news.map((publication: Publication) => (
             <li class="leading-none">
-              <a
-                href={`/news/${publication.attributes.slug}/`}
-                class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
-              >
-                <img
-                  class="object-cover w-full h-full text-xl font-display"
-                  alt={
-                    publication.attributes.featuredImage.data?.attributes
-                      .caption ?? "image"
-                  }
-                  src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                    publication.attributes.featuredImage.data?.attributes.url
-                  }`}
-                  loading="lazy"
-                />
-              </a>
+              {publication.attributes.featuredImage.data && (
+                <a
+                  href={`/news/${publication.attributes.slug}/`}
+                  class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
+                >
+                  <img
+                    class="object-cover w-full h-full text-xl font-display"
+                    alt={
+                      publication.attributes.featuredImage.data?.attributes
+                        .caption ?? "image"
+                    }
+                    src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                      publication.attributes.featuredImage.data?.attributes.url
+                    }`}
+                    loading="lazy"
+                  />
+                </a>
+              )}
               <a href={`/news/${publication.attributes.slug}/`} class="block">
                 <h2 class="text-xl font-display">
                   {publication.attributes.title}
@@ -146,7 +148,10 @@ const newsPageData = await fetchApi<NewsPage>({
                   <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
                     {publication.attributes.tags.data.map((tag) => (
                       <li>
-                        <Tag label={tag.attributes.title} />
+                        <Tag
+                          label={tag.attributes.title}
+                          url={`/news/tag/${tag.attributes.slug}`}
+                        />
                       </li>
                     ))}
                   </ul>

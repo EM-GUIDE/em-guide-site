@@ -1,4 +1,4 @@
 ---
-const { label } = Astro.props;
+const { label, url } = Astro.props;
 ---
-<div class="inline-block border border-dark text-xs text-dark rounded-[19px] px-2 py-1">#{ label }</div>
+<a class="inline-block border border-dark text-xs text-dark rounded-[19px] px-2 py-1" href={url}>#{ label }</a>

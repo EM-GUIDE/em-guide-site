@@ -46,23 +46,26 @@ const tag = Astro.props;
       {
         tag.attributes.publications.data.map((publication: Publication) => (
           <li class="leading-none">
-            <a
-              href={`/publications/${publication.attributes.slug}/`}
-              class="inline-block aspect-[9/7] mb-5 lg:mb-4"
-            >
-              <img
-                class="object-cover w-full h-full text-xl font-display"
-                alt={
-                  publication.attributes.featuredImage.data.attributes
-                    .caption ?? "image"
-                }
-                src={
-                  import.meta.env.STRAPI_URL +
-                  publication.attributes.featuredImage.data.attributes.url
-                }
-                loading="lazy"
-              />
-            </a>
+            {publication.attributes.featuredImage.data &&
+              publication.attributes.featuredImage.data.attributes.url && (
+                <a
+                  href={`/publications/${publication.attributes.slug}/`}
+                  class="inline-block aspect-[9/7] mb-5 lg:mb-4"
+                >
+                  <img
+                    class="object-cover w-full h-full text-xl font-display"
+                    alt={
+                      publication.attributes.featuredImage.data.attributes
+                        .caption ?? "image"
+                    }
+                    src={
+                      import.meta.env.STRAPI_URL +
+                      publication.attributes.featuredImage.data.attributes.url
+                    }
+                    loading="lazy"
+                  />
+                </a>
+              )}
             <a
               href={`/publications/${publication.attributes.slug}/`}
               class="block"
@@ -76,7 +79,10 @@ const tag = Astro.props;
                 <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
                   {publication.attributes.tags.data.map((tag) => (
                     <li>
-                      <TagComponent label={tag.attributes.title} />
+                      <TagComponent
+                        label={tag.attributes.title}
+                        url={`/publications/tag/${tag.attributes.slug}`}
+                      />
                     </li>
                   ))}
                 </ul>
