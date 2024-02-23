@@ -43,6 +43,8 @@ const homePageData = await fetchApi<HomePage>({
     ],
   },
 });
+
+console.log(homePageData.attributes);
 ---
 
 <BaseLayout>
@@ -85,9 +87,7 @@ const homePageData = await fetchApi<HomePage>({
     )
   }
   {
-    // @ts-expect-error
     homePageData?.attributes.slide &&
-      // @ts-expect-error
       homePageData.attributes?.slide.length > 0 && (
         <section class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 pb-28 mb-28 bg-carousel-background bg-[-50%] lg:bg-[160%] xl:bg-[120%]">
           <div
@@ -138,49 +138,39 @@ const homePageData = await fetchApi<HomePage>({
 
             <div class="splide__track">
               <ul class="bg-white splide__list">
-                <li class="relative splide__slide">
-                  <img
-                    loading="lazy"
-                    src="https://picsum.photos/1000/700"
-                    alt=""
-                    class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
-                  />
-                  <a
-                    href="#"
-                    class="absolute inline-block w-full px-10 bottom-14 lg:px-28 group"
-                    aria-label="Link to slide"
-                  />
-                  <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
-                    <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                      tatatkasngkas kasngnk asnkg
-                    </h4>
-                  </div>
-                </li>
-                <li class="relative splide__slide">
-                  <img
-                    loading="lazy"
-                    src="https://picsum.photos/seed/lol/1200/900"
-                    alt=""
-                    class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
-                  />
-                </li>
-                <li class="relative splide__slide">
-                  <img
-                    loading="lazy"
-                    src="https://picsum.photos/seed/rofl/1300/1000"
-                    alt=""
-                    class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
-                  />
-                  <a
-                    href="#"
-                    class="absolute inline-block w-full px-10 bottom-14 lg:px-28 group"
-                    aria-label="Link to slide"
-                  >
-                    <h4 class="text-2xl leading-normal text-center text-white transition-colors group-hover:text-accent lg:text-4xl font-display">
-                      sadkgjsa ijagija nagn a
-                    </h4>
-                  </a>
-                </li>
+                {homePageData.attributes.slide.map((slide) => {
+                  return (
+                    <li class="relative splide__slide">
+                      {slide.image.data && (
+                        <img
+                          loading="lazy"
+                          src={`${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url}`}
+                          alt=""
+                          class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
+                        />
+                      )}
+                      {slide.url ? (
+                        <a
+                          href={slide.url}
+                          class="absolute inline-block w-full px-10 bottom-14 lg:px-28 group"
+                          aria-label="Link to slide"
+                        >
+                          {slide.text && (
+                            <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                              {slide.text}
+                            </h4>
+                          )}
+                        </a>
+                      ) : (
+                        <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
+                          <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                            {slide.text}
+                          </h4>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

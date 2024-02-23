@@ -14,3 +14,12 @@ export interface ImagesWithDecorationComponent {
   }
   decoration: string
 }
+
+export interface SlideItem {
+  id: number;
+  url?: string;
+  text?: string;
+  image: {
+    data: StrapiImage;
+  } 
+}
