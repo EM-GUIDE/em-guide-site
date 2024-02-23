@@ -46,6 +46,7 @@ const newsPageData = await fetchApi<NewsPage>({
   query: {
     // @ts-ignore
     populate: [
+      "featuredTags",
       "seo",
       "seo.title",
       "seo.description",
@@ -103,10 +104,13 @@ const newsPageData = await fetchApi<NewsPage>({
   <section class="container px-4 mx-auto">
     <ul class="flex flex-wrap gap-3 mb-14">
       {
-        filters?.length > 0 &&
-          filters.map((data) => (
+        newsPageData.attributes.featuredTags?.data.length > 0 &&
+          newsPageData.attributes.featuredTags?.data.map((data) => (
             <li>
-              <Filter label={data.label} value={data.value} />
+              <Filter
+                label={data.attributes.title}
+                value={`/news/tag/${data.attributes.slug}`}
+              />
             </li>
           ))
       }

@@ -11,7 +11,11 @@ export async function getStaticPaths() {
     wrappedByKey: "data",
     query: {
       // @ts-expect-error
-      populate: ["publications", "publications.featuredImage", "publications.tags"],
+      populate: [
+        "publications",
+        "publications.featuredImage",
+        "publications.tags",
+      ],
       // @ts-expect-error
       pagination: {
         pageSize: 9999,
@@ -29,15 +33,13 @@ export async function getStaticPaths() {
 type Props = Tag;
 
 const tag = Astro.props;
-
-console.log(tag.attributes.publications);
 ---
 
 <BaseLayout>
   <h2
     class="mb-6 text-2xl font-bold text-center md:mb-10 lg:mb-20 md:text-3xl lg:text-4xl font-display"
   >
-    #{ tag.attributes.title }
+    #{tag.attributes.title}
   </h2>
   <section class="container px-4 mx-auto">
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">

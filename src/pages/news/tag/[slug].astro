@@ -12,11 +12,7 @@ export async function getStaticPaths() {
     wrappedByKey: "data",
     query: {
       // @ts-expect-error
-      populate: [
-        "publications",
-        "publications.featuredImage",
-        "publications.tags",
-      ],
+      populate: ["posts", "posts.featuredImage", "posts.tags"],
       // @ts-expect-error
       pagination: {
         pageSize: 9999,
@@ -38,7 +34,7 @@ const tag = Astro.props;
   <!-- <SEO
     title={tag?.attributes.title}
     description={`News with the tag ${tag?.attributes.slug}`}
-    canonical={`${Astro.site}//${tag?.attributes.slug}`}
+    canonical={`${Astro.site}/${tag?.attributes.slug}`}
     openGraph={{
       basic: {
         title: tag?.attributes.title,
@@ -69,10 +65,10 @@ const tag = Astro.props;
   <section class="container px-4 mx-auto">
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
       {
-        tag.attributes.publications.data.map((publication: Publication) => (
+        tag.attributes.posts.data.map((publication: Publication) => (
           <li class="leading-none">
             <a
-              href={`/publications/${publication.attributes.slug}/`}
+              href={`/news/${publication.attributes.slug}/`}
               class="inline-block aspect-[9/7] mb-5 lg:mb-4"
             >
               <img

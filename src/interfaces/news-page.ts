@@ -1,8 +1,12 @@
 import type StrapiImage from "./image";
+import type Tag from "./tag";
 
 export default interface NewsPage {
   id: number;
   attributes: {
+    featuredTags: {
+      data: Tag[]
+    },
     seo: {
       title: string;
       description: string;
@@ -17,7 +21,6 @@ export default interface NewsPage {
       twitterImage?: {
         data: StrapiImage;
       }
-    },
-
+    }
   };
 }

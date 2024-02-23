@@ -8,6 +8,9 @@ export default interface Tag {
     publications: {
       data: Publication[];
     }
+    posts: {
+      data: Publication[];
+    }
     createdAt: string;
     updatedAt: string;
   };
