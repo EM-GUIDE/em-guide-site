@@ -49,38 +49,40 @@ const homePageData = await fetchApi<HomePage>({
 
 <BaseLayout>
   {
-    homePageData && (
+    homePageData && homePageData.attributes.seo && (
       <SEO
-        title={homePageData?.attributes.seo.title}
-        description={homePageData?.attributes.seo.description}
-        canonical={homePageData?.attributes.seo.canonical ?? ""}
+        title={homePageData?.attributes.seo?.title}
+        titleDefault="EM Guide"
+        titleTemplate="%s — EM Guide"
+        description={homePageData?.attributes.seo?.description}
+        canonical={homePageData?.attributes.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              homePageData?.attributes.seo.ogTitle ??
-              homePageData?.attributes.seo.title,
+              homePageData?.attributes.seo?.ogTitle ??
+              homePageData?.attributes.seo?.title,
             type: "website",
-            image:
-              `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo.ogImage?.data.attributes.url}` ??
-              "",
-            url: homePageData?.attributes.seo.canonical ?? "",
+            image: homePageData?.attributes.seo?.ogImage?.data?.attributes?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+              : "",
+            url: homePageData?.attributes.seo?.canonical ?? "",
           },
           optional: {
             description:
-              homePageData?.attributes.seo.ogDescription ??
-              homePageData?.attributes.seo.description,
+              homePageData?.attributes.seo?.ogDescription ??
+              homePageData?.attributes.seo?.description,
           },
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            homePageData?.attributes.seo.twitterTitle ??
-            homePageData?.attributes.seo.title,
+            homePageData?.attributes.seo?.twitterTitle ??
+            homePageData?.attributes.seo?.title,
           description:
-            homePageData?.attributes.seo.twitterDescription ??
-            homePageData?.attributes.seo.description,
+            homePageData?.attributes.seo?.twitterDescription ??
+            homePageData?.attributes.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />

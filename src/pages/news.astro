@@ -64,38 +64,40 @@ const newsPageData = await fetchApi<NewsPage>({
 
 <BaseLayout>
   {
-    newsPageData && newsPageData?.attributes.seo && (
+    newsPageData && newsPageData.attributes.seo && (
       <SEO
-        title={newsPageData?.attributes.seo.title}
-        description={newsPageData?.attributes.seo.description}
-        canonical={newsPageData?.attributes.seo.canonical ?? ""}
+        title={newsPageData?.attributes.seo?.title}
+        titleDefault="EM Guide"
+        titleTemplate="%s — EM Guide"
+        description={newsPageData?.attributes.seo?.description}
+        canonical={newsPageData?.attributes.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              newsPageData?.attributes.seo.ogTitle ??
-              newsPageData?.attributes.seo.title,
+              newsPageData?.attributes.seo?.ogTitle ??
+              newsPageData?.attributes.seo?.title,
             type: "website",
-            image:
-              `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo.ogImage?.data.attributes.url}` ??
-              "",
-            url: newsPageData?.attributes.seo.canonical ?? "",
+            image: newsPageData?.attributes.seo?.ogImage?.data?.attributes?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+              : "",
+            url: newsPageData?.attributes.seo?.canonical ?? "",
           },
           optional: {
             description:
-              newsPageData?.attributes.seo.ogDescription ??
-              newsPageData?.attributes.seo.description,
+              newsPageData?.attributes.seo?.ogDescription ??
+              newsPageData?.attributes.seo?.description,
           },
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            newsPageData?.attributes.seo.twitterTitle ??
-            newsPageData?.attributes.seo.title,
+            newsPageData?.attributes.seo?.twitterTitle ??
+            newsPageData?.attributes.seo?.title,
           description:
-            newsPageData?.attributes.seo.twitterDescription ??
-            newsPageData?.attributes.seo.description,
+            newsPageData?.attributes.seo?.twitterDescription ??
+            newsPageData?.attributes.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />

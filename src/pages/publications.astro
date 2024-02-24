@@ -64,38 +64,41 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
 
 <BaseLayout>
   {
-    publicationsPageData && publicationsPageData?.attributes.seo && (
+    publicationsPageData && publicationsPageData.attributes.seo && (
       <SEO
-        title={publicationsPageData?.attributes.seo.title}
-        description={publicationsPageData?.attributes.seo.description}
-        canonical={publicationsPageData?.attributes.seo.canonical ?? ""}
+        title={publicationsPageData?.attributes.seo?.title}
+        titleDefault="EM Guide"
+        titleTemplate="%s — EM Guide"
+        description={publicationsPageData?.attributes.seo?.description}
+        canonical={publicationsPageData?.attributes.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              publicationsPageData?.attributes.seo.ogTitle ??
-              publicationsPageData?.attributes.seo.title,
+              publicationsPageData?.attributes.seo?.ogTitle ??
+              publicationsPageData?.attributes.seo?.title,
             type: "website",
-            image:
-              `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes.seo.ogImage?.data.attributes.url}` ??
-              "",
-            url: publicationsPageData?.attributes.seo.canonical ?? "",
+            image: publicationsPageData?.attributes.seo?.ogImage?.data
+              ?.attributes?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+              : "",
+            url: publicationsPageData?.attributes.seo?.canonical ?? "",
           },
           optional: {
             description:
-              publicationsPageData?.attributes.seo.ogDescription ??
-              publicationsPageData?.attributes.seo.description,
+              publicationsPageData?.attributes.seo?.ogDescription ??
+              publicationsPageData?.attributes.seo?.description,
           },
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            publicationsPageData?.attributes.seo.twitterTitle ??
-            publicationsPageData?.attributes.seo.title,
+            publicationsPageData?.attributes.seo?.twitterTitle ??
+            publicationsPageData?.attributes.seo?.title,
           description:
-            publicationsPageData?.attributes.seo.twitterDescription ??
-            publicationsPageData?.attributes.seo.description,
+            publicationsPageData?.attributes.seo?.twitterDescription ??
+            publicationsPageData?.attributes.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />

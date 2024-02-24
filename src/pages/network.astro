@@ -41,38 +41,41 @@ const networkPageData = await fetchApi<NetworkPage>({
 
 <BaseLayout>
   {
-    networkPageData && (
+    networkPageData && networkPageData.attributes.seo && (
       <SEO
-        title={networkPageData?.attributes.seo.title}
-        description={networkPageData?.attributes.seo.description}
-        canonical={networkPageData?.attributes.seo.canonical ?? ""}
+        title={networkPageData?.attributes.seo?.title}
+        titleDefault="EM Guide"
+        titleTemplate="%s — EM Guide"
+        description={networkPageData?.attributes.seo?.description}
+        canonical={networkPageData?.attributes.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              networkPageData?.attributes.seo.ogTitle ??
-              networkPageData?.attributes.seo.title,
+              networkPageData?.attributes.seo?.ogTitle ??
+              networkPageData?.attributes.seo?.title,
             type: "website",
-            image:
-              `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes.seo.ogImage?.data.attributes.url}` ??
-              "",
-            url: networkPageData?.attributes.seo.canonical ?? "",
+            image: networkPageData?.attributes.seo?.ogImage?.data?.attributes
+              ?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+              : "",
+            url: networkPageData?.attributes.seo?.canonical ?? "",
           },
           optional: {
             description:
-              networkPageData?.attributes.seo.ogDescription ??
-              networkPageData?.attributes.seo.description,
+              networkPageData?.attributes.seo?.ogDescription ??
+              networkPageData?.attributes.seo?.description,
           },
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            networkPageData?.attributes.seo.twitterTitle ??
-            networkPageData?.attributes.seo.title,
+            networkPageData?.attributes.seo?.twitterTitle ??
+            networkPageData?.attributes.seo?.title,
           description:
-            networkPageData?.attributes.seo.twitterDescription ??
-            networkPageData?.attributes.seo.description,
+            networkPageData?.attributes.seo?.twitterDescription ??
+            networkPageData?.attributes.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes.seo.twitterImage?.data.attributes.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />
