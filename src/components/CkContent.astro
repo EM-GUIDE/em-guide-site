@@ -1,0 +1,8 @@
+---
+const { content } = Astro.props;
+---
+
+<div
+  class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
+  set:html={content}
+/>
