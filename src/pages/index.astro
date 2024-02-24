@@ -181,55 +181,45 @@ console.log(homePageData.attributes.content);
   }
 
   {
-    // @ts-expect-error
-    homePageData?.attributes.featuredContent && (
-      <section class="container px-4 mx-auto mb-20">
-        <FeaturedContent
-          title={
-            // @ts-expect-error
-            homePageData.attributes.featuredContent.title
-          }
-          description={
-            // @ts-expect-error
-            homePageData.attributes.featuredContent.description
-          }
-          image={
-            // @ts-expect-error
-            homePageData.attributes.featuredContent.image.data[0]
-          }
-          button={
-            // @ts-expect-error
-            homePageData.attributes.featuredContent.button
-          }
-        />
-      </section>
-    )
-  }
-
-  {
     homePageData.attributes.content.map((component) => {
+      if (component.__component === "static.featured-content") {
+        return (
+          <section class="container px-4 mx-auto mb-20">
+            <FeaturedContent
+              title={component.title}
+              description={component.description}
+              image={component.image.data}
+              button={component.button}
+            />
+          </section>
+        );
+      }
       if (component.__component === "static.wysiwyg") {
         return (
-          <div
-            class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
-            set:html={component.content}
-          />
+          <section class="container px-4 mx-auto mb-20">
+            <div
+              class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
+              set:html={component.content}
+            />
+          </section>
         );
       }
       if (component.__component === "static.images-with-decoration") {
         return (
           component.images.data?.length > 0 && (
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-saw-long-background bg-no-repeat">
-              {component.images.data.map((image) => (
-                <div class="inline-block mb-8 aspect-[544/362]">
-                  <img
-                    src={import.meta.env.STRAPI_URL + image.attributes.url}
-                    alt={image.attributes.alternativeText}
-                    class="w-full h-full object-contain"
-                  />
-                </div>
-              ))}
-            </div>
+            <section class="container px-4 mx-auto mb-20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-saw-long-background bg-no-repeat">
+                {component.images.data.map((image) => (
+                  <div class="inline-block mb-8 aspect-[544/362]">
+                    <img
+                      src={import.meta.env.STRAPI_URL + image.attributes.url}
+                      alt={image.attributes.alternativeText}
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
           )
         );
       }

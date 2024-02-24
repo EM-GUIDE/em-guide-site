@@ -27,6 +27,21 @@ export interface ContentPreviewGridComponent {
   contentPreviewItem: ContentPreviewItem[]
 }
 
+export interface ContentFeaturedContent {
+  id: number
+  __component: 'static.featured-content',
+  title?: string;
+  description?: string;
+  image: {
+    data: StrapiImage
+  }
+  button?: {
+    id: number;
+    label: string;
+    url: string;
+  }
+}
+
 export interface SlideItem {
   id: number;
   url?: string;
@@ -35,3 +50,5 @@ export interface SlideItem {
     data: StrapiImage;
   }
 }
+
+// export type ContentFromComponents = (ImagesWithDecorationComponent | WysiwygComponent | ContentPreviewGridComponent | ContentFeaturedContent)[];
