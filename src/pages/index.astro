@@ -25,11 +25,13 @@ const homePageData = await fetchApi<HomePage>({
   query: {
     // @ts-ignore
     populate: [
+      "deep",
       "slide",
       "slide.image",
       "featuredContent",
       "featuredContent.image",
       "featuredContent.button",
+      "content",
       "seo",
       "seo.title",
       "seo.description",
@@ -44,7 +46,7 @@ const homePageData = await fetchApi<HomePage>({
   },
 });
 
-console.log(homePageData.attributes);
+console.log(homePageData.attributes.content);
 ---
 
 <BaseLayout>
@@ -204,26 +206,52 @@ console.log(homePageData.attributes);
     )
   }
 
-  <section class="container px-4 mx-auto mb-20">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 lg:gap-y-14">
-      <ContentPreview
-        title="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con"
-        featuredTag={{ title: "time & money" }}
-      />
-      <ContentPreview
-        title="Ut viverra sem id egestas porttitor. Vivamus molestie turpis eu eros interdum, sed ultrices massa gravida. Suspendisse at "
-        featuredTag={{ title: "health & environment" }}
-      />
-      <ContentPreview
-        title="Donec ultricies enim eget luctus pellentesque. In et dui at est convallis finibus ac vitae eros. In viverra convallis quam nec imperdiet"
-        featuredTag={{ title: "algorithms & tech" }}
-      />
-      <ContentPreview
-        title="Ectus a, eleifend fermentum arcu. Nullam et vehicula elit aliquam "
-        featuredTag={{ title: "time & money" }}
-      />
-    </div>
-  </section>
+  {
+    homePageData.attributes.content.map((component) => {
+      if (component.__component === "static.wysiwyg") {
+        return (
+          <div
+            class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
+            set:html={component.content}
+          />
+        );
+      }
+      if (component.__component === "static.images-with-decoration") {
+        return (
+          component.images.data?.length > 0 && (
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-saw-long-background bg-no-repeat">
+              {component.images.data.map((image) => (
+                <div class="inline-block mb-8 aspect-[544/362]">
+                  <img
+                    src={import.meta.env.STRAPI_URL + image.attributes.url}
+                    alt={image.attributes.alternativeText}
+                    class="w-full h-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          )
+        );
+      }
+      if (component.__component === "static.content-preview-grid") {
+        return (
+          <section class="container px-4 mx-auto mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 lg:gap-y-14">
+              {component.contentPreviewItem.map((item) => {
+                return (
+                  <ContentPreview
+                    title={item.title}
+                    link={item.link}
+                    featuredTag={{ title: item.tag }}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        );
+      }
+    })
+  }
 
   <section class="container px-4 mx-auto mb-20">
     <h2
@@ -234,7 +262,7 @@ console.log(homePageData.attributes);
     <div
       class="grid flex-col items-center justify-center flex-grow grid-cols-2 gap-6 lg:gap-8 xl:gap-12 lg:flex lg:flex-row lg:flex-wrap sm:flex-row"
     >
-      <!-- {
+      {
         networkMembers.map((member) => {
           return (
             <div class="flex-col items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end">
@@ -258,7 +286,7 @@ console.log(homePageData.attributes);
             </div>
           );
         })
-      } -->
+      }
 
       <div
         class="flex-col items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end"

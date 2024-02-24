@@ -8,11 +8,23 @@ export interface WysiwygComponent {
 
 export interface ImagesWithDecorationComponent {
   id: number
-  __component: 'static.images-with-decoration',
+  __component: 'static.images-with-decoration';
   images: {
     data: StrapiImage[]
   }
   decoration: string
+}
+
+interface ContentPreviewItem {
+  id: number;
+  tag?: string;
+  title: string;
+  link: string;
+}
+export interface ContentPreviewGridComponent {
+  id: number
+  __component: 'static.content-preview-grid',
+  contentPreviewItem: ContentPreviewItem[]
 }
 
 export interface SlideItem {
@@ -21,5 +33,5 @@ export interface SlideItem {
   text?: string;
   image: {
     data: StrapiImage;
-  } 
+  }
 }

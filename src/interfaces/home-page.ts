@@ -1,10 +1,12 @@
 import type StrapiImage from "./image";
 import { SlideItem } from "./components";
+import { type WysiwygComponent, type ImagesWithDecorationComponent, type ContentPreviewGridComponent } from "./components";
 
 export default interface HomePage {
   id: number;
   attributes: {
     slide?: SlideItem[]
+    content: (ImagesWithDecorationComponent | WysiwygComponent | ContentPreviewGridComponent)[];
     seo: {
       title: string;
       description: string;
