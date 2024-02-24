@@ -1,5 +1,5 @@
 import type StrapiImage from "./image";
-import { SlideItem } from "./components";
+import { type SlideItem } from "./components";
 import { type WysiwygComponent, type ImagesWithDecorationComponent, type ContentPreviewGridComponent, type ContentFeaturedContent } from "./components";
 
 export default interface HomePage {
