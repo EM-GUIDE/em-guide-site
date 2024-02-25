@@ -23,8 +23,6 @@ export async function getStaticPaths() {
     },
   });
 
-  // console.log("Fetched tags: ", tags[0].attributes?.publications.data[0].attributes?.featuredImage); // Debugging line
-
   return tags.map((tag: Tag) => ({
     params: { slug: tag.attributes?.slug },
     props: tag,

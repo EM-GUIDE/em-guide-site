@@ -21,6 +21,7 @@ interface ContentPreviewItem {
   title: string;
   link: string;
 }
+
 export interface ContentPreviewGridComponent {
   id: number
   __component: 'static.content-preview-grid',
@@ -42,10 +43,26 @@ export interface ContentFeaturedContent {
   }
 }
 
+export interface SliderComponent {
+  id: number
+  __component: 'interactive.slider'
+  slides: SlideItem[]
+}
+
+
 export interface SlideItem {
   id: number;
   url?: string;
   text?: string;
+  image: {
+    data: StrapiImage;
+  }
+}
+
+export interface TextWithSideImageComponent {
+  id: number;
+  __component: 'static.text-with-side-image';
+  text: string;
   image: {
     data: StrapiImage;
   }

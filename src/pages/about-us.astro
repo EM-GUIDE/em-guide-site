@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FeaturedContent from "../components/FeaturedContent.astro";
+import TextWithSideImage from "../components/TextWithSideImage.astro";
 import type AboutPage from "../interfaces/about-page";
 import fetchApi from "../lib/strapi";
 import { SEO } from "astro-seo";
@@ -11,6 +12,7 @@ const aboutPageData = await fetchApi<AboutPage>({
   query: {
     // @ts-ignore
     populate: [
+      "deep",
       "seo",
       "seo.title",
       "seo.description",
@@ -24,6 +26,7 @@ const aboutPageData = await fetchApi<AboutPage>({
     ],
   },
 });
+console.log(aboutPageData.attributes);
 ---
 
 <BaseLayout>
@@ -73,120 +76,151 @@ const aboutPageData = await fetchApi<AboutPage>({
       />
     )
   }
-  <section class="container px-4 mx-auto mb-8">
-    <h2 class="inline-block mb-8 text-2xl font-bold lg:text-4xl font-display">
-      Ut viverra sem id egestas porttitor. Vivamus molestie turpis eu eros
-      interdum, sed ultrices massa gravida.
-    </h2>
-    <!-- @ts-expect-error -->
-    <FeaturedContent image="https://picsum.photos/seed/picsum/200/300" />
-    <div
-      class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>p]:lg:text-xl"
-    >
-      <p>
-        Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur augue,
-        vel aliquam sapien mi et tortor. Vestibulum lacinia pellentesque orci
-        non tempor. Sed auctor imperdiet tempus. Fusce a purus nisl. Morbi
-        tristique congue luctus. Quisque quis scelerisque tellus, sagittis
-        auctor nulla. Aenean luctus posuere odio non placerat. Nullam eleifend
-        maximus urna eu vestibulum. Quisque id sollicitudin turpis. Donec
-        ullamcorper elementum interdum. Nam sagittis id felis id luctus.
-      </p><p>
-        Morbi semper urna vitae augue varius, a semper elit interdum. Donec
-        auctor risus quam, ut volutpat enim semper ut. Mauris euismod auctor
-        arcu, blandit posuere risus commodo ac. Nulla sit amet commodo sapien.
-        Nullam urna lacus, vehicula vitae neque sit amet, mattis molestie enim.
-        Sed rhoncus sodales porttitor. In laoreet volutpat arcu a accumsan.
-        Curabitur vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
-        fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
-        interdum magna. Curabitur commodo, mauris non eleifend maximus, elit
-        augue commodo augue, ac feugiat massa sapien eu turpis
-      </p><p>
-        Nulla at quam non odio venenatis commodo. Sed rutrum orci vel diam
-        eleifend fringilla. Etiam vitae lacinia massa. Vestibulum est libero,
-        gravida a ex id, lacinia sollicitudin ex. Phasellus eu imperdiet odio,
-        sed semper libero. Curabitur sed ligula lobortis, fermentum justo nec,
-        consectetur felis. Pellentesque nulla ante, hendrerit vitae massa non,
-        egestas porttitor orci. Morbi dignissim feugiat ornare. Mauris tristique
-        sed diam quis facilisis. Quisque nibh mauris, pellentesque vitae lectus
-        ac, elementum lacinia arcu. Nam non auctor neque, vitae aliquet sem.
-        Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean
-        vitae cursus magna. Aliquam erat volutpat. Sed volutpat, nulla sit amet
-        lobortis hendrerit, magna nisl hendrerit quam, ut imperdiet turpis
-        mauris a nunc. Mauris eget dignissim erat, vel dictum tellus.
-      </p>
-      <p></p>
-      <div class="flex gap-8 [&>*]:basis-full my-8 flex-wrap lg:flex-nowrap">
-        <img
-          src="https://picsum.pho	tos/544/346"
-          alt=""
-          class="inline-block mb-8"
-        />
-        <div>
-          <blockquote class="px-2 py-2.5 bg-accent font-display text-xl mb-4">
-            <p>Nulla at quam non odio venenatis</p>
-          </blockquote>
-          <p class="text-xl">
-            commodo. Sed rutrum orci vel diam eleifend fringilla. Etiam vitae
-            lacinia massa. Vestibulum est libero, gravida a ex id, lacinia
-            sollicitudin ex. Phasellus eu imperdiet odio, sed semper libero.
-            Curabitur sed ligula lobortis, fermentum justo nec, consectetur
-            felis. Pellentesque nulla ante, hendrerit vitae massa non, egestas
-            porttitor orci. Morbi dignissim feugiat ornare. Mauris tristique sed
-            diam quis facilisis. Quisque nibh mauris, pellentesque vitae
-          </p>
-        </div>
-      </div>
-      <h3>
-        Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur augue,
-        vel aliquam sapien mi et tortor?
-      </h3><p>
-        <strong><em>Vestibulum:</em></strong><em>
-          Lacinia pellentesque orci non tempor. Sed auctor imperdiet tempus.
-          Fusce a purus nisl. Morbi tristique congue luctus. Quisque quis
-          scelerisque tellus, sagittis auctor nulla. Aenean luctus posuere odio
-          non placerat. Nullam eleifend maximus urna eu vestibulum. Quisque id
-          sollicitudin turpis. Donec ullamcorper elementum interdum. Nam
-          sagittis id felis id luctus.
-        </em>
-      </p><p>
-        <strong><em>Morbi semper:</em></strong><em>
-          urna vitae augue varius, a semper elit interdum. Donec auctor risus
-          quam, ut volutpat enim semper ut.</em
-        >
-      </p><p>
-        Mauris euismod auctor arcu, blandit posuere risus commodo ac. Nulla sit
-        amet commodo sapien. Nullam urna lacus, vehicula vitae neque sit amet,
-        mattis molestie enim. Sed rhoncus sodales porttitor. In laoreet volutpat
-        arcu a accumsan. Curabitur vulputate lectus tortor, ac feugiat eros
-        interdum sed. Nulla fringilla nunc vel nisi cursus, ut laoreet justo
-        bibendum. Etiam vel interdum magna. Curabitur commodo, mauris non
-        eleifend maximus, elit augue commodo augue, ac feugiat massa sapien eu
-        turpis.
-      </p><h3>
-        Nulla at quam non odio venenatis commodo. Sed rutrum orci vel diam
-        eleifend fringilla. Etiam vitae lacinia massa?
-      </h3><p>
-        <strong><em>Vestibulum:</em></strong><em>
-          est libero, gravida a ex id, lacinia sollicitudin ex. Phasellus eu
-          imperdiet odio, sed semper libero. Curabitur sed ligula lobortis,
-          fermentum justo nec, consectetur felis. Pellentesque nulla ante,
-          hendrerit vitae massa non, egestas porttitor orci. Morbi dignissim
-          feugiat ornare. Mauris tristique sed diam quis facilisis. Quisque nibh
-          mauris, pellentesque vitae lectus ac, elementum lacinia arcu. Nam non
-          auctor neque, vitae aliquet sem. Interdum et malesuada fames ac ante
-          ipsum primis in faucibus. Aenean vitae cursus magna. Aliquam erat
-          volutpat. Sed volutpat, nulla sit amet lobortis hendrerit, magna nisl
-          hendrerit quam, ut imperdiet turpis mauris a nunc. Mauris eget
-          dignissim erat, vel dictum tellus.</em
-        >
-      </p><p>
-        Donec eu purus malesuada, vulputate neque vestibulum, iaculis nunc.
-        Aenean gravida nibh nisi, at rhoncus libero rhoncus in. Mauris a gravida
-        elit. Vivamus non sollicitudin metus. Proin interdum, neque vel
-        sollicitudin sagittis, ipsum leo tincidunt nibh, eget sagittis tellus
-        ante tempor leo. Morbi et malesuada felis.
-      </p><p></p>
-    </div>
-  </section>
+  {
+    aboutPageData.attributes?.content?.map((component) => {
+      if (component.__component === "interactive.slider") {
+        return (
+          <section class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 pb-28 mb-28 bg-carousel-background bg-[-50%] lg:bg-[160%] xl:bg-[120%]">
+            <div
+              id="image-carousel"
+              class="container relative mx-auto px-4 splide"
+              aria-label="Beautiful Images"
+            >
+              <div class="absolute bottom-0 z-10 left-0 flex justify-between w-full px-8 pt-2 translate-y-full lg:pt-0 lg:-translate-y-1/2 splide__arrows lg:top-1/2">
+                <button class="w-16 splide__arrow splide__arrow--prev">
+                  <svg
+                    class="h-fit"
+                    width="98"
+                    height="95"
+                    viewBox="0 0 98 95"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.99999 47.4705L42.4006 7.10655C47.9646 1.40645 59.0012 4.71391 58.2227 17.0289L45.4288 30.1356L77.6739 30.1415L94.5894 47.4705L76.7695 65.7261L46.3389 65.7261L55.1601 74.763C60.7185 80.4689 57.4957 91.7694 45.4631 90.9719L2.99999 47.4705Z"
+                      class="text-accent sm:text-white"
+                      stroke="currentColor"
+                      stroke-width="4"
+                      stroke-miterlimit="10"
+                    />
+                  </svg>
+                </button>
+                <button class="w-16 splide__arrow splide__arrow--next">
+                  <svg
+                    class="h-fit"
+                    width="98"
+                    height="92"
+                    viewBox="0 0 98 92"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M94.5894 46.4706L55.1888 86.8345C49.6247 92.5346 38.5882 89.2272 39.3667 76.9121L52.1606 63.8054L19.9154 63.7996L2.99999 46.4706L20.8198 28.215L51.2504 28.215L42.4292 19.1781C36.8709 13.4721 40.0937 2.17163 52.1262 2.96917L94.5894 46.4706Z"
+                      class="text-white"
+                      stroke="currentColor"
+                      stroke-width="4"
+                      stroke-miterlimit="10"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <ul class="z-10 absolute w-full bottom-8 splide__pagination [&>li]:flex [&>li>button]:border [&>li>button]:lg:border-2 [&>li>button]:border-white [&>li>button]:w-4 [&>li>button]:lg:w-6 [&>li>button]:h-1 [&>li]:h-1 [&>li>button]:lg:h-2 [&>li]:lg:h-2 [&>li>button.is-active]:bg-white [&>li:first-child>button]:rounded-l-2xl [&>li:last-child>button]:rounded-r-2xl" />
+
+              <div class="splide__track">
+                <ul class="bg-white splide__list">
+                  {component.slides.map((slide) => {
+                    return (
+                      <li class="relative splide__slide">
+                        {slide.image.data && (
+                          <img
+                            loading="lazy"
+                            src={`${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes?.url}`}
+                            alt=""
+                            class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
+                          />
+                        )}
+                        {slide.url ? (
+                          <a
+                            href={slide.url}
+                            class="absolute inline-block w-full px-10 bottom-14 lg:px-28 group"
+                            aria-label="Link to slide"
+                          >
+                            {slide.text && (
+                              <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                                {slide.text}
+                              </h4>
+                            )}
+                          </a>
+                        ) : (
+                          <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
+                            <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                              {slide.text}
+                            </h4>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </section>
+        );
+      }
+      if (component.__component === "static.featured-content") {
+        return (
+          <section class="container px-4 mx-auto mb-20">
+            <FeaturedContent
+              title={component.title}
+              description={component.description}
+              image={component.image.data}
+              button={component.button}
+            />
+          </section>
+        );
+      }
+      if (component.__component === "static.wysiwyg") {
+        return (
+          <section class="container px-4 mx-auto mb-20">
+            <div
+              class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>blockquote]:px-2 [&>blockquote]:py-2.5 [&>blockquote]:bg-accent [&>blockquote]:font-display [&>blockquote]:text-2l [&>blockquote]:md:text-2xl [&>blockquote]:mb-4"
+              set:html={component.content}
+            />
+          </section>
+        );
+      }
+      if (component.__component === "static.images-with-decoration") {
+        return (
+          component.images.data?.length > 0 && (
+            <section class="bg-saw-long-background bg-no-repeat bg-right-top pt-16">
+              <div class="container px-4 mx-auto mb-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {component.images.data.map((image) => (
+                    <div class="inline-block mb-8 aspect-[544/362]">
+                      <img
+                        src={import.meta.env.STRAPI_URL + image.attributes?.url}
+                        alt={image.attributes?.alternativeText}
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )
+        );
+      }
+      if (component.__component === "static.text-with-side-image") {
+        return (
+          <section class="container px-4 mx-auto mb-20">
+            <TextWithSideImage
+              text={component.text}
+              image={`${import.meta.env.PUBLIC_ASSET_URL}${component.image.data.attributes.url}`}
+            />
+          </section>
+        );
+      }
+    })
+  }
 </BaseLayout>

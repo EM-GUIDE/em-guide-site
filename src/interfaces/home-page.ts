@@ -1,12 +1,10 @@
 import type StrapiImage from "./image";
-import { type SlideItem } from "./components";
-import { type WysiwygComponent, type ImagesWithDecorationComponent, type ContentPreviewGridComponent, type ContentFeaturedContent } from "./components";
+import { type WysiwygComponent, type ImagesWithDecorationComponent, type ContentPreviewGridComponent, type ContentFeaturedContent, type SliderComponent, type TextWithSideImageComponent } from "./components";
 
 export default interface HomePage {
   id: number;
   attributes: {
-    slide?: SlideItem[]
-    content: (ImagesWithDecorationComponent | WysiwygComponent | ContentPreviewGridComponent | ContentFeaturedContent)[];
+    content: (ImagesWithDecorationComponent | WysiwygComponent | ContentPreviewGridComponent | ContentFeaturedContent | SliderComponent | TextWithSideImageComponent)[];
     seo: {
       title: string;
       description: string;

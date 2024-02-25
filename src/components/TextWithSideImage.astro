@@ -1,0 +1,14 @@
+---
+const { text, image } = Astro.props;
+console.log(text);
+---
+
+<div class="grid grid-cols-12">
+  <div
+    class="bg-dark py-16 px-12 text-xl md:text-2xl font-display text-accent col-span-12 lg:col-span-4"
+    set:html={text}
+  />
+  <div class="col-span-12 lg:col-span-8 w-auto">
+    <img src={image} alt="" class="w-full h-full object-cover" />
+  </div>
+</div>

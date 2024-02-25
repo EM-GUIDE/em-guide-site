@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import TextWithSideImage from "../../components/TextWithSideImage.astro";
 import Tag from "../../components/Tag.astro";
 import fetchApi from "../../lib/strapi";
 import type Publication from "../../interfaces/publication";
@@ -123,126 +124,48 @@ const publication = Astro.props;
       publication.attributes?.content.map((component) => {
         if (component.__component === "static.wysiwyg") {
           return (
-            <div
-              class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
-              set:html={component.content}
-            />
+            <section class="container px-4 mx-auto mb-20">
+              <div
+                class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>blockquote]:px-2 [&>blockquote]:py-2.5 [&>blockquote]:bg-accent [&>blockquote]:font-display [&>blockquote]:text-2l [&>blockquote]:md:text-2xl [&>blockquote]:mb-4"
+                set:html={component.content}
+              />
+            </section>
           );
         }
         if (component.__component === "static.images-with-decoration") {
           return (
             component.images.data?.length > 0 && (
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-saw-long-background bg-no-repeat">
-                {component.images.data.map((image) => (
-                  <div class="inline-block mb-8 aspect-[544/362]">
-                    <img
-                      src={import.meta.env.STRAPI_URL + image.attributes?.url}
-                      alt={image.attributes?.alternativeText}
-                      class="w-full h-full object-contain"
-                    />
+              <section class="bg-saw-long-background bg-no-repeat bg-right-top pt-16">
+                <div class="container px-4 mx-auto mb-20">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {component.images.data.map((image) => (
+                      <div class="inline-block mb-8 aspect-[544/362]">
+                        <img
+                          src={
+                            import.meta.env.STRAPI_URL + image.attributes?.url
+                          }
+                          alt={image.attributes?.alternativeText}
+                          class="w-full h-full object-contain"
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              </section>
             )
+          );
+        }
+        if (component.__component === "static.text-with-side-image") {
+          return (
+            <section class="container px-4 mx-auto mb-20">
+              <TextWithSideImage
+                text={component.text}
+                image={`${import.meta.env.PUBLIC_ASSET_URL}${component.image.data.attributes.url}`}
+              />
+            </section>
           );
         }
       })
     }
-    <!-- <div
-      class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl"
-    >
-      <p>
-        Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur augue,
-        vel aliquam sapien mi et tortor. Vestibulum lacinia pellentesque orci
-        non tempor. Sed auctor imperdiet tempus. Fusce a purus nisl. Morbi
-        tristique congue luctus. Quisque quis scelerisque tellus, sagittis
-        auctor nulla. Aenean luctus posuere odio non placerat. Nullam eleifend
-        maximus urna eu vestibulum. Quisque id sollicitudin turpis. Donec
-        ullamcorper elementum interdum. Nam sagittis id felis id luctus.
-      </p><p>
-        Morbi semper urna vitae augue varius, a semper elit interdum. Donec
-        auctor risus quam, ut volutpat enim semper ut. Mauris euismod auctor
-        arcu, blandit posuere risus commodo ac. Nulla sit amet commodo sapien.
-        Nullam urna lacus, vehicula vitae neque sit amet, mattis molestie enim.
-        Sed rhoncus sodales porttitor. In laoreet volutpat arcu a accumsan.
-        Curabitur vulputate lectus tortor, ac feugiat eros interdum sed. Nulla
-        fringilla nunc vel nisi cursus, ut laoreet justo bibendum. Etiam vel
-        interdum magna. Curabitur commodo, mauris non eleifend maximus, elit
-        augue commodo augue, ac feugiat massa sapien eu turpis
-      </p><p>
-        Nulla at quam non odio venenatis commodo. Sed rutrum orci vel diam
-        eleifend fringilla. Etiam vitae lacinia massa. Vestibulum est libero,
-        gravida a ex id, lacinia sollicitudin ex. Phasellus eu imperdiet odio,
-        sed semper libero. Curabitur sed ligula lobortis, fermentum justo nec,
-        consectetur felis. Pellentesque nulla ante, hendrerit vitae massa non,
-        egestas porttitor orci. Morbi dignissim feugiat ornare. Mauris tristique
-        sed diam quis facilisis. Quisque nibh mauris, pellentesque vitae lectus
-        ac, elementum lacinia arcu. Nam non auctor neque, vitae aliquet sem.
-        Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean
-        vitae cursus magna. Aliquam erat volutpat. Sed volutpat, nulla sit amet
-        lobortis hendrerit, magna nisl hendrerit quam, ut imperdiet turpis
-        mauris a nunc. Mauris eget dignissim erat, vel dictum tellus.
-      </p>
-      <p></p>
-      <img
-        src="https://picsum.photos/544/346"
-        alt=""
-        class="inline-block mb-8"
-      />
-      <p></p>
-      <blockquote class="px-2 py-2.5 bg-accent font-display text-xl mb-4">
-        <p>Nulla at quam non odio venenatis</p>
-      </blockquote>
-      <h3>
-        Etiam ornare, lectus sed blandit pulvinar, nisl elit efficitur augue,
-        vel aliquam sapien mi et tortor?
-      </h3><p>
-        <strong><em>Vestibulum:</em></strong><em>
-          Lacinia pellentesque orci non tempor. Sed auctor imperdiet tempus.
-          Fusce a purus nisl. Morbi tristique congue luctus. Quisque quis
-          scelerisque tellus, sagittis auctor nulla. Aenean luctus posuere odio
-          non placerat. Nullam eleifend maximus urna eu vestibulum. Quisque id
-          sollicitudin turpis. Donec ullamcorper elementum interdum. Nam
-          sagittis id felis id luctus.
-        </em>
-      </p><p>
-        <strong><em>Morbi semper:</em></strong><em>
-          urna vitae augue varius, a semper elit interdum. Donec auctor risus
-          quam, ut volutpat enim semper ut.</em
-        >
-      </p><p>
-        Mauris euismod auctor arcu, blandit posuere risus commodo ac. Nulla sit
-        amet commodo sapien. Nullam urna lacus, vehicula vitae neque sit amet,
-        mattis molestie enim. Sed rhoncus sodales porttitor. In laoreet volutpat
-        arcu a accumsan. Curabitur vulputate lectus tortor, ac feugiat eros
-        interdum sed. Nulla fringilla nunc vel nisi cursus, ut laoreet justo
-        bibendum. Etiam vel interdum magna. Curabitur commodo, mauris non
-        eleifend maximus, elit augue commodo augue, ac feugiat massa sapien eu
-        turpis.
-      </p><h3>
-        Nulla at quam non odio venenatis commodo. Sed rutrum orci vel diam
-        eleifend fringilla. Etiam vitae lacinia massa?
-      </h3><p>
-        <strong><em>Vestibulum:</em></strong><em>
-          est libero, gravida a ex id, lacinia sollicitudin ex. Phasellus eu
-          imperdiet odio, sed semper libero. Curabitur sed ligula lobortis,
-          fermentum justo nec, consectetur felis. Pellentesque nulla ante,
-          hendrerit vitae massa non, egestas porttitor orci. Morbi dignissim
-          feugiat ornare. Mauris tristique sed diam quis facilisis. Quisque nibh
-          mauris, pellentesque vitae lectus ac, elementum lacinia arcu. Nam non
-          auctor neque, vitae aliquet sem. Interdum et malesuada fames ac ante
-          ipsum primis in faucibus. Aenean vitae cursus magna. Aliquam erat
-          volutpat. Sed volutpat, nulla sit amet lobortis hendrerit, magna nisl
-          hendrerit quam, ut imperdiet turpis mauris a nunc. Mauris eget
-          dignissim erat, vel dictum tellus.</em
-        >
-      </p><p>
-        Donec eu purus malesuada, vulputate neque vestibulum, iaculis nunc.
-        Aenean gravida nibh nisi, at rhoncus libero rhoncus in. Mauris a gravida
-        elit. Vivamus non sollicitudin metus. Proin interdum, neque vel
-        sollicitudin sagittis, ipsum leo tincidunt nibh, eget sagittis tellus
-        ante tempor leo. Morbi et malesuada felis.
-      </p><p></p>
-    </div> -->
   </section>
 </BaseLayout>
