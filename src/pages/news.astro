@@ -45,40 +45,40 @@ const newsPageData = await fetchApi<NewsPage>({
 
 <BaseLayout>
   {
-    newsPageData && newsPageData.attributes.seo && (
+    newsPageData && newsPageData.attributes?.seo && (
       <SEO
-        title={newsPageData?.attributes.seo?.title}
+        title={newsPageData?.attributes?.seo?.title}
         titleDefault="EM Guide"
         titleTemplate="%s — EM Guide"
-        description={newsPageData?.attributes.seo?.description}
-        canonical={newsPageData?.attributes.seo?.canonical ?? ""}
+        description={newsPageData?.attributes?.seo?.description}
+        canonical={newsPageData?.attributes?.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              newsPageData?.attributes.seo?.ogTitle ??
-              newsPageData?.attributes.seo?.title,
+              newsPageData?.attributes?.seo?.ogTitle ??
+              newsPageData?.attributes?.seo?.title,
             type: "website",
-            image: newsPageData?.attributes.seo?.ogImage?.data?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+            image: newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
               : "",
-            url: newsPageData?.attributes.seo?.canonical ?? "",
+            url: newsPageData?.attributes?.seo?.canonical ?? "",
           },
           optional: {
             description:
-              newsPageData?.attributes.seo?.ogDescription ??
-              newsPageData?.attributes.seo?.description,
+              newsPageData?.attributes?.seo?.ogDescription ??
+              newsPageData?.attributes?.seo?.description,
           },
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            newsPageData?.attributes.seo?.twitterTitle ??
-            newsPageData?.attributes.seo?.title,
+            newsPageData?.attributes?.seo?.twitterTitle ??
+            newsPageData?.attributes?.seo?.title,
           description:
-            newsPageData?.attributes.seo?.twitterDescription ??
-            newsPageData?.attributes.seo?.description,
+            newsPageData?.attributes?.seo?.twitterDescription ??
+            newsPageData?.attributes?.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />
@@ -87,12 +87,12 @@ const newsPageData = await fetchApi<NewsPage>({
   <section class="container px-4 mx-auto">
     <ul class="flex flex-wrap gap-3 mb-14">
       {
-        newsPageData.attributes.featuredTags?.data.length > 0 &&
-          newsPageData.attributes.featuredTags?.data.map((data) => (
+        newsPageData.attributes?.featuredTags?.data.length > 0 &&
+          newsPageData.attributes?.featuredTags?.data.map((data) => (
             <li>
               <Filter
-                label={data.attributes.title}
-                value={`/news/tag/${data.attributes.slug}`}
+                label={data.attributes?.title}
+                value={`/news/tag/${data.attributes?.slug}`}
               />
             </li>
           ))
@@ -103,37 +103,37 @@ const newsPageData = await fetchApi<NewsPage>({
         news?.length > 0 &&
           news.map((publication: Publication) => (
             <li class="leading-none">
-              {publication.attributes.featuredImage.data && (
+              {publication.attributes?.featuredImage.data && (
                 <a
-                  href={`/news/${publication.attributes.slug}/`}
+                  href={`/news/${publication.attributes?.slug}/`}
                   class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
                 >
                   <img
                     class="object-cover w-full h-full text-xl font-display"
                     alt={
-                      publication.attributes.featuredImage.data?.attributes
+                      publication.attributes?.featuredImage.data?.attributes
                         .caption ?? "image"
                     }
                     src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                      publication.attributes.featuredImage.data?.attributes.url
+                      publication.attributes?.featuredImage.data?.attributes?.url
                     }`}
                     loading="lazy"
                   />
                 </a>
               )}
-              <a href={`/news/${publication.attributes.slug}/`} class="block">
+              <a href={`/news/${publication.attributes?.slug}/`} class="block">
                 <h2 class="text-xl font-display">
-                  {publication.attributes.title}
+                  {publication.attributes?.title}
                 </h2>
               </a>
-              {publication.attributes.tags.data &&
-                publication.attributes.tags.data.length > 0 && (
+              {publication.attributes?.tags.data &&
+                publication.attributes?.tags.data.length > 0 && (
                   <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
-                    {publication.attributes.tags.data.map((tag) => (
+                    {publication.attributes?.tags.data.map((tag) => (
                       <li>
                         <Tag
-                          label={tag.attributes.title}
-                          url={`/news/tag/${tag.attributes.slug}`}
+                          label={tag.attributes?.title}
+                          url={`/news/tag/${tag.attributes?.slug}`}
                         />
                       </li>
                     ))}

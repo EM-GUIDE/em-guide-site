@@ -49,47 +49,47 @@ const homePageData = await fetchApi<HomePage>({
 
 <BaseLayout>
   {
-    homePageData && homePageData.attributes.seo && (
+    homePageData && homePageData.attributes?.seo && (
       <SEO
-        title={homePageData?.attributes.seo?.title}
+        title={homePageData?.attributes?.seo?.title}
         titleDefault="EM Guide"
         titleTemplate="%s — EM Guide"
-        description={homePageData?.attributes.seo?.description}
-        canonical={homePageData?.attributes.seo?.canonical ?? ""}
+        description={homePageData?.attributes?.seo?.description}
+        canonical={homePageData?.attributes?.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              homePageData?.attributes.seo?.ogTitle ??
-              homePageData?.attributes.seo?.title,
+              homePageData?.attributes?.seo?.ogTitle ??
+              homePageData?.attributes?.seo?.title,
             type: "website",
-            image: homePageData?.attributes.seo?.ogImage?.data?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+            image: homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
               : "",
-            url: homePageData?.attributes.seo?.canonical ?? "",
+            url: homePageData?.attributes?.seo?.canonical ?? "",
           },
           optional: {
             description:
-              homePageData?.attributes.seo?.ogDescription ??
-              homePageData?.attributes.seo?.description,
+              homePageData?.attributes?.seo?.ogDescription ??
+              homePageData?.attributes?.seo?.description,
           },
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            homePageData?.attributes.seo?.twitterTitle ??
-            homePageData?.attributes.seo?.title,
+            homePageData?.attributes?.seo?.twitterTitle ??
+            homePageData?.attributes?.seo?.title,
           description:
-            homePageData?.attributes.seo?.twitterDescription ??
-            homePageData?.attributes.seo?.description,
+            homePageData?.attributes?.seo?.twitterDescription ??
+            homePageData?.attributes?.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />
     )
   }
   {
-    homePageData?.attributes.slide &&
+    homePageData?.attributes?.slide &&
       homePageData.attributes?.slide.length > 0 && (
         <section class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 pb-28 mb-28 bg-carousel-background bg-[-50%] lg:bg-[160%] xl:bg-[120%]">
           <div
@@ -140,13 +140,13 @@ const homePageData = await fetchApi<HomePage>({
 
             <div class="splide__track">
               <ul class="bg-white splide__list">
-                {homePageData.attributes.slide.map((slide) => {
+                {homePageData.attributes?.slide.map((slide) => {
                   return (
                     <li class="relative splide__slide">
                       {slide.image.data && (
                         <img
                           loading="lazy"
-                          src={`${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url}`}
+                          src={`${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes?.url}`}
                           alt=""
                           class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
                         />
@@ -181,7 +181,7 @@ const homePageData = await fetchApi<HomePage>({
   }
 
   {
-    homePageData.attributes.content.map((component) => {
+    homePageData.attributes?.content.map((component) => {
       if (component.__component === "static.featured-content") {
         return (
           <section class="container px-4 mx-auto mb-20">
@@ -212,8 +212,8 @@ const homePageData = await fetchApi<HomePage>({
                 {component.images.data.map((image) => (
                   <div class="inline-block mb-8 aspect-[544/362]">
                     <img
-                      src={import.meta.env.STRAPI_URL + image.attributes.url}
-                      alt={image.attributes.alternativeText}
+                      src={import.meta.env.STRAPI_URL + image.attributes?.url}
+                      alt={image.attributes?.alternativeText}
                       class="w-full h-full object-contain"
                     />
                   </div>
@@ -257,11 +257,11 @@ const homePageData = await fetchApi<HomePage>({
           return (
             <div class="flex-col items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end">
               <div class="flex justify-center lg:mb-5 sm:inline-block aspect-[8/3]">
-                {member.attributes.logo.data && (
+                {member.attributes?.logo.data && (
                   <img
                     loading="lazy"
                     src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                      member.attributes.logo.data.attributes.url
+                      member.attributes?.logo.data.attributes?.url
                     }`}
                     alt=""
                     class="w-auto h-auto"
@@ -270,7 +270,7 @@ const homePageData = await fetchApi<HomePage>({
               </div>
               <div>
                 <h3 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display">
-                  {member.attributes.name}
+                  {member.attributes?.name}
                 </h3>
               </div>
             </div>

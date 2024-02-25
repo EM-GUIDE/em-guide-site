@@ -21,7 +21,7 @@ export async function getStaticPaths() {
   });
 
   return tags.map((tag: Tag) => ({
-    params: { slug: tag.attributes.slug },
+    params: { slug: tag.attributes?.slug },
     props: tag,
   }));
 }
@@ -32,77 +32,77 @@ const tag = Astro.props;
 
 <BaseLayout>
   <!-- <SEO
-    title={tag?.attributes.title}
-    description={`News with the tag ${tag?.attributes.slug}`}
-    canonical={`${Astro.site}/${tag?.attributes.slug}`}
+    title={tag?.attributes?.title}
+    description={`News with the tag ${tag?.attributes?.slug}`}
+    canonical={`${Astro.site}/${tag?.attributes?.slug}`}
     openGraph={{
       basic: {
-        title: tag?.attributes.title,
+        title: tag?.attributes?.title,
         type: "article",
         image:
-          `${import.meta.env.PUBLIC_ASSET_URL}${tag?.attributes.featuredImage.data.attributes.url}` ??
+          `${import.meta.env.PUBLIC_ASSET_URL}${tag?.attributes?.featuredImage.data.attributes?.url}` ??
           "",
-        url: `${Astro.site}/tags/${tag?.attributes.slug}`,
+        url: `${Astro.site}/tags/${tag?.attributes?.slug}`,
       },
       optional: {
-        description: tag?.attributes.excerpt,
+        description: tag?.attributes?.excerpt,
       },
     }}
     twitter={{
       card: "summary_large_image",
-      title: tag?.attributes.title,
-      description: tag?.attributes.excerpt,
+      title: tag?.attributes?.title,
+      description: tag?.attributes?.excerpt,
       image:
-        `${import.meta.env.PUBLIC_ASSET_URL}${tag?.attributes.featuredImage.data.attributes.url}` ??
+        `${import.meta.env.PUBLIC_ASSET_URL}${tag?.attributes?.featuredImage.data.attributes?.url}` ??
         "",
     }}
   /> -->
   <h2
     class="mb-6 text-2xl font-bold text-center md:mb-10 lg:mb-20 md:text-3xl lg:text-4xl font-display"
   >
-    #{tag.attributes.title}
+    #{tag.attributes?.title}
   </h2>
   <section class="container px-4 mx-auto">
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
       {
-        tag.attributes.posts.data.map((publication: Publication) => (
+        tag.attributes?.posts.data.map((publication: Publication) => (
           <li class="leading-none">
-            {publication.attributes.featuredImage.data &&
-              publication.attributes.featuredImage.data.attributes.url && (
+            {publication.attributes?.featuredImage.data &&
+              publication.attributes?.featuredImage.data.attributes?.url && (
                 <a
-                  href={`/news/${publication.attributes.slug}/`}
+                  href={`/news/${publication.attributes?.slug}/`}
                   class="inline-block aspect-[9/7] mb-5 lg:mb-4"
                 >
                   <img
                     class="object-cover w-full h-full text-xl font-display"
                     alt={
-                      publication.attributes.featuredImage.data.attributes
+                      publication.attributes?.featuredImage.data.attributes
                         .caption ?? "image"
                     }
                     src={
                       import.meta.env.STRAPI_URL +
-                      publication.attributes.featuredImage.data.attributes.url
+                      publication.attributes?.featuredImage.data.attributes?.url
                     }
                     loading="lazy"
                   />
                 </a>
               )}
             <a
-              href={`/publications/${publication.attributes.slug}/`}
+              href={`/publications/${publication.attributes?.slug}/`}
               class="block"
             >
               <h2 class="text-xl font-display">
-                {publication.attributes.title}
+                {publication.attributes?.title}
               </h2>
             </a>
-            {publication.attributes.tags.data &&
-              publication.attributes.tags.data.length > 0 && (
+            {publication.attributes?.tags.data &&
+              publication.attributes?.tags.data.length > 0 && (
                 <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
-                  {publication.attributes.tags.data.map((tag) => (
+                  {publication.attributes?.tags.data.map((tag) => (
                     <li>
                       <TagComponent
-                        label={tag.attributes.title}
-                        url={`/news/tag/${tag.attributes.slug}`}
+                        label={tag.attributes?.title}
+                        url={`/news/tag/${tag.attributes?.slug}`}
                       />
                     </li>
                   ))}

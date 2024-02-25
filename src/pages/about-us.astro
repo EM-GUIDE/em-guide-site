@@ -28,40 +28,40 @@ const aboutPageData = await fetchApi<AboutPage>({
 
 <BaseLayout>
   {
-    aboutPageData && aboutPageData.attributes.seo && (
+    aboutPageData && aboutPageData.attributes?.seo && (
       <SEO
-        title={aboutPageData?.attributes.seo?.title}
+        title={aboutPageData?.attributes?.seo?.title}
         titleDefault="EM Guide"
         titleTemplate="%s — EM Guide"
-        description={aboutPageData?.attributes.seo?.description}
-        canonical={aboutPageData?.attributes.seo?.canonical ?? ""}
+        description={aboutPageData?.attributes?.seo?.description}
+        canonical={aboutPageData?.attributes?.seo?.canonical ?? ""}
         openGraph={{
           basic: {
             title:
-              aboutPageData?.attributes.seo?.ogTitle ??
-              aboutPageData?.attributes.seo?.title,
+              aboutPageData?.attributes?.seo?.ogTitle ??
+              aboutPageData?.attributes?.seo?.title,
             type: "website",
-            image: aboutPageData?.attributes.seo?.ogImage?.data?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes.seo?.ogImage?.data?.attributes?.url}`
+            image: aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+              ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
               : "",
-            url: aboutPageData?.attributes.seo?.canonical ?? "",
+            url: aboutPageData?.attributes?.seo?.canonical ?? "",
           },
           optional: {
             description:
-              aboutPageData?.attributes.seo?.ogDescription ??
-              aboutPageData?.attributes.seo?.description,
+              aboutPageData?.attributes?.seo?.ogDescription ??
+              aboutPageData?.attributes?.seo?.description,
           }
         }}
         twitter={{
           card: "summary_large_image",
           title:
-            aboutPageData?.attributes.seo?.twitterTitle ??
-            aboutPageData?.attributes.seo?.title,
+            aboutPageData?.attributes?.seo?.twitterTitle ??
+            aboutPageData?.attributes?.seo?.title,
           description:
-            aboutPageData?.attributes.seo?.twitterDescription ??
-            aboutPageData?.attributes.seo?.description,
+            aboutPageData?.attributes?.seo?.twitterDescription ??
+            aboutPageData?.attributes?.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes.seo?.twitterImage?.data?.attributes?.url}` ??
+            `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
             "",
         }}
       />

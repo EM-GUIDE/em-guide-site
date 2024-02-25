@@ -17,7 +17,7 @@ export async function getStaticPaths() {
   });
 
   return publications.map((publication: Publication) => ({
-    params: { slug: publication.attributes.slug },
+    params: { slug: publication.attributes?.slug },
     props: publication,
   }));
 }
@@ -28,11 +28,11 @@ const publication = Astro.props;
 
 <BaseLayout>
   <SEO
-    title={publication?.attributes.title}
+    title={publication?.attributes?.title}
     titleDefault="EM Guide"
     titleTemplate="%s — EM Guide"
-    description={publication?.attributes.excerpt}
-    canonical={`${Astro.site?.href}/news/${publication?.attributes.slug}`}
+    description={publication?.attributes?.excerpt}
+    canonical={`${Astro.site?.href}/news/${publication?.attributes?.slug}`}
     openGraph={{
       basic: {
         title: publication?.attributes?.title,
@@ -40,10 +40,10 @@ const publication = Astro.props;
         image: publication.attributes?.featuredImage?.data?.attributes?.url
           ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
           : "",
-        url: `${Astro.site?.href}/news/${publication.attributes.slug}`,
+        url: `${Astro.site?.href}/news/${publication.attributes?.slug}`,
       },
       optional: {
-        description: publication.attributes.excerpt,
+        description: publication.attributes?.excerpt,
       },
     }}
     twitter={{
@@ -57,32 +57,32 @@ const publication = Astro.props;
   />
   <section class="container px-4 mx-auto">
     <h1 class="mb-8 text-2xl font-bold font-display lg:text-4xl">
-      {publication.attributes.title}
+      {publication.attributes?.title}
     </h1>
     {
-      publication.attributes.tags?.data.length > 0 && (
+      publication.attributes?.tags?.data.length > 0 && (
         <div class="flex flex-wrap gap-x-5 gap-y-2.5 mb-8">
-          {publication.attributes.tags?.data.map((tag) => (
+          {publication.attributes?.tags?.data.map((tag) => (
             <Tag
-              label={tag.attributes.title}
-              url={`/publications/tag/${tag.attributes.slug}`}
+              label={tag.attributes?.title}
+              url={`/publications/tag/${tag.attributes?.slug}`}
             />
           ))}
         </div>
       )
     }
     {
-      publication.attributes.featuredImage?.data?.attributes?.url && (
+      publication.attributes?.featuredImage?.data?.attributes?.url && (
         <div class="relative aspect-[358/280] lg:aspect-[1120/713.37] mb-14">
           <img
             class="absolute top-0 left-0 inline-block object-cover w-full h-full"
             src={
               import.meta.env.STRAPI_URL +
-              publication.attributes.featuredImage?.data.attributes.url
+              publication.attributes?.featuredImage?.data.attributes?.url
             }
             alt={
-              publication.attributes.featuredImage?.data.attributes
-                .alternativeText
+              publication.attributes?.featuredImage?.data.attributes
+                ?.alternativeText
             }
           />
           <svg
@@ -120,7 +120,7 @@ const publication = Astro.props;
       )
     }
     {
-      publication.attributes.content.map((component) => {
+      publication.attributes?.content.map((component) => {
         if (component.__component === "static.wysiwyg") {
           return (
             <div
@@ -136,8 +136,8 @@ const publication = Astro.props;
                 {component.images.data.map((image) => (
                   <div class="inline-block mb-8 aspect-[544/362]">
                     <img
-                      src={import.meta.env.STRAPI_URL + image.attributes.url}
-                      alt={image.attributes.alternativeText}
+                      src={import.meta.env.STRAPI_URL + image.attributes?.url}
+                      alt={image.attributes?.alternativeText}
                       class="w-full h-full object-contain"
                     />
                   </div>
