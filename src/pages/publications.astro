@@ -52,7 +52,8 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
         titleTemplate="%s — EM Guide"
         description={publicationsPageData?.attributes?.seo?.description}
         canonical={publicationsPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={{
+        openGraph={
+          (publicationsPageData?.attributes?.seo?.ogImage? && publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url) ? {
           basic: {
             title:
               publicationsPageData?.attributes?.seo?.ogTitle ??
@@ -69,7 +70,7 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
               publicationsPageData?.attributes?.seo?.ogDescription ??
               publicationsPageData?.attributes?.seo?.description,
           },
-        }}
+        }: undefined }
         twitter={{
           card: "summary_large_image",
           title:
@@ -79,7 +80,8 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
             publicationsPageData?.attributes?.seo?.twitterDescription ??
             publicationsPageData?.attributes?.seo?.description,
           image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
+            publicationsPageData?.attributes?.seo?.twitterImage?.data ?
+            `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` :
             "",
         }}
       />
