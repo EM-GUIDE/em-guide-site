@@ -29,28 +29,30 @@ const publication = Astro.props;
 <BaseLayout>
   <SEO
     title={publication?.attributes.title}
+    titleDefault="EM Guide"
+    titleTemplate="%s — EM Guide"
     description={publication?.attributes.excerpt}
-    canonical={`${Astro.site}/publications/${publication?.attributes.slug}`}
+    canonical={`${Astro.site?.href}/news/${publication?.attributes.slug}`}
     openGraph={{
       basic: {
-        title: publication?.attributes.title,
+        title: publication?.attributes?.title,
         type: "article",
-        image:
-          `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes.featuredImage.data.attributes.url}` ??
-          "",
-        url: `${Astro.site}/publications/${publication?.attributes.slug}`,
+        image: publication.attributes?.featuredImage?.data?.attributes?.url
+          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+          : "",
+        url: `${Astro.site?.href}/news/${publication.attributes.slug}`,
       },
       optional: {
-        description: publication?.attributes.excerpt,
+        description: publication.attributes.excerpt,
       },
     }}
     twitter={{
       card: "summary_large_image",
-      title: publication?.attributes.title,
-      description: publication?.attributes.excerpt,
-      image:
-        `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes.featuredImage.data.attributes.url}` ??
-        "",
+      title: publication?.attributes?.title,
+      description: publication?.attributes?.excerpt,
+      image: publication.attributes?.featuredImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+        : "",
     }}
   />
   <section class="container px-4 mx-auto">
@@ -70,7 +72,7 @@ const publication = Astro.props;
       )
     }
     {
-      publication.attributes.featuredImage?.data.attributes.url && (
+      publication.attributes.featuredImage?.data?.attributes?.url && (
         <div class="relative aspect-[358/280] lg:aspect-[1120/713.37] mb-14">
           <img
             class="absolute top-0 left-0 inline-block object-cover w-full h-full"
