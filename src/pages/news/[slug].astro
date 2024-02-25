@@ -1,4 +1,5 @@
 ---
+import { createPngDataUri } from "unlazy/blurhash";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TextWithSideImage from "../../components/TextWithSideImage.astro";
 import Tag from "../../components/Tag.astro";
@@ -25,6 +26,12 @@ export async function getStaticPaths() {
 type Props = Publication;
 
 const publication = Astro.props;
+const blurhash = publication?.attributes?.featuredImage?.data?.attributes
+  ?.blurhash
+  ? createPngDataUri(
+      publication?.attributes?.featuredImage?.data?.attributes?.blurhash
+    )
+  : null;
 ---
 
 <BaseLayout>
@@ -77,14 +84,25 @@ const publication = Astro.props;
         <div class="relative aspect-[358/280] lg:aspect-[1120/713.37] mb-14">
           <img
             class="absolute top-0 left-0 inline-block object-cover w-full h-full"
-            src={
-              import.meta.env.STRAPI_URL +
-              publication.attributes?.featuredImage?.data.attributes?.url
-            }
+            src={blurhash}
             alt={
               publication.attributes?.featuredImage?.data?.attributes
                 ?.alternativeText
             }
+            width={publication.attributes?.featuredImage.data?.attributes.width}
+            height={
+              publication.attributes?.featuredImage.data?.attributes.height
+            }
+            data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
+              publication.attributes?.featuredImage.data?.attributes?.url
+            }`}
+            data-srcset={
+              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.thumbnail.url} 234w, ` +
+              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.small.url} 500w, ` +
+              `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} 750w, ` : ""}` +
+              `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} 1000w` : ""}`
+            }
+            loading="lazy"
           />
           <svg
             class="absolute block object-cover w-full h-full text-accent lg:hidden"
@@ -146,6 +164,7 @@ const publication = Astro.props;
                           }
                           alt={image.attributes?.alternativeText}
                           class="w-full h-full object-contain"
+                          loading="lazy"
                         />
                       </div>
                     ))}

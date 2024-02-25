@@ -29,6 +29,28 @@ export default interface StrapiImage {
         size: number;
         url: string;
       }
+      medium: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        path: string;
+        width: number;
+        height: number;
+        size: number;
+        url: string;
+      },
+      large: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        path: string;
+        width: number;
+        height: number;
+        size: number;
+        url: string;
+      }
     }
     hash: string;
     ext: string;
@@ -39,5 +61,6 @@ export default interface StrapiImage {
     provider: string;
     createdAt: string;
     updatedAt: string;
+    blurhash?: string;
   }
 }

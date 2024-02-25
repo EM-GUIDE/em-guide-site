@@ -24,6 +24,7 @@ const networkPageData = await fetchApi<NetworkPage>({
   query: {
     // @ts-ignore
     populate: [
+      "deep",
       "seo",
       "seo.title",
       "seo.description",
@@ -93,12 +94,12 @@ const networkPageData = await fetchApi<NetworkPage>({
       networkMembers?.length > 0 &&
         networkMembers.map((member) => {
           return (
-            <section class="flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
-              <div class="flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0">
+            <section class="container relative mx-auto px-4 flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
+              <div class="w-40 flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0">
                 {member.attributes?.logo.data && (
                   <img
                     loading="lazy"
-                    src={member.attributes?.logo.data.attributes?.url}
+                    src={`${import.meta.env.PUBLIC_ASSET_URL}${member.attributes?.logo.data.attributes?.url}`}
                     alt=""
                     class="w-40 h-auto"
                   />
@@ -108,26 +109,7 @@ const networkPageData = await fetchApi<NetworkPage>({
                 <h1 class="text-xl font-normal lg:text-2xl font-display">
                   {member.attributes?.name}
                 </h1>
-                <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl">
-                  <p>
-                    Etiam ornare, lectus sed blandit pulvinar, nisl elit
-                    efficitur augue, vel aliquam sapien mi et tortor. Vestibulum
-                    lacinia pellentesque orci non tempor. Sed auctor imperdiet
-                    tempus. Fusce a purus nisl. Morbi tristique congue luctus.
-                    Quisque quis scelerisque tellus, sagittis auctor nulla.
-                  </p>
-                  <p>
-                    Nam sagittis id felis id luctus. Morbi semper urna vitae
-                    augue varius, a semper elit interdum. Donec auctor risus
-                    quam, ut volutpat enim semper ut.Mauris euismod auctor arcu,
-                    blandit posuere risus commodo ac. Nulla sit amet commodo
-                    sapien. Nullam urna lacus, vehicula vitae neque sit amet,
-                    mattis molestie enim. Sed rhoncus sodales porttitor. In
-                    laoreet volutpat arcu a accumsan. Curabitur vulputate lectus
-                    tortor, ac feugiat eros interdum sed. Nulla fringilla nunc
-                    vel nisi cursus, ut laoreet justo bibendum. Etiam vel
-                    interdum magna.
-                  </p>
+                <div class="mt-5 lg:mt-7 [&>p]:mb-4 [&>p]:text-xl" set:html={member.attributes.description}>
                 </div>
               </div>
             </section>

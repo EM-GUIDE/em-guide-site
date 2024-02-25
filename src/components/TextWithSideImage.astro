@@ -1,6 +1,5 @@
 ---
 const { text, image } = Astro.props;
-console.log(text);
 ---
 
 <div class="grid grid-cols-12">
@@ -9,6 +8,6 @@ console.log(text);
     set:html={text}
   />
   <div class="col-span-12 lg:col-span-8 w-auto">
-    <img src={image} alt="" class="w-full h-full object-cover" />
+    <img src={image} alt="" class="w-full h-full object-cover" loading="lazy" />
   </div>
 </div>
