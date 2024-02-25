@@ -38,24 +38,29 @@ const privacyPolicyPageData = await fetchApi<PrivacyPolicyPage>({
         titleTemplate="%s — EM Guide"
         description={privacyPolicyPageData?.attributes?.seo?.description}
         canonical={privacyPolicyPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={{
-          basic: {
-            title:
-              privacyPolicyPageData?.attributes?.seo?.ogTitle ??
-              privacyPolicyPageData?.attributes?.seo?.title,
-            type: "website",
-            image: privacyPolicyPageData?.attributes?.seo?.ogImage?.data
-              ?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${privacyPolicyPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-              : "",
-            url: privacyPolicyPageData?.attributes?.seo?.canonical ?? "",
-          },
-          optional: {
-            description:
-              privacyPolicyPageData?.attributes?.seo?.ogDescription ??
-              privacyPolicyPageData?.attributes?.seo?.description,
-          },
-        }}
+        openGraph={
+          privacyPolicyPageData?.attributes?.seo?.ogTitle &&
+          privacyPolicyPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? {
+                basic: {
+                  title:
+                    privacyPolicyPageData?.attributes?.seo?.ogTitle ??
+                    privacyPolicyPageData?.attributes?.seo?.title,
+                  type: "website",
+                  image: privacyPolicyPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${privacyPolicyPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "",
+                  url: privacyPolicyPageData?.attributes?.seo?.canonical ?? "",
+                },
+                optional: {
+                  description:
+                    privacyPolicyPageData?.attributes?.seo?.ogDescription ??
+                    privacyPolicyPageData?.attributes?.seo?.description,
+                },
+              }
+            : undefined
+        }
         twitter={{
           card: "summary_large_image",
           title:
@@ -64,9 +69,9 @@ const privacyPolicyPageData = await fetchApi<PrivacyPolicyPage>({
           description:
             privacyPolicyPageData?.attributes?.seo?.twitterDescription ??
             privacyPolicyPageData?.attributes?.seo?.description,
-          image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${privacyPolicyPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
-            "",
+          image: privacyPolicyPageData?.attributes?.seo?.twitterImage?.data
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${privacyPolicyPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+            : "",
         }}
       />
     )

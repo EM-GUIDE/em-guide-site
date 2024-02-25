@@ -48,24 +48,29 @@ const networkPageData = await fetchApi<NetworkPage>({
         titleTemplate="%s — EM Guide"
         description={networkPageData?.attributes?.seo?.description}
         canonical={networkPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={{
-          basic: {
-            title:
-              networkPageData?.attributes?.seo?.ogTitle ??
-              networkPageData?.attributes?.seo?.title,
-            type: "website",
-            image: networkPageData?.attributes?.seo?.ogImage?.data?.attributes
-              ?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-              : "",
-            url: networkPageData?.attributes?.seo?.canonical ?? "",
-          },
-          optional: {
-            description:
-              networkPageData?.attributes?.seo?.ogDescription ??
-              networkPageData?.attributes?.seo?.description,
-          },
-        }}
+        openGraph={
+          networkPageData?.attributes?.seo?.ogTitle &&
+          networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? {
+                basic: {
+                  title:
+                    networkPageData?.attributes?.seo?.ogTitle ??
+                    networkPageData?.attributes?.seo?.title,
+                  type: "website",
+                  image: networkPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "",
+                  url: networkPageData?.attributes?.seo?.canonical ?? "",
+                },
+                optional: {
+                  description:
+                    networkPageData?.attributes?.seo?.ogDescription ??
+                    networkPageData?.attributes?.seo?.description,
+                },
+              }
+            : undefined
+        }
         twitter={{
           card: "summary_large_image",
           title:
@@ -74,9 +79,9 @@ const networkPageData = await fetchApi<NetworkPage>({
           description:
             networkPageData?.attributes?.seo?.twitterDescription ??
             networkPageData?.attributes?.seo?.description,
-          image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
-            "",
+          image: networkPageData?.attributes?.seo?.twitterImage?.data
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+            : "",
         }}
       />
     )

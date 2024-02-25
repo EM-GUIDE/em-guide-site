@@ -52,23 +52,29 @@ const newsPageData = await fetchApi<NewsPage>({
         titleTemplate="%s — EM Guide"
         description={newsPageData?.attributes?.seo?.description}
         canonical={newsPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={{
-          basic: {
-            title:
-              newsPageData?.attributes?.seo?.ogTitle ??
-              newsPageData?.attributes?.seo?.title,
-            type: "website",
-            image: newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-              : "",
-            url: newsPageData?.attributes?.seo?.canonical ?? "",
-          },
-          optional: {
-            description:
-              newsPageData?.attributes?.seo?.ogDescription ??
-              newsPageData?.attributes?.seo?.description,
-          },
-        }}
+        openGraph={
+          newsPageData?.attributes?.seo?.ogTitle &&
+          newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? {
+                basic: {
+                  title:
+                    newsPageData?.attributes?.seo?.ogTitle ??
+                    newsPageData?.attributes?.seo?.title,
+                  type: "website",
+                  image: newsPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "",
+                  url: newsPageData?.attributes?.seo?.canonical ?? "",
+                },
+                optional: {
+                  description:
+                    newsPageData?.attributes?.seo?.ogDescription ??
+                    newsPageData?.attributes?.seo?.description,
+                },
+              }
+            : undefined
+        }
         twitter={{
           card: "summary_large_image",
           title:
@@ -77,9 +83,9 @@ const newsPageData = await fetchApi<NewsPage>({
           description:
             newsPageData?.attributes?.seo?.twitterDescription ??
             newsPageData?.attributes?.seo?.description,
-          image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
-            "",
+          image: newsPageData?.attributes?.seo?.twitterImage?.data
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+            : "",
         }}
       />
     )
@@ -115,7 +121,8 @@ const newsPageData = await fetchApi<NewsPage>({
                         .caption ?? "image"
                     }
                     src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                      publication.attributes?.featuredImage.data?.attributes?.url
+                      publication.attributes?.featuredImage.data?.attributes
+                        ?.url
                     }`}
                     loading="lazy"
                   />

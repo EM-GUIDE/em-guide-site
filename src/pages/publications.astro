@@ -53,24 +53,28 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
         description={publicationsPageData?.attributes?.seo?.description}
         canonical={publicationsPageData?.attributes?.seo?.canonical ?? ""}
         openGraph={
-          (publicationsPageData?.attributes?.seo?.ogImage? && publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url) ? {
-          basic: {
-            title:
-              publicationsPageData?.attributes?.seo?.ogTitle ??
-              publicationsPageData?.attributes?.seo?.title,
-            type: "website",
-            image: publicationsPageData?.attributes?.seo?.ogImage?.data
-              ?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-              : "",
-            url: publicationsPageData?.attributes?.seo?.canonical ?? "",
-          },
-          optional: {
-            description:
-              publicationsPageData?.attributes?.seo?.ogDescription ??
-              publicationsPageData?.attributes?.seo?.description,
-          },
-        }: undefined }
+          publicationsPageData?.attributes?.seo?.ogTitle &&
+          publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? {
+                basic: {
+                  title:
+                    publicationsPageData?.attributes?.seo?.ogTitle ??
+                    publicationsPageData?.attributes?.seo?.title,
+                  type: "website",
+                  image: publicationsPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "",
+                  url: publicationsPageData?.attributes?.seo?.canonical ?? "",
+                },
+                optional: {
+                  description:
+                    publicationsPageData?.attributes?.seo?.ogDescription ??
+                    publicationsPageData?.attributes?.seo?.description,
+                },
+              }
+            : undefined
+        }
         twitter={{
           card: "summary_large_image",
           title:
@@ -79,10 +83,9 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
           description:
             publicationsPageData?.attributes?.seo?.twitterDescription ??
             publicationsPageData?.attributes?.seo?.description,
-          image:
-            publicationsPageData?.attributes?.seo?.twitterImage?.data ?
-            `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` :
-            "",
+          image: publicationsPageData?.attributes?.seo?.twitterImage?.data
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+            : "",
         }}
       />
     )
@@ -118,7 +121,8 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
                         .caption ?? "image"
                     }
                     src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                      publication?.attributes?.featuredImage?.data?.attributes?.url
+                      publication?.attributes?.featuredImage?.data?.attributes
+                        ?.url
                     }`}
                     loading="lazy"
                   />

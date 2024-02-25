@@ -35,23 +35,29 @@ const aboutPageData = await fetchApi<AboutPage>({
         titleTemplate="%s — EM Guide"
         description={aboutPageData?.attributes?.seo?.description}
         canonical={aboutPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={{
-          basic: {
-            title:
-              aboutPageData?.attributes?.seo?.ogTitle ??
-              aboutPageData?.attributes?.seo?.title,
-            type: "website",
-            image: aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-              ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-              : "",
-            url: aboutPageData?.attributes?.seo?.canonical ?? "",
-          },
-          optional: {
-            description:
-              aboutPageData?.attributes?.seo?.ogDescription ??
-              aboutPageData?.attributes?.seo?.description,
-          }
-        }}
+        openGraph={
+          aboutPageData?.attributes?.seo?.ogTitle &&
+          aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? {
+                basic: {
+                  title:
+                    aboutPageData?.attributes?.seo?.ogTitle ??
+                    aboutPageData?.attributes?.seo?.title,
+                  type: "website",
+                  image: aboutPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "",
+                  url: aboutPageData?.attributes?.seo?.canonical ?? "",
+                },
+                optional: {
+                  description:
+                    aboutPageData?.attributes?.seo?.ogDescription ??
+                    aboutPageData?.attributes?.seo?.description,
+                },
+              }
+            : undefined
+        }
         twitter={{
           card: "summary_large_image",
           title:
@@ -60,9 +66,9 @@ const aboutPageData = await fetchApi<AboutPage>({
           description:
             aboutPageData?.attributes?.seo?.twitterDescription ??
             aboutPageData?.attributes?.seo?.description,
-          image:
-            `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}` ??
-            "",
+          image: aboutPageData?.attributes?.seo?.twitterImage?.data
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+            : "",
         }}
       />
     )
