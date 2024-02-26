@@ -6,6 +6,7 @@ export default interface NetworkMember {
     name: string;
     slug: string;
     description: string;
+    url?: string;
     logo: {
       data: StrapiImage
     };

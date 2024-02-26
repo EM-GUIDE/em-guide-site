@@ -179,7 +179,7 @@ const blurhash = publication?.attributes?.featuredImage?.data?.attributes
             <section class="container px-4 mx-auto mb-20">
               <TextWithSideImage
                 text={component.text}
-                image={`${import.meta.env.PUBLIC_ASSET_URL}${component.image.data.attributes.url}`}
+                image={component.image.data}
               />
             </section>
           );
