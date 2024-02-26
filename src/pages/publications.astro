@@ -96,13 +96,19 @@ const publicationsWithBlurhash = publications.map((item) => {
                   image: publicationsPageData?.attributes?.seo?.ogImage?.data
                     ?.attributes?.url
                     ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "",
+                    : "/placeholder_og.png",
                   url: publicationsPageData?.attributes?.seo?.canonical ?? "",
                 },
                 optional: {
                   description:
                     publicationsPageData?.attributes?.seo?.ogDescription ??
                     publicationsPageData?.attributes?.seo?.description,
+                },
+                image: {
+                  secureUrl: publicationsPageData?.attributes?.seo?.ogImage
+                    ?.data?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "/placeholder_og.png",
                 },
               }
             : undefined

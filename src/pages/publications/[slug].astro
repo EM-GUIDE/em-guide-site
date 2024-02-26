@@ -54,6 +54,11 @@ const blurhash = publication?.attributes?.featuredImage?.data?.attributes
       optional: {
         description: publication.attributes?.excerpt,
       },
+      image: {
+        secureUrl: publication.attributes?.featuredImage?.data?.attributes?.url
+          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+          : "",
+      },
     }}
     twitter={{
       card: "summary_large_image",

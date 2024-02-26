@@ -51,13 +51,19 @@ const aboutPageData = await fetchApi<AboutPage>({
                   image: aboutPageData?.attributes?.seo?.ogImage?.data
                     ?.attributes?.url
                     ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "",
+                    : "/placeholder_og.png",
                   url: aboutPageData?.attributes?.seo?.canonical ?? "",
                 },
                 optional: {
                   description:
                     aboutPageData?.attributes?.seo?.ogDescription ??
                     aboutPageData?.attributes?.seo?.description,
+                },
+                image: {
+                  secureUrl: aboutPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "/placeholder_og.png",
                 },
               }
             : undefined

@@ -96,13 +96,19 @@ const newsWithBlurhash = news.map((item) => {
                   image: newsPageData?.attributes?.seo?.ogImage?.data
                     ?.attributes?.url
                     ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "",
+                    : "/placeholder_og.png",
                   url: newsPageData?.attributes?.seo?.canonical ?? "",
                 },
                 optional: {
                   description:
                     newsPageData?.attributes?.seo?.ogDescription ??
                     newsPageData?.attributes?.seo?.description,
+                },
+                image: {
+                  secureUrl: newsPageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "/placeholder_og.png",
                 },
               }
             : undefined

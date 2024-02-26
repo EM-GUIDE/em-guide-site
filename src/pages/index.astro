@@ -71,13 +71,19 @@ const homePageData = await fetchApi<HomePage>({
                   image: homePageData?.attributes?.seo?.ogImage?.data
                     ?.attributes?.url
                     ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "",
+                    : "/placeholder_og.png",
                   url: homePageData?.attributes?.seo?.canonical ?? "",
                 },
                 optional: {
                   description:
                     homePageData?.attributes?.seo?.ogDescription ??
                     homePageData?.attributes?.seo?.description,
+                },
+                image: {
+                  secureUrl: homePageData?.attributes?.seo?.ogImage?.data
+                    ?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "/placeholder_og.png",
                 },
               }
             : undefined

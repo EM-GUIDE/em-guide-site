@@ -50,13 +50,19 @@ const privacyPolicyPageData = await fetchApi<PrivacyPolicyPage>({
                   image: privacyPolicyPageData?.attributes?.seo?.ogImage?.data
                     ?.attributes?.url
                     ? `${import.meta.env.PUBLIC_ASSET_URL}${privacyPolicyPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "",
+                    : "/placeholder_og.png",
                   url: privacyPolicyPageData?.attributes?.seo?.canonical ?? "",
                 },
                 optional: {
                   description:
                     privacyPolicyPageData?.attributes?.seo?.ogDescription ??
                     privacyPolicyPageData?.attributes?.seo?.description,
+                },
+                image: {
+                  secureUrl: privacyPolicyPageData?.attributes?.seo?.ogImage
+                    ?.data?.attributes?.url
+                    ? `${import.meta.env.PUBLIC_ASSET_URL}${privacyPolicyPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+                    : "/placeholder_og.png",
                 },
               }
             : undefined
