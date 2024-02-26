@@ -1,6 +1,7 @@
 ---
 import { createPngDataUri } from "unlazy/blurhash";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ImagesWithDecoration from "../../components/ImagesWithDecoration.astro";
 import TextWithSideImage from "../../components/TextWithSideImage.astro";
 import Tag from "../../components/Tag.astro";
 import fetchApi from "../../lib/strapi";
@@ -153,23 +154,8 @@ const blurhash = publication?.attributes?.featuredImage?.data?.attributes
         if (component.__component === "static.images-with-decoration") {
           return (
             component.images.data?.length > 0 && (
-              <section class="bg-saw-long-background bg-no-repeat bg-right-top pt-16">
-                <div class="container px-4 mx-auto mb-20">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {component.images.data.map((image) => (
-                      <div class="inline-block mb-8 aspect-[544/362]">
-                        <img
-                          src={
-                            import.meta.env.STRAPI_URL + image.attributes?.url
-                          }
-                          alt={image.attributes?.alternativeText}
-                          class="w-full h-full object-contain"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <section>
+                <ImagesWithDecoration images={component.images.data} />
               </section>
             )
           );
