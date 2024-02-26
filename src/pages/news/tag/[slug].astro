@@ -62,7 +62,7 @@ const tag = Astro.props;
   >
     #{tag.attributes?.title}
   </h2>
-  <section class="container px-4 mx-auto">
+  <section class="container px-4 mx-auto mb-20">
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
       {
         tag.attributes?.posts.data.map((publication: Publication) => (
