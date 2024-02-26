@@ -40,7 +40,6 @@ export default async function fetchApi<T>({
     },
   });
 
-  console.log(url.toString())
   let data = await res.json();
 
   if (wrappedByKey) {

@@ -141,47 +141,50 @@ const publicationsWithBlurhash = publications.map((item) => {
         publicationsWithBlurhash?.length > 0 &&
           publicationsWithBlurhash.map((publication: Publication) => (
             <li class="leading-none">
-              {publication.attributes?.featuredImage?.data && (
-                <a
-                  href={`/publications/${publication.attributes?.slug}/`}
-                  class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full"
-                >
-                  <img
-                    class="object-cover w-full h-full text-xl font-display"
-                    width={
-                      publication.attributes?.featuredImage.data?.attributes
-                        .width
-                    }
-                    height={
-                      publication.attributes?.featuredImage.data?.attributes
-                        .height
-                    }
-                    alt={
-                      publication.attributes?.featuredImage.data?.attributes
-                        .caption ?? "image"
-                    }
-                    src={
-                      publication.attributes?.featuredImage.data?.attributes
-                        .blurhash
-                    }
-                    data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                      publication.attributes?.featuredImage.data?.attributes
-                        ?.url
-                    }`}
-                    data-srcset={
-                      `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.thumbnail.url} 234w, ` +
-                      `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.small.url} 500w, ` +
-                      `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} 750w, ` : ""}` +
-                      `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} 1000w` : ""}`
-                    }
-                    loading="lazy"
-                  />
-                </a>
-              )}
-              <a href={`/news/${publication.attributes?.slug}/`} class="block">
-                <h2 class="text-xl font-display">
-                  {publication.attributes?.title}
-                </h2>
+              <a
+                href={`/publications/${publication.attributes?.slug}/`}
+                class="group"
+              >
+                {publication.attributes?.featuredImage?.data && (
+                  <div class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full">
+                    <img
+                      class="object-cover w-full h-full text-xl font-display group-hover:opacity-95 duration-100 ease-in-out transition-opacity"
+                      width={
+                        publication.attributes?.featuredImage.data?.attributes
+                          .width
+                      }
+                      height={
+                        publication.attributes?.featuredImage.data?.attributes
+                          .height
+                      }
+                      alt={
+                        publication.attributes?.featuredImage.data?.attributes
+                          .caption ?? "image"
+                      }
+                      src={
+                        publication.attributes?.featuredImage.data?.attributes
+                          .blurhash
+                      }
+                      data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                        publication.attributes?.featuredImage.data?.attributes
+                          ?.url
+                      }`}
+                      data-srcset={
+                        `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.thumbnail.url} ${publication.attributes.featuredImage.data.attributes.formats.thumbnail.width}w, ` +
+                        `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.small.url} ${publication.attributes.featuredImage.data.attributes.formats.small.width}w, ` +
+                        `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} ${publication.attributes.featuredImage.data.attributes.formats.medium.width}w, ` : ""}` +
+                        `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} ${publication.attributes.featuredImage.data.attributes.formats.large.width}w` : ""}`
+                      }
+                      data-sizes="auto"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div class="block">
+                  <h2 class="text-xl font-display group-hover:text-accent duration-100 ease-in-out transition-colors">
+                    {publication.attributes?.title}
+                  </h2>
+                </div>
               </a>
               {publication.attributes?.tags.data &&
                 publication.attributes?.tags.data.length > 0 && (
@@ -190,7 +193,7 @@ const publicationsWithBlurhash = publications.map((item) => {
                       <li>
                         <Tag
                           label={tag.attributes?.title}
-                          url={`/news/tag/${tag.attributes?.slug}`}
+                          url={`/publications/tag/${tag.attributes?.slug}`}
                         />
                       </li>
                     ))}

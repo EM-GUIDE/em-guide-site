@@ -28,10 +28,11 @@ image.attributes.blurhash = image.attributes.blurhash
       alt={image.attributes.caption ?? "image"}
       src={image.attributes.blurhash}
       data-src={`${import.meta.env.PUBLIC_ASSET_URL}${image.attributes?.url}`}
-      data-srcset={`${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.thumbnail.url} 234w, ` +
-        `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.small.url} 500w, ` +
-        `${image.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.medium.url} 750w, ` : ""}` +
-        `${image.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.large.url} 1000w` : ""}`}
+      data-srcset={`${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.thumbnail.url} ${image.attributes.formats.thumbnail.width}w, ` +
+        `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.small.url} ${image.attributes.formats.small.width}w, ` +
+        `${image.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.medium.url} ${image.attributes.formats.medium.width}w, ` : ""}` +
+        `${image.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.large.url} ${image.attributes.formats.large.width}w` : ""}`}
+      data-sizes="auto"
       loading="lazy"
     />
   </div>

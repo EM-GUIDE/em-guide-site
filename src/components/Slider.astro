@@ -1,0 +1,136 @@
+---
+import { createPngDataUri } from "unlazy/blurhash";
+import type { SlideItem } from "../interfaces/components";
+
+interface Props {
+  slides: SlideItem[];
+}
+
+const { slides } = Astro.props as Props;
+
+const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
+  const blurhashDataUri = item.image.data.attributes.blurhash
+    ? createPngDataUri(item.image.data.attributes.blurhash)
+    : undefined;
+
+  return {
+    ...item,
+    image: {
+      ...item.image,
+      data: {
+        ...item.image.data,
+        attributes: {
+          ...item.image.data.attributes,
+          blurhash: blurhashDataUri,
+        },
+      },
+    },
+  };
+});
+---
+
+<section
+  class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 pb-28 mb-28 bg-carousel-background bg-[-50%] lg:bg-[160%] xl:bg-[120%]"
+>
+  <div
+    id="image-carousel"
+    class="container relative mx-auto px-4 splide"
+    aria-label="Beautiful Images"
+  >
+    <div
+      class="absolute bottom-0 z-10 left-0 flex justify-between w-full px-8 pt-2 translate-y-full lg:pt-0 lg:-translate-y-1/2 splide__arrows lg:top-1/2"
+    >
+      <button class="w-16 splide__arrow splide__arrow--prev">
+        <svg
+          class="h-fit"
+          width="98"
+          height="95"
+          viewBox="0 0 98 95"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.99999 47.4705L42.4006 7.10655C47.9646 1.40645 59.0012 4.71391 58.2227 17.0289L45.4288 30.1356L77.6739 30.1415L94.5894 47.4705L76.7695 65.7261L46.3389 65.7261L55.1601 74.763C60.7185 80.4689 57.4957 91.7694 45.4631 90.9719L2.99999 47.4705Z"
+            class="text-accent sm:text-white"
+            stroke="currentColor"
+            stroke-width="4"
+            stroke-miterlimit="10"></path>
+        </svg>
+      </button>
+      <button class="w-16 splide__arrow splide__arrow--next">
+        <svg
+          class="h-fit"
+          width="98"
+          height="92"
+          viewBox="0 0 98 92"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M94.5894 46.4706L55.1888 86.8345C49.6247 92.5346 38.5882 89.2272 39.3667 76.9121L52.1606 63.8054L19.9154 63.7996L2.99999 46.4706L20.8198 28.215L51.2504 28.215L42.4292 19.1781C36.8709 13.4721 40.0937 2.17163 52.1262 2.96917L94.5894 46.4706Z"
+            class="text-white"
+            stroke="currentColor"
+            stroke-width="4"
+            stroke-miterlimit="10"></path>
+        </svg>
+      </button>
+    </div>
+
+    <ul
+      class="z-10 absolute w-full bottom-8 splide__pagination [&>li]:flex [&>li>button]:border [&>li>button]:lg:border-2 [&>li>button]:border-white [&>li>button]:w-4 [&>li>button]:lg:w-6 [&>li>button]:h-1 [&>li]:h-1 [&>li>button]:lg:h-2 [&>li]:lg:h-2 [&>li>button.is-active]:bg-white [&>li:first-child>button]:rounded-l-2xl [&>li:last-child>button]:rounded-r-2xl"
+    >
+    </ul>
+
+    <div class="splide__track">
+      <ul class="bg-white splide__list">
+        {
+          slidesWithBlurhash.map((slide) => {
+            return (
+              <li class="relative splide__slide">
+                {slide.image.data && (
+                  <img
+                    class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
+                    width={slide.image.data.attributes.width}
+                    height={slide.image.data.attributes.height}
+                    alt={slide.image.data.attributes.caption ?? "image"}
+                    src={slide.image.data.attributes.blurhash}
+                    data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                      slide.image.data.attributes?.url
+                    }`}
+                    data-srcset={
+                      `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
+                      `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
+                      `${slide.image.data.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w, ` : ""}` +
+                      `${slide.image.data.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.large.width}w` : ""}`
+                    }
+                    sizes="(max-width: 400px) 402px, (max-width: 600px) 603px, (min-width: 804px) 804px"
+                    loading="lazy"
+                  />
+                )}
+                {slide.url ? (
+                  <a
+                    href={slide.url}
+                    class="absolute inline-block w-full px-10 bottom-14 lg:px-28 group"
+                    aria-label="Link to slide"
+                  >
+                    {slide.text && (
+                      <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                        {slide.text}
+                      </h4>
+                    )}
+                  </a>
+                ) : (
+                  <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
+                    <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                      {slide.text}
+                    </h4>
+                  </div>
+                )}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,8 @@
 ---
 const { label, url } = Astro.props;
 ---
-<a class="inline-block border border-dark text-xs text-dark rounded-[19px] px-2 py-1" href={url}>#{ label }</a>
+
+<a
+  class="inline-block border border-dark text-xs text-dark rounded-[19px] px-2 py-1 hover:border-accent hover:text-accent duration-100 ease-in-out transition-colors"
+  href={url}>#{label}</a
+>
