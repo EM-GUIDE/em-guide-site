@@ -7,5 +7,6 @@ import astroMetaTags from "astro-meta-tags";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://emgui.de',
-  integrations: [mdx(), sitemap(), tailwind(), astroMetaTags()]
+  integrations: [mdx(), sitemap(), tailwind(), astroMetaTags()],
+  compressHTML: false
 });
