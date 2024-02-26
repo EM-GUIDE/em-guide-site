@@ -34,8 +34,8 @@ const privacyPolicyPageData = await fetchApi<PrivacyPolicyPage>({
     privacyPolicyPageData && privacyPolicyPageData.attributes?.seo && (
       <SEO
         title={privacyPolicyPageData?.attributes?.seo?.title}
-        titleDefault="EM Guide"
-        titleTemplate="%s — EM Guide"
+        titleDefault="EM GUIDE"
+        titleTemplate="%s – Music Magazine Network"
         description={privacyPolicyPageData?.attributes?.seo?.description}
         canonical={privacyPolicyPageData?.attributes?.seo?.canonical ?? ""}
         openGraph={

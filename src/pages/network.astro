@@ -45,8 +45,8 @@ const networkPageData = await fetchApi<NetworkPage>({
     networkPageData && networkPageData.attributes?.seo && (
       <SEO
         title={networkPageData?.attributes?.seo?.title}
-        titleDefault="EM Guide"
-        titleTemplate="%s — EM Guide"
+        titleDefault="EM GUIDE"
+        titleTemplate="%s – Music Magazine Network"
         description={networkPageData?.attributes?.seo?.description}
         canonical={networkPageData?.attributes?.seo?.canonical ?? ""}
         openGraph={

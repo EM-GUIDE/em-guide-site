@@ -34,8 +34,8 @@ const aboutPageData = await fetchApi<AboutPage>({
     aboutPageData && aboutPageData.attributes?.seo && (
       <SEO
         title={aboutPageData?.attributes?.seo?.title}
-        titleDefault="EM Guide"
-        titleTemplate="%s — EM Guide"
+        titleDefault="EM GUIDE"
+        titleTemplate="%s – Music Magazine Network"
         description={aboutPageData?.attributes?.seo?.description}
         canonical={aboutPageData?.attributes?.seo?.canonical ?? ""}
         openGraph={

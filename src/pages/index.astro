@@ -54,8 +54,8 @@ const homePageData = await fetchApi<HomePage>({
     homePageData && homePageData.attributes?.seo && (
       <SEO
         title={homePageData?.attributes?.seo?.title}
-        titleDefault="EM Guide"
-        titleTemplate="%s — EM Guide"
+        titleDefault="EM GUIDE"
+        titleTemplate="%s – Music Magazine Network"
         description={homePageData?.attributes?.seo?.description}
         canonical={homePageData?.attributes?.seo?.canonical ?? ""}
         openGraph={
