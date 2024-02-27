@@ -12,6 +12,8 @@ interface Props {
 }
 
 const { seoData } = Astro.props;
+
+console.log(seoData);
 ---
 
 <!-- Global Metadata -->
@@ -29,36 +31,8 @@ const { seoData } = Astro.props;
       titleTemplate="%s – Music Magazine Network"
       description={seoData.description}
       canonical={seoData.canonical ?? ""}
-      openGraph={
-        seoData.ogTitle && seoData.ogImage?.data?.attributes?.url
-          ? {
-              basic: {
-                title: seoData.ogTitle ?? seoData.title,
-                type: "website",
-                image: seoData.ogImage?.data?.attributes?.url
-                  ? `${import.meta.env.PUBLIC_ASSET_URL}${seoData.ogImage?.data?.attributes?.url}`
-                  : "/placeholder_og.png",
-                url: seoData.canonical ?? "",
-              },
-              optional: {
-                description: seoData.ogDescription ?? seoData.description,
-              },
-              image: {
-                secureUrl: seoData.ogImage?.data?.attributes?.url
-                  ? `${import.meta.env.PUBLIC_ASSET_URL}${seoData.ogImage?.data?.attributes?.url}`
-                  : "/placeholder_og.png",
-              },
-            }
-          : undefined
-      }
-      twitter={{
-        card: "summary_large_image",
-        title: seoData.twitterTitle ?? seoData.title,
-        description: seoData.twitterDescription ?? seoData.description,
-        image: seoData.twitterImage?.data
-          ? `${import.meta.env.PUBLIC_ASSET_URL}${seoData.twitterImage?.data?.attributes?.url}`
-          : "",
-      }}
+      openGraph={seoData.openGraph}
+      twitter={seoData.twitter}
     />
   )
 }
