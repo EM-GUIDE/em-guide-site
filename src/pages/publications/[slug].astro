@@ -43,11 +43,12 @@ const seoData = {
   openGraph: {
     basic: {
       title: publication?.attributes?.seo?.ogTitle ?? "EM GUIDE",
-      type: "website",
+      type: "article",
       image: publication?.attributes?.seo?.ogImage?.data?.attributes?.url
         ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-        : publication?.attributes?.featuredImage?.data?.attributes?.url
-          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+        : publication?.attributes?.featuredImage?.data?.attributes?.formats
+              .medium?.url
+          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.formats.medium?.url}`
           : `${Astro.site}placeholder_og.png`,
       url: `${Astro.site?.href}/news/${publication.attributes?.slug}`,
     },
@@ -59,8 +60,9 @@ const seoData = {
     image: {
       secureUrl: publication?.attributes?.seo?.ogImage?.data?.attributes?.url
         ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-        : publication?.attributes?.featuredImage?.data?.attributes?.url
-          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+        : publication?.attributes?.featuredImage?.data?.attributes?.formats
+              .medium?.url
+          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.formats.medium?.url}`
           : `${Astro.site}placeholder_og.png`,
     },
   },
@@ -74,8 +76,9 @@ const seoData = {
       publication?.attributes?.seo?.description,
     image: publication?.attributes?.seo?.twImage?.data?.attributes?.url
       ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.twImage?.data?.attributes?.url}`
-      : publication?.attributes?.featuredImage?.data?.attributes?.url
-        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+      : publication?.attributes?.featuredImage?.data?.attributes?.formats.medium
+            ?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.formats.medium?.url}`
         : `${Astro.site}placeholder_tw.png`,
   },
 };
