@@ -8,6 +8,7 @@ export default interface Publication {
     title: string;
     slug: string;
     excerpt: string;
+    seo: any;
     content: (ImagesWithDecorationComponent | WysiwygComponent | TextWithSideImageComponent)[];
     featuredImage: {
       data: StrapiImage

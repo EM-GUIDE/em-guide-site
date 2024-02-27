@@ -48,9 +48,53 @@ const homePageData = await fetchApi<HomePage>({
     ],
   },
 });
+
+const seoData = {
+  titleDefault: "EM GUIDE",
+  titleTemplate: "%s – Music Magazine Network",
+  description: homePageData?.attributes?.seo?.description,
+  canonical: homePageData?.attributes?.seo?.canonical ?? "",
+  openGraph: homePageData?.attributes?.seo?.ogTitle
+    ? {
+        basic: {
+          title:
+            homePageData?.attributes?.seo?.ogTitle ??
+            homePageData?.attributes?.seo?.title,
+          type: "website",
+          image: homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+            : "/placeholder_og.png",
+          url: homePageData?.attributes?.seo?.canonical ?? "",
+        },
+        optional: {
+          description:
+            homePageData?.attributes?.seo?.ogDescription ??
+            homePageData?.attributes?.seo?.description,
+        },
+        image: {
+          secureUrl: homePageData?.attributes?.seo?.ogImage?.data?.attributes
+            ?.url
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+            : "/placeholder_og.png",
+        },
+      }
+    : undefined,
+  twitter: {
+    card: "summary_large_image",
+    title:
+      homePageData?.attributes?.seo?.twitterTitle ??
+      homePageData?.attributes?.seo?.title,
+    description:
+      homePageData?.attributes?.seo?.twitterDescription ??
+      homePageData?.attributes?.seo?.description,
+    image: homePageData?.attributes?.seo?.twitterImage?.data
+      ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+      : "",
+  },
+};
 ---
 
-<BaseLayout>
+<BaseLayout seoData={seoData}>
   {
     homePageData && homePageData.attributes?.seo && (
       <SEO

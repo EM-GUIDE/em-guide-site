@@ -33,9 +33,53 @@ const blurhash = publication?.attributes?.featuredImage?.data?.attributes
       publication?.attributes?.featuredImage?.data?.attributes?.blurhash
     )
   : null;
+
+const seoData = {
+  titleDefault: "EM GUIDE",
+  titleTemplate: "%s – Music Magazine Network",
+  description: publication?.attributes?.seo?.description,
+  canonical: publication?.attributes?.seo?.canonical ?? "",
+  openGraph: publication?.attributes?.seo?.ogTitle
+    ? {
+        basic: {
+          title:
+            publication?.attributes?.seo?.ogTitle ??
+            publication?.attributes?.seo?.title,
+          type: "website",
+          image: publication?.attributes?.seo?.ogImage?.data?.attributes?.url
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+            : publication?.attributes?.featuredImage?.data?.attributes?.url,
+          url: publication?.attributes?.seo?.canonical ?? "",
+        },
+        optional: {
+          description:
+            publication?.attributes?.seo?.ogDescription ??
+            publication?.attributes?.seo?.description,
+        },
+        image: {
+          secureUrl: publication?.attributes?.seo?.ogImage?.data?.attributes
+            ?.url
+            ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+            : publication?.attributes?.featuredImage?.data?.attributes?.url,
+        },
+      }
+    : undefined,
+  twitter: {
+    card: "summary_large_image",
+    title:
+      publication?.attributes?.seo?.twitterTitle ??
+      publication?.attributes?.seo?.title,
+    description:
+      publication?.attributes?.seo?.twitterDescription ??
+      publication?.attributes?.seo?.description,
+    image: publication?.attributes?.seo?.twitterImage?.data
+      ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+      : "",
+  },
+};
 ---
 
-<BaseLayout>
+<BaseLayout seoData={seoData}>
   <SEO
     title={publication?.attributes?.title}
     titleDefault="EM GUIDE"
