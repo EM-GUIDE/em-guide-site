@@ -28,61 +28,49 @@ const aboutPageData = await fetchApi<AboutPage>({
     ],
   },
 });
+
+const seoData = {
+  title: aboutPageData?.attributes?.seo?.title,
+  titleDefault: "EM GUIDE",
+  titleTemplate: "%s – Music Magazine Network",
+  description: aboutPageData?.attributes?.seo?.description,
+  canonical: aboutPageData?.attributes?.seo?.canonical ?? "",
+  openGraph: {
+    basic: {
+      title: aboutPageData?.attributes?.seo?.ogTitle ?? "EM GUIDE",
+      type: "website",
+      image: aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+      url: aboutPageData?.attributes?.seo?.canonical ?? "",
+    },
+    optional: {
+      description:
+        aboutPageData?.attributes?.seo?.ogDescription ??
+        aboutPageData?.attributes?.seo?.description,
+    },
+    image: {
+      secureUrl: aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      aboutPageData?.attributes?.seo?.twitterTitle ??
+      aboutPageData?.attributes?.seo?.title,
+    description:
+      aboutPageData?.attributes?.seo?.twitterDescription ??
+      aboutPageData?.attributes?.seo?.description,
+    image: aboutPageData?.attributes?.seo?.twitterImage?.data
+      ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+      : `${Astro.site}placeholder_tw.png`,
+  },
+};
 ---
 
-<BaseLayout>
-  {
-    aboutPageData && aboutPageData.attributes?.seo && (
-      <SEO
-        title={aboutPageData?.attributes?.seo?.title}
-        titleDefault="EM GUIDE"
-        titleTemplate="%s – Music Magazine Network"
-        description={aboutPageData?.attributes?.seo?.description}
-        canonical={aboutPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={
-          aboutPageData?.attributes?.seo?.ogTitle &&
-          aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-            ? {
-                basic: {
-                  title:
-                    aboutPageData?.attributes?.seo?.ogTitle ??
-                    aboutPageData?.attributes?.seo?.title,
-                  type: "website",
-                  image: aboutPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                  url: aboutPageData?.attributes?.seo?.canonical ?? "",
-                },
-                optional: {
-                  description:
-                    aboutPageData?.attributes?.seo?.ogDescription ??
-                    aboutPageData?.attributes?.seo?.description,
-                },
-                image: {
-                  secureUrl: aboutPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                },
-              }
-            : undefined
-        }
-        twitter={{
-          card: "summary_large_image",
-          title:
-            aboutPageData?.attributes?.seo?.twitterTitle ??
-            aboutPageData?.attributes?.seo?.title,
-          description:
-            aboutPageData?.attributes?.seo?.twitterDescription ??
-            aboutPageData?.attributes?.seo?.description,
-          image: aboutPageData?.attributes?.seo?.twitterImage?.data
-            ? `${import.meta.env.PUBLIC_ASSET_URL}${aboutPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
-            : "",
-        }}
-      />
-    )
-  }
+<BaseLayout seoData={seoData}>
   {
     aboutPageData.attributes?.content?.map((component) => {
       if (component.__component === "interactive.slider") {

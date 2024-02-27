@@ -38,61 +38,50 @@ const networkPageData = await fetchApi<NetworkPage>({
     ],
   },
 });
+
+const seoData = {
+  title: networkPageData?.attributes?.seo?.title,
+  titleDefault: "EM GUIDE",
+  titleTemplate: "%s – Music Magazine Network",
+  description: networkPageData?.attributes?.seo?.description,
+  canonical: networkPageData?.attributes?.seo?.canonical ?? "",
+  openGraph: {
+    basic: {
+      title: networkPageData?.attributes?.seo?.ogTitle ?? "EM GUIDE",
+      type: "website",
+      image: networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+      url: networkPageData?.attributes?.seo?.canonical ?? "",
+    },
+    optional: {
+      description:
+        networkPageData?.attributes?.seo?.ogDescription ??
+        networkPageData?.attributes?.seo?.description,
+    },
+    image: {
+      secureUrl: networkPageData?.attributes?.seo?.ogImage?.data?.attributes
+        ?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      networkPageData?.attributes?.seo?.twitterTitle ??
+      networkPageData?.attributes?.seo?.title,
+    description:
+      networkPageData?.attributes?.seo?.twitterDescription ??
+      networkPageData?.attributes?.seo?.description,
+    image: networkPageData?.attributes?.seo?.twitterImage?.data
+      ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+      : `${Astro.site}placeholder_tw.png`,
+  },
+};
 ---
 
-<BaseLayout>
-  {
-    networkPageData && networkPageData.attributes?.seo && (
-      <SEO
-        title={networkPageData?.attributes?.seo?.title}
-        titleDefault="EM GUIDE"
-        titleTemplate="%s – Music Magazine Network"
-        description={networkPageData?.attributes?.seo?.description}
-        canonical={networkPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={
-          networkPageData?.attributes?.seo?.ogTitle &&
-          networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-            ? {
-                basic: {
-                  title:
-                    networkPageData?.attributes?.seo?.ogTitle ??
-                    networkPageData?.attributes?.seo?.title,
-                  type: "website",
-                  image: networkPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                  url: networkPageData?.attributes?.seo?.canonical ?? "",
-                },
-                optional: {
-                  description:
-                    networkPageData?.attributes?.seo?.ogDescription ??
-                    networkPageData?.attributes?.seo?.description,
-                },
-                image: {
-                  secureUrl: networkPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                },
-              }
-            : undefined
-        }
-        twitter={{
-          card: "summary_large_image",
-          title:
-            networkPageData?.attributes?.seo?.twitterTitle ??
-            networkPageData?.attributes?.seo?.title,
-          description:
-            networkPageData?.attributes?.seo?.twitterDescription ??
-            networkPageData?.attributes?.seo?.description,
-          image: networkPageData?.attributes?.seo?.twitterImage?.data
-            ? `${import.meta.env.PUBLIC_ASSET_URL}${networkPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
-            : "",
-        }}
-      />
-    )
-  }
+<BaseLayout seoData={seoData}>
   <div
     class="space-y-20 bg-arrow-pink-background bg-no-repeat bg-[right_center] mb-20"
   >

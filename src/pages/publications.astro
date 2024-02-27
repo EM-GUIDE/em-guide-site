@@ -73,61 +73,51 @@ const publicationsWithBlurhash = publications.map((item) => {
   // If the featuredImage or its data does not exist, return the item as is
   return item;
 });
+
+const seoData = {
+  title: publicationsPageData?.attributes?.seo?.title,
+  titleDefault: "EM GUIDE",
+  titleTemplate: "%s – Music Magazine Network",
+  description: publicationsPageData?.attributes?.seo?.description,
+  canonical: publicationsPageData?.attributes?.seo?.canonical ?? "",
+  openGraph: {
+    basic: {
+      title: publicationsPageData?.attributes?.seo?.ogTitle ?? "EM GUIDE",
+      type: "website",
+      image: publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes
+        ?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+      url: publicationsPageData?.attributes?.seo?.canonical ?? "",
+    },
+    optional: {
+      description:
+        publicationsPageData?.attributes?.seo?.ogDescription ??
+        publicationsPageData?.attributes?.seo?.description,
+    },
+    image: {
+      secureUrl: publicationsPageData?.attributes?.seo?.ogImage?.data
+        ?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      publicationsPageData?.attributes?.seo?.twitterTitle ??
+      publicationsPageData?.attributes?.seo?.title,
+    description:
+      publicationsPageData?.attributes?.seo?.twitterDescription ??
+      publicationsPageData?.attributes?.seo?.description,
+    image: publicationsPageData?.attributes?.seo?.twitterImage?.data
+      ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
+      : `${Astro.site}placeholder_tw.png`,
+  },
+};
 ---
 
-<BaseLayout>
-  {
-    publicationsPageData && publicationsPageData.attributes?.seo && (
-      <SEO
-        title={publicationsPageData?.attributes?.seo?.title}
-        titleDefault="EM GUIDE"
-        titleTemplate="%s – Music Magazine Network"
-        description={publicationsPageData?.attributes?.seo?.description}
-        canonical={publicationsPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={
-          publicationsPageData?.attributes?.seo?.ogTitle &&
-          publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-            ? {
-                basic: {
-                  title:
-                    publicationsPageData?.attributes?.seo?.ogTitle ??
-                    publicationsPageData?.attributes?.seo?.title,
-                  type: "website",
-                  image: publicationsPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                  url: publicationsPageData?.attributes?.seo?.canonical ?? "",
-                },
-                optional: {
-                  description:
-                    publicationsPageData?.attributes?.seo?.ogDescription ??
-                    publicationsPageData?.attributes?.seo?.description,
-                },
-                image: {
-                  secureUrl: publicationsPageData?.attributes?.seo?.ogImage
-                    ?.data?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                },
-              }
-            : undefined
-        }
-        twitter={{
-          card: "summary_large_image",
-          title:
-            publicationsPageData?.attributes?.seo?.twitterTitle ??
-            publicationsPageData?.attributes?.seo?.title,
-          description:
-            publicationsPageData?.attributes?.seo?.twitterDescription ??
-            publicationsPageData?.attributes?.seo?.description,
-          image: publicationsPageData?.attributes?.seo?.twitterImage?.data
-            ? `${import.meta.env.PUBLIC_ASSET_URL}${publicationsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
-            : "",
-        }}
-      />
-    )
-  }
+<BaseLayout seoData={seoData}>
   <section class="container px-4 mx-auto mb-20">
     <ul class="flex flex-wrap gap-3 mb-14">
       {

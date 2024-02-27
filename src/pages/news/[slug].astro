@@ -33,42 +33,55 @@ const blurhash = publication?.attributes?.featuredImage?.data?.attributes
       publication?.attributes?.featuredImage?.data?.attributes?.blurhash
     )
   : null;
+
+const seoData = {
+  title: publication?.attributes?.seo?.title,
+  titleDefault: "EM GUIDE",
+  titleTemplate: "%s – Music Magazine Network",
+  description: publication?.attributes?.seo?.description,
+  canonical: `${Astro.site?.href}/news/${publication?.attributes?.slug}`,
+  openGraph: {
+    basic: {
+      title: publication?.attributes?.seo?.ogTitle ?? "EM GUIDE",
+      type: "website",
+      image: publication?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : publication?.attributes?.featuredImage?.data?.attributes?.url
+          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+          : `${Astro.site}placeholder_og.png`,
+      url: `${Astro.site?.href}/news/${publication.attributes?.slug}`,
+    },
+    optional: {
+      description:
+        publication?.attributes?.seo?.ogDescription ??
+        publication?.attributes?.seo?.description,
+    },
+    image: {
+      secureUrl: publication?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : publication?.attributes?.featuredImage?.data?.attributes?.url
+          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+          : `${Astro.site}placeholder_og.png`,
+    },
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      publication?.attributes?.seo?.twitterTitle ??
+      publication?.attributes?.seo?.title,
+    description:
+      publication?.attributes?.seo?.twitterDescription ??
+      publication?.attributes?.seo?.description,
+    image: publication?.attributes?.seo?.twImage?.data?.attributes?.url
+      ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.seo?.twImage?.data?.attributes?.url}`
+      : publication?.attributes?.featuredImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_tw.png`,
+  },
+};
 ---
 
-<BaseLayout>
-  <SEO
-    title={publication?.attributes?.title}
-    titleDefault="EM GUIDE"
-    titleTemplate="%s – Music Magazine Network"
-    description={publication?.attributes?.excerpt}
-    canonical={`${Astro.site?.href}/news/${publication?.attributes?.slug}`}
-    openGraph={{
-      basic: {
-        title: publication?.attributes?.title,
-        type: "article",
-        image: publication.attributes?.featuredImage?.data?.attributes?.url
-          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
-          : "",
-        url: `${Astro.site?.href}/news/${publication.attributes?.slug}`,
-      },
-      optional: {
-        description: publication.attributes?.excerpt,
-      },
-      image: {
-        secureUrl: publication.attributes?.featuredImage?.data?.attributes?.url
-          ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
-          : "",
-      },
-    }}
-    twitter={{
-      card: "summary_large_image",
-      title: publication?.attributes?.title,
-      description: publication?.attributes?.excerpt,
-      image: publication.attributes?.featuredImage?.data?.attributes?.url
-        ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.url}`
-        : "",
-    }}
-  />
+<BaseLayout seoData={seoData}>
   <section class="container px-4 mx-auto">
     <h1 class="mb-8 text-2xl font-bold font-display lg:text-4xl">
       {publication.attributes?.title}

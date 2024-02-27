@@ -50,35 +50,31 @@ const homePageData = await fetchApi<HomePage>({
 });
 
 const seoData = {
+  title: homePageData?.attributes?.seo?.title,
   titleDefault: "EM GUIDE",
   titleTemplate: "%s – Music Magazine Network",
   description: homePageData?.attributes?.seo?.description,
   canonical: homePageData?.attributes?.seo?.canonical ?? "",
-  openGraph: homePageData?.attributes?.seo?.ogTitle
-    ? {
-        basic: {
-          title:
-            homePageData?.attributes?.seo?.ogTitle ??
-            homePageData?.attributes?.seo?.title,
-          type: "website",
-          image: homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-            ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-            : "/placeholder_og.png",
-          url: homePageData?.attributes?.seo?.canonical ?? "",
-        },
-        optional: {
-          description:
-            homePageData?.attributes?.seo?.ogDescription ??
-            homePageData?.attributes?.seo?.description,
-        },
-        image: {
-          secureUrl: homePageData?.attributes?.seo?.ogImage?.data?.attributes
-            ?.url
-            ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-            : "/placeholder_og.png",
-        },
-      }
-    : undefined,
+  openGraph: {
+    basic: {
+      title: homePageData?.attributes?.seo?.ogTitle ?? "EM GUIDE",
+      type: "website",
+      image: homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+      url: homePageData?.attributes?.seo?.canonical ?? "",
+    },
+    optional: {
+      description:
+        homePageData?.attributes?.seo?.ogDescription ??
+        homePageData?.attributes?.seo?.description,
+    },
+    image: {
+      secureUrl: homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url
+        ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
+        : `${Astro.site}placeholder_og.png`,
+    },
+  },
   twitter: {
     card: "summary_large_image",
     title:
@@ -89,11 +85,9 @@ const seoData = {
       homePageData?.attributes?.seo?.description,
     image: homePageData?.attributes?.seo?.twitterImage?.data
       ? `${import.meta.env.PUBLIC_ASSET_URL}${homePageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
-      : "",
+      : `${Astro.site}placeholder_tw.png`,
   },
 };
-
-console.log(seoData)
 ---
 
 <BaseLayout seoData={seoData}>
