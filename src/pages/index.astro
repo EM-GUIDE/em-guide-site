@@ -93,10 +93,10 @@ const seoData = {
 <BaseLayout seoData={seoData}>
   {
     homePageData.attributes?.content.map((component) => {
-      if (component.__component === "interactive.slider") {
+      if (component.__component === "interactive.slider" && !component.hide) {
         return <Slider slides={component.slides} />;
       }
-      if (component.__component === "static.featured-content") {
+      if (component.__component === "static.featured-content" && !component.hide) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <FeaturedContent
@@ -108,7 +108,7 @@ const seoData = {
           </section>
         );
       }
-      if (component.__component === "static.wysiwyg") {
+      if (component.__component === "static.wysiwyg" && !component.hide) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <div
@@ -118,7 +118,7 @@ const seoData = {
           </section>
         );
       }
-      if (component.__component === "static.images-with-decoration") {
+      if (component.__component === "static.images-with-decoration" && !component.hide) {
         return (
           component.images.data?.length > 0 && (
             <section>
@@ -127,7 +127,7 @@ const seoData = {
           )
         );
       }
-      if (component.__component === "static.content-preview-grid") {
+      if (component.__component === "static.content-preview-grid" && !component.hide) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 lg:gap-y-14">
@@ -144,7 +144,7 @@ const seoData = {
           </section>
         );
       }
-      if (component.__component === "static.text-with-side-image") {
+      if (component.__component === "static.text-with-side-image" && !component.hide) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <TextWithSideImage

@@ -4,6 +4,7 @@ export interface WysiwygComponent {
   id: number
   __component: 'static.wysiwyg'
   content: string
+  hide: boolean | null
 }
 
 export interface ImagesWithDecorationComponent {
@@ -13,6 +14,7 @@ export interface ImagesWithDecorationComponent {
     data: StrapiImage[]
   }
   decoration: string
+  hide: boolean | null
 }
 
 interface ContentPreviewItem {
@@ -24,13 +26,14 @@ interface ContentPreviewItem {
 
 export interface ContentPreviewGridComponent {
   id: number
-  __component: 'static.content-preview-grid',
+  __component: 'static.content-preview-grid'
   contentPreviewItem: ContentPreviewItem[]
+  hide: boolean | null
 }
 
 export interface ContentFeaturedContent {
   id: number
-  __component: 'static.featured-content',
+  __component: 'static.featured-content'
   title?: string;
   description?: string;
   image: {
@@ -41,12 +44,14 @@ export interface ContentFeaturedContent {
     label: string;
     url: string;
   }
+  hide: boolean | null
 }
 
 export interface SliderComponent {
   id: number
   __component: 'interactive.slider'
   slides: SlideItem[]
+  hide: boolean | null
 }
 
 
@@ -66,6 +71,7 @@ export interface TextWithSideImageComponent {
   image: {
     data: StrapiImage;
   }
+  hide: boolean | null
 }
 
 // export type ContentFromComponents = (ImagesWithDecorationComponent | WysiwygComponent | ContentPreviewGridComponent | ContentFeaturedContent)[];
