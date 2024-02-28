@@ -6,7 +6,6 @@ import TextWithSideImage from "../../components/TextWithSideImage.astro";
 import Tag from "../../components/Tag.astro";
 import fetchApi from "../../lib/strapi";
 import type Publication from "../../interfaces/publication";
-import { SEO } from "astro-seo";
 
 export async function getStaticPaths() {
   const news = await fetchApi<Publication[]>({

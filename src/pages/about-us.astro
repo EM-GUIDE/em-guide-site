@@ -6,7 +6,6 @@ import Slider from "../components/Slider.astro";
 import TextWithSideImage from "../components/TextWithSideImage.astro";
 import type AboutPage from "../interfaces/about-page";
 import fetchApi from "../lib/strapi";
-import { SEO } from "astro-seo";
 
 const aboutPageData = await fetchApi<AboutPage>({
   endpoint: "about-us-page",

@@ -1,3 +1,17 @@
+---
+import fetchApi from "../lib/strapi";
+import type Footer from "../interfaces/footer";
+
+const footerData = await fetchApi<Footer>({
+  endpoint: "footer",
+  wrappedByKey: "data",
+  query: {
+    // @ts-ignore
+    populate: ["deep"],
+  },
+});
+---
+
 <footer
   class="mt-8 relative pt-5 after:content-[''] after:bg-triangle-background after:bg-repeat-x after:absolute after:top-[-1.75rem] after:left-0 after:w-full after:h-12 after:bg-center after:bg-[length:6rem_3rem]"
 >
@@ -20,18 +34,21 @@
             be held responsible for them.
           </p>
         </div>
-        <div
-          class="flex items-center self-start justify-center w-full mt-16 space-x-4 text-white"
-        >
-          <a href="/privacy-policy" class="text-sm text-white font-display hover:text-accent ease-in-out duration-100 transition-colors"
-            >Privacy Policy</a
-          >
-          <span>|</span>
-          <a
-            href="mailto:info@emguide.hu"
-            class="text-sm text-white font-display hover:text-accent ease-in-out duration-100 transition-colors">info@emguide.hu</a
-          >
-        </div>
+        {
+          footerData.attributes?.links.length > 0 && (
+            <div class="flex items-center self-start justify-center w-full mt-16 text-white divide-x-2">
+              {footerData.attributes?.links.map((link) => (
+                <a
+                  href={link.url}
+                  target={link.newPage ? "_blank" : "_self"}
+                  class="text-sm text-white font-display px-5 hover:text-accent ease-in-out duration-100 transition-colors"
+                >
+                  {link.text}
+                </a>
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
   </div>

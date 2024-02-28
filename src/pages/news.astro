@@ -4,8 +4,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Filter from "../components/Filter.astro";
 import Tag from "../components/Tag.astro";
 import type NewsPage from "../interfaces/news-page";
-import { SEO } from "astro-seo";
-
 import fetchApi from "../lib/strapi";
 import type Publication from "../interfaces/publication";
 
@@ -116,58 +114,6 @@ const seoData = {
 ---
 
 <BaseLayout seoData={seoData}>
-  {
-    newsPageData && newsPageData.attributes?.seo && (
-      <SEO
-        title={newsPageData?.attributes?.seo?.title}
-        titleDefault="EM GUIDE"
-        titleTemplate="%s – Music Magazine Network"
-        description={newsPageData?.attributes?.seo?.description}
-        canonical={newsPageData?.attributes?.seo?.canonical ?? ""}
-        openGraph={
-          newsPageData?.attributes?.seo?.ogTitle &&
-          newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url
-            ? {
-                basic: {
-                  title:
-                    newsPageData?.attributes?.seo?.ogTitle ??
-                    newsPageData?.attributes?.seo?.title,
-                  type: "website",
-                  image: newsPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                  url: newsPageData?.attributes?.seo?.canonical ?? "",
-                },
-                optional: {
-                  description:
-                    newsPageData?.attributes?.seo?.ogDescription ??
-                    newsPageData?.attributes?.seo?.description,
-                },
-                image: {
-                  secureUrl: newsPageData?.attributes?.seo?.ogImage?.data
-                    ?.attributes?.url
-                    ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.ogImage?.data?.attributes?.url}`
-                    : "/placeholder_og.png",
-                },
-              }
-            : undefined
-        }
-        twitter={{
-          card: "summary_large_image",
-          title:
-            newsPageData?.attributes?.seo?.twitterTitle ??
-            newsPageData?.attributes?.seo?.title,
-          description:
-            newsPageData?.attributes?.seo?.twitterDescription ??
-            newsPageData?.attributes?.seo?.description,
-          image: newsPageData?.attributes?.seo?.twitterImage?.data
-            ? `${import.meta.env.PUBLIC_ASSET_URL}${newsPageData?.attributes?.seo?.twitterImage?.data?.attributes?.url}`
-            : "",
-        }}
-      />
-    )
-  }
   <section class="container px-4 mx-auto mb-20">
     <ul class="flex flex-wrap gap-3 mb-14">
       {

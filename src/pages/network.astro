@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import fetchApi from "../lib/strapi";
 import type NetworkMember from "../interfaces/network-member";
 import type NetworkPage from "../interfaces/network-page";
-import { SEO } from "astro-seo";
 
 const networkMembers = await fetchApi<NetworkMember[]>({
   endpoint: "network-members",
