@@ -167,7 +167,7 @@ const seoData = {
       class="grid flex-col items-center justify-center flex-grow grid-cols-2 gap-6 lg:gap-8 xl:gap-12 lg:flex lg:flex-row lg:flex-wrap sm:flex-row"
     >
       {
-        networkMembers.map((member) => {
+        networkMembers.sort((a, b) => a.attributes.rank - b.attributes.rank).map((member) => {
           return (
             <div class="items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end">
               {member.attributes?.url ? (
