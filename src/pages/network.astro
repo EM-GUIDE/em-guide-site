@@ -96,7 +96,11 @@ const seoData = {
                   {member.attributes?.logo.data && (
                     <>
                       {member.attributes?.url ? (
-                        <a class="group" href={member.attributes?.url}>
+                        <a
+                          class="group"
+                          href={member.attributes?.url}
+                          target="_blank"
+                        >
                           <img
                             loading="lazy"
                             src={`${import.meta.env.PUBLIC_ASSET_URL}${member.attributes?.logo.data.attributes?.url}`}
@@ -120,6 +124,7 @@ const seoData = {
                     <a
                       class="hover:text-accent transition-colors duration-200 ease-in-out"
                       href={member.attributes?.url}
+                      target="_blank"
                     >
                       <h1 class="text-xl font-normal lg:text-2xl font-display">
                         {member.attributes?.name}

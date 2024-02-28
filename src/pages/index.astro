@@ -96,7 +96,10 @@ const seoData = {
       if (component.__component === "interactive.slider" && !component.hide) {
         return <Slider slides={component.slides} />;
       }
-      if (component.__component === "static.featured-content" && !component.hide) {
+      if (
+        component.__component === "static.featured-content" &&
+        !component.hide
+      ) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <FeaturedContent
@@ -118,7 +121,10 @@ const seoData = {
           </section>
         );
       }
-      if (component.__component === "static.images-with-decoration" && !component.hide) {
+      if (
+        component.__component === "static.images-with-decoration" &&
+        !component.hide
+      ) {
         return (
           component.images.data?.length > 0 && (
             <section>
@@ -127,7 +133,10 @@ const seoData = {
           )
         );
       }
-      if (component.__component === "static.content-preview-grid" && !component.hide) {
+      if (
+        component.__component === "static.content-preview-grid" &&
+        !component.hide
+      ) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6 lg:gap-y-14">
@@ -144,7 +153,10 @@ const seoData = {
           </section>
         );
       }
-      if (component.__component === "static.text-with-side-image" && !component.hide) {
+      if (
+        component.__component === "static.text-with-side-image" &&
+        !component.hide
+      ) {
         return (
           <section class="container px-4 mx-auto mb-20">
             <TextWithSideImage
@@ -167,52 +179,55 @@ const seoData = {
       class="grid flex-col items-center justify-center flex-grow grid-cols-2 gap-6 lg:gap-8 xl:gap-12 lg:flex lg:flex-row lg:flex-wrap sm:flex-row"
     >
       {
-        networkMembers.sort((a, b) => a.attributes.rank - b.attributes.rank).map((member) => {
-          return (
-            <div class="items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end">
-              {member.attributes?.url ? (
-                <a
-                  class="flex-col justify-center lg:mb-5 sm:inline-block aspect-[8/3] group"
-                  href={member.attributes?.url}
-                >
-                  {member.attributes?.logo.data && (
-                    <img
-                      loading="lazy"
-                      src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                        member.attributes?.logo.data.attributes?.url
-                      }`}
-                      alt=""
-                      class="w-auto h-auto group-hover:opacity-95 transition-opacity duration-100 ease-in-out"
-                    />
-                  )}
-                  <div>
-                    <h3 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display group-hover:text-accent transition-colors duration-100 ease-in-out">
-                      {member.attributes?.name}
-                    </h3>
+        networkMembers
+          .sort((a, b) => a.attributes.rank - b.attributes.rank)
+          .map((member) => {
+            return (
+              <div class="items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end">
+                {member.attributes?.url ? (
+                  <a
+                    class="flex-col justify-center lg:mb-5 sm:inline-block aspect-[8/3] group"
+                    href={member.attributes?.url}
+                    target="_blank"
+                  >
+                    {member.attributes?.logo.data && (
+                      <img
+                        loading="lazy"
+                        src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                          member.attributes?.logo.data.attributes?.url
+                        }`}
+                        alt=""
+                        class="w-auto h-auto group-hover:opacity-95 transition-opacity duration-100 ease-in-out"
+                      />
+                    )}
+                    <div>
+                      <h3 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display group-hover:text-accent transition-colors duration-100 ease-in-out">
+                        {member.attributes?.name}
+                      </h3>
+                    </div>
+                  </a>
+                ) : (
+                  <div class="flex flex-col  justify-center lg:mb-5 sm:inline-block aspect-[8/3]">
+                    {member.attributes?.logo.data && (
+                      <img
+                        loading="lazy"
+                        src={`${import.meta.env.PUBLIC_ASSET_URL}${
+                          member.attributes?.logo.data.attributes?.url
+                        }`}
+                        alt=""
+                        class="w-auto h-auto"
+                      />
+                    )}
+                    <div>
+                      <h3 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display">
+                        {member.attributes?.name}
+                      </h3>
+                    </div>
                   </div>
-                </a>
-              ) : (
-                <div class="flex flex-col  justify-center lg:mb-5 sm:inline-block aspect-[8/3]">
-                  {member.attributes?.logo.data && (
-                    <img
-                      loading="lazy"
-                      src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                        member.attributes?.logo.data.attributes?.url
-                      }`}
-                      alt=""
-                      class="w-auto h-auto"
-                    />
-                  )}
-                  <div>
-                    <h3 class="mt-auto text-xl font-normal text-center lg:text-2xl font-display">
-                      {member.attributes?.name}
-                    </h3>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })
+                )}
+              </div>
+            );
+          })
       }
     </div>
   </section>
