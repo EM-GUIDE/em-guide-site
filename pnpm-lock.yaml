@@ -10,7 +10,7 @@ dependencies:
     version: 0.5.6(typescript@5.3.3)
   '@astrojs/mdx':
     specifier: ^2.1.1
-    version: 2.1.1(astro@4.4.5)
+    version: 2.1.1(astro@4.4.6)
   '@astrojs/rss':
     specifier: ^4.0.5
     version: 4.0.5
@@ -19,7 +19,7 @@ dependencies:
     version: 3.1.1
   '@astrojs/tailwind':
     specifier: ^5.1.0
-    version: 5.1.0(astro@4.4.5)(tailwindcss@3.4.1)
+    version: 5.1.0(astro@4.4.6)(tailwindcss@3.4.1)
   '@fontsource-variable/dm-sans':
     specifier: ^5.0.3
     version: 5.0.3
@@ -30,11 +30,11 @@ dependencies:
     specifier: ^4.1.4
     version: 4.1.4
   astro:
-    specifier: ^4.4.5
-    version: 4.4.5(typescript@5.3.3)
+    specifier: ^4.4.6
+    version: 4.4.6(typescript@5.3.3)
   astro-meta-tags:
     specifier: ^0.2.1
-    version: 0.2.1(astro@4.4.5)
+    version: 0.2.1(astro@4.4.6)
   astro-seo:
     specifier: ^0.8.2
     version: 0.8.2(typescript@5.3.3)
@@ -149,7 +149,7 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@2.1.1(astro@4.4.5):
+  /@astrojs/mdx@2.1.1(astro@4.4.6):
     resolution: {integrity: sha512-AgGFdE7HOGmoFooGvMSatkA9FiSKwyVW7ImHot/bXJ6uAbFfu6iG2ht18Cf1pT22Hda/6iSCGWusFvBv0/EnKQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
@@ -158,7 +158,7 @@ packages:
       '@astrojs/markdown-remark': 4.2.1
       '@mdx-js/mdx': 3.0.0
       acorn: 8.11.3
-      astro: 4.4.5(typescript@5.3.3)
+      astro: 4.4.6(typescript@5.3.3)
       es-module-lexer: 1.4.1
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -196,13 +196,13 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/tailwind@5.1.0(astro@4.4.5)(tailwindcss@3.4.1):
+  /@astrojs/tailwind@5.1.0(astro@4.4.6)(tailwindcss@3.4.1):
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.4.5(typescript@5.3.3)
+      astro: 4.4.6(typescript@5.3.3)
       autoprefixer: 10.4.17(postcss@8.4.33)
       postcss: 8.4.33
       postcss-load-config: 4.0.2(postcss@8.4.33)
@@ -1175,12 +1175,12 @@ packages:
     hasBin: true
     dev: false
 
-  /astro-meta-tags@0.2.1(astro@4.4.5):
+  /astro-meta-tags@0.2.1(astro@4.4.6):
     resolution: {integrity: sha512-IFAQG6Ymwke+53H5hcBFtdYyCpF2KEVpp5wA7Qrx8O2+4hUx3N9wE6Vy6QgRHH2Lkgv48PUN7t5fUDBpCMEbAA==}
     peerDependencies:
       astro: ^4.0.0
     dependencies:
-      astro: 4.4.5(typescript@5.3.3)
+      astro: 4.4.6(typescript@5.3.3)
     dev: false
 
   /astro-seo@0.8.2(typescript@5.3.3):
@@ -1193,8 +1193,8 @@ packages:
       - typescript
     dev: false
 
-  /astro@4.4.5(typescript@5.3.3):
-    resolution: {integrity: sha512-ccat42P5qr281JExywVsK/BLeKgwSL+oLxJP195s4Wvj3nL32djw+WNJNctuDDTJ5XWgvPdHZjBtSDNO5OgagQ==}
+  /astro@4.4.6(typescript@5.3.3):
+    resolution: {integrity: sha512-kns2TtiMYTyDPgcvtaQjMfBhY/F/2+O3eSX4XWH13FFQW1hp7AcTXfGwq8SvJ14JNoU4bsKeJbaB9CxUN9ZQlQ==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
