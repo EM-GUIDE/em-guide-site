@@ -131,7 +131,11 @@ h6 {
   );
 }
 
+.em-editor-content a {
+  color: #ff6eb7;
+  transition: 100ms opacity ease-in-out;
+}
+
 .em-editor-content a:hover {
-  color: #FF6EB7;
-  transition: 100ms color ease-in-out;
+  opacity: 0.85;
 }
