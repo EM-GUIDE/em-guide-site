@@ -43,6 +43,7 @@ export interface ContentFeaturedContent {
     id: number;
     label: string;
     url: string;
+    newPage?: boolean | null;
   }
   hide: boolean | null
 }
