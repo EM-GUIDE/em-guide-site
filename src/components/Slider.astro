@@ -38,7 +38,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
     aria-label="Beautiful Images"
   >
     <div
-      class="absolute bottom-0 z-10 left-0 flex justify-between w-full px-8 pt-2 translate-y-full lg:pt-0 lg:-translate-y-1/2 splide__arrows lg:top-1/2"
+      class={`absolute bottom-0 z-10 left-0 justify-between w-full px-8 pt-2 translate-y-full lg:pt-0 lg:-translate-y-1/2 splide__arrows lg:top-1/2 ${slidesWithBlurhash.length > 1 ? "flex" : "hidden"}`}
     >
       <button class="w-16 splide__arrow splide__arrow--prev">
         <svg
