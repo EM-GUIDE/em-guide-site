@@ -91,7 +91,7 @@ const seoData = {
 
 <BaseLayout seoData={seoData}>
   {
-    homePageData.attributes?.content.map((component) => {
+    homePageData?.attributes?.content.map((component) => {
       if (component.__component === "interactive.slider" && !component.hide) {
         return <Slider slides={component.slides} />;
       }
@@ -179,7 +179,7 @@ const seoData = {
     >
       {
         networkMembers
-          .sort((a, b) => a.attributes.rank - b.attributes.rank)
+          ?.sort((a, b) => a.attributes.rank - b.attributes.rank)
           .map((member) => {
             return (
               <div class="items-center justify-center lg:flex lg:w-[calc(25%_-_3rem)] grow-0 lg:self-end">

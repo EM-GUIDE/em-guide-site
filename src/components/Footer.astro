@@ -35,7 +35,7 @@ const footerData = await fetchApi<Footer>({
           </p>
         </div>
         {
-          footerData.attributes?.links.length > 0 && (
+          footerData?.attributes?.links.length > 0 && (
             <div class="flex items-center self-start justify-center w-full mt-16 text-white divide-x-2">
               {footerData.attributes?.links.map((link) => (
                 <a
