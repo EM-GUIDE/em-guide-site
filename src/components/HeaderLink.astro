@@ -1,14 +1,25 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<'a'>;
+type Props = HTMLAttributes<"a"> & {
+  isDisabled?: boolean;
+};
 
-const { href, class: className, ...props } = Astro.props;
+const { href, class: className, isDisabled, ...props } = Astro.props;
 
 const { pathname } = Astro.url;
-const isActive = href === pathname || href === pathname.replace(/\/$/, '');
+const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 ---
 
-<a href={href} class:list={[className, 'w-fit h-fit text-white lg:text-dark -ml-3 px-3 py-2 text-3xl lg:text-base lg:leading-3 font-semibold lg:hover:text-accent transition-colors duration-100 ease-in-out', { 'border-white lg:border-accent border-3 rounded-menu': isActive }]} {...props}>
-	<slot />
+<a
+  href={!isDisabled ?  href : null}
+  class:list={[
+    className,
+    "w-fit h-fit text-white lg:text-dark -ml-3 px-3 py-2 text-3xl lg:text-base lg:leading-3 font-semibold lg:hover:text-accent transition-colors duration-100 ease-in-out",
+    { "border-white lg:border-accent border-3 rounded-menu": isActive },
+		{ "text-gray-medium lg:text-gray-medium hover:text-gray-medium lg:hover:text-gray-medium cursor-default pointer-events-none": isDisabled}
+  ]}
+  {...props}
+>
+  <slot />
 </a>
