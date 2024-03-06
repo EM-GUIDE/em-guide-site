@@ -17,7 +17,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
     className,
     "w-fit h-fit text-white lg:text-dark -ml-3 px-3 py-2 text-3xl lg:text-base lg:leading-3 font-semibold lg:hover:text-accent transition-colors duration-100 ease-in-out",
     { "border-white lg:border-accent border-3 rounded-menu": isActive },
-		{ "text-gray-medium lg:text-gray-medium hover:text-gray-medium lg:hover:text-gray-medium cursor-default pointer-events-none": isDisabled}
+		{ "hidden lg:inline text-gray-medium lg:text-gray-medium hover:text-gray-medium lg:hover:text-gray-medium cursor-default pointer-events-none": isDisabled}
   ]}
   {...props}
 >
