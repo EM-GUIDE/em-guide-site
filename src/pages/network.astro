@@ -90,7 +90,7 @@ const seoData = {
           .sort((a, b) => a.attributes.rank - b.attributes.rank)
           .map((member) => {
             return (
-              <section class="container relative mx-auto px-4 flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
+              <section class="max-w-screen-lg relative mx-auto px-4 flex flex-col lg:flex-row sm:flex-row sm:space-x-4 lg:space-x-8">
                 <div class="w-40 flex justify-center flex-shrink-0 mb-6 sm:inline-block sm:mb-0">
                   {member.attributes?.logo.data && (
                     <>

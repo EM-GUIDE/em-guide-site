@@ -85,7 +85,7 @@ const seoData = {
 ---
 
 <BaseLayout seoData={seoData}>
-  <section class="container px-4 mx-auto">
+  <section class="max-w-screen-lg px-4 mx-auto">
     <h1 class="mb-8 text-2xl font-bold font-display lg:text-4xl">
       {publication.attributes?.title}
     </h1>
@@ -172,7 +172,7 @@ const seoData = {
       publication.attributes?.content.map((component) => {
         if (component.__component === "static.wysiwyg") {
           return (
-            <section class="container mx-auto mb-20">
+            <section class="max-w-screen-lg mx-auto mb-20">
               <div
                 class="[&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>blockquote]:px-2 [&>blockquote]:py-2.5 [&>blockquote]:bg-accent [&>blockquote]:font-display [&>blockquote]:text-2l [&>blockquote]:md:text-2xl [&>blockquote]:mb-4 em-editor-content"
                 set:html={component.content}
@@ -191,7 +191,7 @@ const seoData = {
         }
         if (component.__component === "static.text-with-side-image") {
           return (
-            <section class="container px-4 mx-auto mb-20">
+            <section class="max-w-screen-lg px-4 mx-auto mb-20">
               <TextWithSideImage
                 text={component.text}
                 image={component.image.data}
