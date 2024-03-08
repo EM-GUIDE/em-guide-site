@@ -71,7 +71,7 @@ const seoData = {
 
 <BaseLayout seoData={seoData}>
   {
-    aboutPageData.attributes?.content?.map((component) => {
+    aboutPageData?.attributes?.content?.map((component) => {
       if (component.__component === "interactive.slider" && !component.hide) {
         return <Slider slides={component.slides} />;
       }
