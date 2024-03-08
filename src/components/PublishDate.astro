@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div"> & {
+  date: string;
+  class?: string;
+};
+
+const { date, class: className, ...props } = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString("en-GB", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<div
+  class:list={[
+    className,
+    "text-accent text-xs font-bold px-2 py-1 rounded-[19px] border-2 border-accent inline-block",
+  ]}
+>
+  <time datetime={date}>{formattedDate}</time>
+</div>

@@ -2,6 +2,7 @@
 import { createPngDataUri } from "unlazy/blurhash";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Filter from "../components/Filter.astro";
+import PublishDate from "../components/PublishDate.astro";
 import Tag from "../components/Tag.astro";
 import type NewsPage from "../interfaces/news-page";
 import fetchApi from "../lib/strapi";
@@ -111,14 +112,16 @@ const seoData = {
       : `${Astro.site}placeholder_tw.png`,
   },
 };
+
+console.log(newsWithBlurhash);
 ---
 
 <BaseLayout seoData={seoData}>
   <section class="container px-4 mx-auto mb-20">
     <ul class="flex flex-wrap gap-3 mb-14">
       {
-        newsPageData.attributes?.featuredTags?.data.length > 0 &&
-          newsPageData.attributes?.featuredTags?.data.map((data) => (
+        newsPageData?.attributes?.featuredTags?.data.length > 0 &&
+          newsPageData?.attributes?.featuredTags?.data.map((data) => (
             <li>
               <Filter
                 label={data.attributes?.title}
@@ -175,9 +178,12 @@ const seoData = {
                   </h2>
                 </div>
               </a>
+              <div class="mt-3">
+                <PublishDate date={publication.attributes?.publishedAt} />
+              </div>
               {publication.attributes?.tags.data &&
                 publication.attributes?.tags.data.length > 0 && (
-                  <ul class="flex flex-wrap gap-4 mt-5 lg:mt-4">
+                  <ul class="flex flex-wrap gap-4 mt-3">
                     {publication.attributes?.tags.data.map((tag) => (
                       <li>
                         <Tag
