@@ -82,6 +82,8 @@ const seoData = {
         : `${Astro.site}placeholder_tw.png`,
   },
 };
+
+console.log(publication.attributes?.featuredImage?.data?.attributes?.formats);
 ---
 
 <BaseLayout seoData={seoData}>
@@ -127,10 +129,11 @@ const seoData = {
               publication.attributes?.featuredImage.data?.attributes?.url
             }`}
             data-srcset={
-              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.thumbnail.url} 234w, ` +
-              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.small.url} 500w, ` +
-              `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} 750w, ` : ""}` +
-              `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} 1000w` : ""}`
+              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.thumbnail.url} ${publication.attributes.featuredImage.data.attributes.formats.thumbnail.width}w, ` +
+              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.small.url} ${publication.attributes.featuredImage.data.attributes.formats.small.width}w, ` +
+              `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} ${publication.attributes.featuredImage.data.attributes.formats.medium.width}w, ` : ""}` +
+              `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} ${publication.attributes.featuredImage.data.attributes.formats.large.width}w` : ""}` +
+              `${publication.attributes?.featuredImage.data?.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.xlarge.url} ${publication.attributes.featuredImage.data.attributes.formats.xlarge.width}w` : ""}`
             }
             loading="lazy"
           />

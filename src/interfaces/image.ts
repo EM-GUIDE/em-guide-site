@@ -50,6 +50,17 @@ export default interface StrapiImage {
         height: number;
         size: number;
         url: string;
+      },
+      xlarge: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        path: string;
+        width: number;
+        height: number;
+        size: number;
+        url: string;
       }
     }
     hash: string;
