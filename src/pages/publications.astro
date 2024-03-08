@@ -43,7 +43,7 @@ const publicationsPageData = await fetchApi<PublicationsPage>({
   },
 });
 
-const publicationsWithBlurhash = publications.map((item) => {
+const publicationsWithBlurhash = publications?.map((item) => {
   // Check if the featuredImage and its data exist
   if (item.attributes?.featuredImage?.data) {
     // Create the PNG data URI from the blurhash

@@ -42,7 +42,7 @@ const newsPageData = await fetchApi<NewsPage>({
   },
 });
 
-const newsWithBlurhash = news.map((item) => {
+const newsWithBlurhash = news?.map((item) => {
   // Check if the featuredImage and its data exist
   if (item.attributes?.featuredImage?.data) {
     // Create the PNG data URI from the blurhash
