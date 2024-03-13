@@ -1,6 +1,9 @@
 # EM GUIDE Website
+This is the repository of the EM GUIDE website frontend. We use [Astro](https://astro.build/) to build a fast loading and lightweight website.
 
 ## Architecture
+
+The content of the site is managed in a self hosted [Strapi cms](https://github.com/EM-GUIDE/em-guide-cms) that can automaticly trigger the building of the pages.
 
 ![alt text](https://github.com/EM-GUIDE/em-guide-site/blob/main/em_guide_site_architecture.png?raw=true)
 
@@ -17,6 +20,6 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## Want to learn more?
 
 Check out [the Astro documentation](https://docs.astro.build).
