@@ -5,7 +5,7 @@ This repository contains the frontend code for the EM GUIDE website, developed u
 
 The site's content is managed through a self-hosted [Strapi CMS](https://github.com/EM-GUIDE/em-guide-cms), which can automatically trigger page builds via webhooks.
 
-![alt text](https://github.com/EM-GUIDE/em-guide-site/blob/main/em_guide_site_architecture.png?raw=true)
+![alt text](https://github.com/EM-GUIDE/.github/blob/main/profile/em_guide_site_architecture.png?raw=true)
 
 ## Commands
 
