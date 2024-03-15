@@ -1,5 +1,5 @@
 # EM GUIDE (frontend)
-This repository contains the frontend code for the EM GUIDE website, developed using [Astro](https://astro.build/). 
+This repository contains the frontend code for the EM GUIDE website, developed using [Astro](https://astro.build/). The website development has been accomplished in the context of the EM GUIDE project, learn more about it at [emgui.de](https://emgui.de).
 
 The goal was to create a website that loads quickly and is lightweight but allows flexible content editing.
 
