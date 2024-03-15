@@ -11,9 +11,9 @@ The overall architecture of the website is displayed below. The site's content i
 
 ![alt text](https://github.com/EM-GUIDE/.github/blob/main/profile/em_guide_site_architecture.png?raw=true)
 
-## Commands
+## Development help
 
-All commands are run from the root of the project, from a terminal:
+Some terminal commands for Astro development are listed below.
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -24,6 +24,4 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## Want to learn more?
-
-For more details on Astro and its capabilities, visit [the Astro documentation](https://docs.astro.build).
+For more details on Astro visit [the Astro documentation](https://docs.astro.build).
