@@ -1,9 +1,13 @@
-# EM GUIDE Website Frontend
-This repository contains the frontend code for the EM GUIDE website, developed using [Astro](https://astro.build/). The goal is to create a website that loads quickly and is lightweight.
+# EM GUIDE (frontend)
+This repository contains the frontend code for the EM GUIDE website, developed using [Astro](https://astro.build/). 
+
+The goal was to create a website that loads quickly and is lightweight but allows flexible content editing.
+
+Please refer to the [EM GUIDE (frontend)](https://github.com/EM-GUIDE/em-guide-cms) for the backend (CMS) code of the EM GUIDE website. 
 
 ## Architecture
 
-The site's content is managed through a self-hosted [Strapi CMS](https://github.com/EM-GUIDE/em-guide-cms), which can automatically trigger page builds via webhooks.
+The overall architecture of the website is displayed below. The site's content is managed through a [Strapi](https://strapi.io/) instance, which can automatically trigger page builds via webhooks.
 
 ![alt text](https://github.com/EM-GUIDE/.github/blob/main/profile/em_guide_site_architecture.png?raw=true)
 
