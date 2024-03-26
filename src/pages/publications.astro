@@ -14,6 +14,10 @@ const publications = await fetchApi<Publication[]>({
   wrappedByKey: "data", // the key to unwrap the response
   query: {
     // @ts-ignore
+    sort: {
+      publishedAt: "desc",
+    },
+    // @ts-ignore
     populate: ["featuredImage", "tags"],
     // @ts-ignore
     pagination: {
