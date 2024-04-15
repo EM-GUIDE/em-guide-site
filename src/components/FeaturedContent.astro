@@ -10,6 +10,7 @@ interface Props {
     id: number;
     label: string;
     url: string;
+    newPage?: boolean;
   };
 }
 
@@ -64,6 +65,6 @@ const { title, description, image, button } = Astro.props;
         />
       )
     }
-    {button && <ReadMoreButton label={button.label} url={button.url} />}
+    {button && <ReadMoreButton label={button.label} url={button.url} newPage={button.newPage} />}
   </div>
 </div>
