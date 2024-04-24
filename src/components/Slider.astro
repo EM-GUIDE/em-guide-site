@@ -9,8 +9,8 @@ interface Props {
 const { slides } = Astro.props as Props;
 
 const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
-  const blurhashDataUri = item.image.data.attributes.blurhash
-    ? createPngDataUri(item.image.data.attributes.blurhash)
+  const blurhashDataUri = item.image?.data?.attributes?.blurhash
+    ? createPngDataUri(item.image?.data?.attributes?.blurhash)
     : undefined;
 
   return {
