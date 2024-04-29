@@ -13,6 +13,7 @@ export default interface Publication {
     featuredImage: {
       data: StrapiImage
     }
+    useDefaultImageOverlay: boolean;
     tags: {
       data: Tag[]
     }

@@ -135,6 +135,7 @@ const seoData = {
             }
             loading="lazy"
           />
+          { publication.attributes?.useDefaultImageOverlay &&
           <svg
             class="absolute block object-cover w-full h-full text-accent lg:hidden"
             viewBox="0 0 358 280"
@@ -166,6 +167,7 @@ const seoData = {
               fill="currentColor"
             />
           </svg>
+          }
         </div>
       )
     }
