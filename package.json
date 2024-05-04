@@ -1,7 +1,7 @@
 {
   "name": "em-site",
   "type": "module",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -17,8 +17,8 @@
     "@fontsource-variable/dm-sans": "^5.0.6",
     "@fontsource-variable/unbounded": "^5.0.20",
     "@splidejs/splide": "^4.1.4",
-    "astro": "^4.7.0",
-    "astro-meta-tags": "^0.2.2",
+    "astro": "^4.7.1",
+    "astro-meta-tags": "^0.3.0",
     "astro-seo": "^0.8.3",
     "qs": "^6.12.1",
     "tailwindcss": "^3.4.3",
