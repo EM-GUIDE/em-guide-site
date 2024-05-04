@@ -14,6 +14,21 @@ interface Props {
 const { seoData } = Astro.props;
 ---
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GHHNJK5SS7"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    // @ts-expect-error
+    dataLayer.push(arguments);
+  }
+  // @ts-expect-error
+  gtag("js", new Date());
+  // @ts-expect-error
+  gtag("config", "G-GHHNJK5SS7");
+</script>
+
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -25,8 +40,8 @@ const { seoData } = Astro.props;
   seoData && (
     <SEO
       title={seoData.title}
-			titleDefault="EM GUIDE – Music Magazine Network"
-    	titleTemplate="%s – Music Magazine Network"
+      titleDefault="EM GUIDE – Music Magazine Network"
+      titleTemplate="%s – Music Magazine Network"
       description={seoData.description}
       canonical={seoData.canonical ?? ""}
       openGraph={seoData.openGraph}
