@@ -130,7 +130,7 @@ const seoData = {
             <li>
               <Filter
                 label={data.attributes?.title}
-                value={`/publications/tag/${data.attributes?.slug}`}
+                value={`/tag/${data.attributes?.slug}`}
               />
             </li>
           ))
@@ -197,7 +197,7 @@ const seoData = {
                       <li>
                         <Tag
                           label={tag.attributes?.title}
-                          url={`/publications/tag/${tag.attributes?.slug}`}
+                          url={`/tag/${tag.attributes?.slug}`}
                         />
                       </li>
                     ))}
