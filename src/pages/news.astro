@@ -47,15 +47,12 @@ const newsPageData = await fetchApi<NewsPage>({
 });
 
 const newsWithBlurhash = news?.map((item) => {
-  // Check if the featuredImage and its data exist
   if (item.attributes?.featuredImage?.data) {
-    // Create the PNG data URI from the blurhash
     const blurhashDataUri = item.attributes.featuredImage.data.attributes
       .blurhash
       ? createPngDataUri(item.attributes.featuredImage.data.attributes.blurhash)
       : undefined;
 
-    // Return a new object with the updated blurhash property
     return {
       ...item,
       attributes: {
@@ -73,7 +70,7 @@ const newsWithBlurhash = news?.map((item) => {
       },
     };
   }
-  // If the featuredImage or its data does not exist, return the item as is
+
   return item;
 });
 
