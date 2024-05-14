@@ -40,7 +40,9 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
     <div
       class={`pointer-events-none absolute bottom-0 z-10 left-0 justify-between w-full px-8 pt-2 translate-y-full lg:pt-0 lg:-translate-y-1/2 splide__arrows lg:top-1/2 ${slidesWithBlurhash.length > 1 ? "flex" : "hidden"}`}
     >
-      <button class="w-16 splide__arrow splide__arrow--prev pointer-events-auto group">
+      <button
+        class="w-16 splide__arrow splide__arrow--prev pointer-events-auto group"
+      >
         <svg
           class="h-fit"
           width="98"
@@ -57,7 +59,9 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
             stroke-miterlimit="10"></path>
         </svg>
       </button>
-      <button class="w-16 splide__arrow splide__arrow--next pointer-events-auto group">
+      <button
+        class="w-16 splide__arrow splide__arrow--next pointer-events-auto group"
+      >
         <svg
           class="h-fit"
           width="98"
@@ -88,9 +92,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
             return (
               <li class="relative splide__slide">
                 {slide.url ? (
-                  <a
-                    href={slide.url}
-                  >
+                  <a href={slide.url}>
                     {slide.image.data && (
                       <img
                         class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
@@ -104,7 +106,16 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-srcset={
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-                          `${slide.image.data.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w, ` : `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w, `}`
+                          `${
+                            slide.image.data.attributes.formats.xlarge?.url
+                              ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
+                              : slide.image.data.attributes.formats.large?.url
+                                ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                : slide.image.data.attributes.formats.medium
+                                      ?.url
+                                  ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                  : ""
+                          }`
                         }
                         sizes="(max-width: 400px) 402px, (max-width: 600px) 603px, (min-width: 804px) 804px"
                         loading="lazy"
@@ -131,7 +142,16 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-srcset={
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-                          `${slide.image.data.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w, ` : `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w, `}`
+                          `${
+                            slide.image.data.attributes.formats.xlarge?.url
+                              ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
+                              : slide.image.data.attributes.formats.large?.url
+                                ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                : slide.image.data.attributes.formats.medium
+                                      ?.url
+                                  ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                  : ""
+                          }`
                         }
                         sizes="(max-width: 400px) 402px, (max-width: 600px) 603px, (min-width: 804px) 804px"
                         loading="lazy"
