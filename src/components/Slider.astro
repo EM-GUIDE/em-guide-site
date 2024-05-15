@@ -27,6 +27,9 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
     },
   };
 });
+
+console.log(slides[0].image)
+console.log(slides[0].image.data.attributes.width < 750 )
 ---
 
 <section
@@ -106,21 +109,16 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-srcset={
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-
-                          (slide.image.data.attributes.width < 1000) ?
-
-                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url} 1000w` : `${
-                            slide.image.data.attributes.formats.xlarge?.url
-                              ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
-                              : slide.image.data.attributes.formats.large?.url
-                                ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                : slide.image.data.attributes.formats.medium
-                                      ?.url
-                                  ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                  : ""
-                          }`
+                          
+                          `${slide.image.data.attributes.formats.medium?.url}`
+                            ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium?.url} ${slide.image.data.attributes.formats.medium?.width}w`
+                            : slide.image.data.attributes.formats.large?.url
+                              ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
+                              : slide.image.data.attributes.formats.medium?.url
+                                ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                : ""
                         }
-                        sizes="(max-width: 480px) 100vw, (max-width: 750px) 100vw, (max-width: 1000px) 100vw, 1000px"
+                        sizes="(max-width: 480px) 235px, (min-width: 500px) 500px, (min-width: 750px) 750px, (min-width: 1000px) 1000px, 1920px"
                         loading="lazy"
                       />
                     )}
@@ -145,19 +143,19 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-srcset={
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-
-                          (slide.image.data.attributes.width < 1000) ?
-
-                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url} 1000w` : `${
-                            slide.image.data.attributes.formats.xlarge?.url
-                              ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
-                              : slide.image.data.attributes.formats.large?.url
-                                ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                : slide.image.data.attributes.formats.medium
-                                      ?.url
-                                  ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                  : ""
-                          }`
+                          (slide.image.data.attributes.width < 1000)
+                            ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url} 1000w`
+                            : `${
+                                slide.image.data.attributes.formats.xlarge?.url
+                                  ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                  : slide.image.data.attributes.formats.large
+                                        ?.url
+                                    ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                    : slide.image.data.attributes.formats.medium
+                                          ?.url
+                                      ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
+                                      : ""
+                              }`
                         }
                         sizes="(max-width: 480px) 100vw, (max-width: 750px) 100vw, (max-width: 1000px) 100vw, 1000px"
                         loading="lazy"
