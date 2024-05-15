@@ -106,7 +106,10 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-srcset={
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-                          `${
+
+                          (slide.image.data.attributes.width < 1000) ?
+
+                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url} 1000w` : `${
                             slide.image.data.attributes.formats.xlarge?.url
                               ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
                               : slide.image.data.attributes.formats.large?.url
@@ -117,7 +120,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                                   : ""
                           }`
                         }
-                        sizes="(max-width: 400px) 402px, (max-width: 600px) 603px, (min-width: 804px) 804px"
+                        sizes="(max-width: 480px) 100vw, (max-width: 750px) 100vw, (max-width: 1000px) 100vw, 1000px"
                         loading="lazy"
                       />
                     )}
@@ -142,7 +145,10 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-srcset={
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
                           `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-                          `${
+
+                          (slide.image.data.attributes.width < 1000) ?
+
+                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url} 1000w` : `${
                             slide.image.data.attributes.formats.xlarge?.url
                               ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
                               : slide.image.data.attributes.formats.large?.url
@@ -153,7 +159,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                                   : ""
                           }`
                         }
-                        sizes="(max-width: 400px) 402px, (max-width: 600px) 603px, (min-width: 804px) 804px"
+                        sizes="(max-width: 480px) 100vw, (max-width: 750px) 100vw, (max-width: 1000px) 100vw, 1000px"
                         loading="lazy"
                       />
                     )}
