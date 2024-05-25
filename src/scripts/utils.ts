@@ -1,10 +1,10 @@
 import type StrapiImage from "../interfaces/image";
 
-export function generateSrcSet(image: StrapiImage): string {
+
+
+export function generateSrcSet(image: StrapiImage, formats: ('thumbnail' | 'small' | 'medium' | 'large' | 'xlarge')[] = ['thumbnail', 'small', 'medium', 'large', 'xlarge']): string {
   const baseUrl = import.meta.env.PUBLIC_ASSET_URL;
   let srcSet = '';
-
-  const formats = ['thumbnail', 'small', 'medium', 'large', 'xlarge'];
 
   formats.forEach(format => {
     if (image.attributes.formats.hasOwnProperty(format)) {

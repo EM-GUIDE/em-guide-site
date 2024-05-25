@@ -104,7 +104,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
                           slide.image.data.attributes?.url
                         }`}
-                        data-srcset={generateSrcSet(slide.image.data)}
+                        data-srcset={generateSrcSet(slide.image.data, ['thumbnail', 'small', 'medium', 'large'])}
                         sizes="auto"
                         loading="lazy"
                       />
@@ -127,7 +127,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
                           slide.image.data.attributes?.url
                         }`}
-                        data-srcset={generateSrcSet(slide.image.data)}
+                        data-srcset={generateSrcSet(slide.image.data, ['thumbnail', 'small', 'medium', 'large'])}
                         sizes="auto"
                         loading="lazy"
                       />
