@@ -1,6 +1,7 @@
 ---
 import { createPngDataUri } from "unlazy/blurhash";
 import type { SlideItem } from "../interfaces/components";
+import { generateSrcSet } from "../scripts/utils";
 
 interface Props {
   slides: SlideItem[];
@@ -27,9 +28,6 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
     },
   };
 });
-
-console.log(slides[0].image)
-console.log(slides[0].image.data.attributes.width < 750 )
 ---
 
 <section
@@ -106,19 +104,8 @@ console.log(slides[0].image.data.attributes.width < 750 )
                         data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
                           slide.image.data.attributes?.url
                         }`}
-                        data-srcset={
-                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
-                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-                          
-                          `${slide.image.data.attributes.formats.medium?.url}`
-                            ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium?.url} ${slide.image.data.attributes.formats.medium?.width}w`
-                            : slide.image.data.attributes.formats.large?.url
-                              ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
-                              : slide.image.data.attributes.formats.medium?.url
-                                ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                : ""
-                        }
-                        sizes="(max-width: 480px) 235px, (min-width: 500px) 500px, (min-width: 750px) 750px, (min-width: 1000px) 1000px, 1920px"
+                        data-srcset={generateSrcSet(slide.image.data)}
+                        sizes="auto"
                         loading="lazy"
                       />
                     )}
@@ -140,24 +127,8 @@ console.log(slides[0].image.data.attributes.width < 750 )
                         data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
                           slide.image.data.attributes?.url
                         }`}
-                        data-srcset={
-                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.thumbnail.url} ${slide.image.data.attributes.formats.thumbnail.width}w, ` +
-                          `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.small.url} ${slide.image.data.attributes.formats.small.width}w, ` +
-                          (slide.image.data.attributes.width < 1000)
-                            ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.url} 1000w`
-                            : `${
-                                slide.image.data.attributes.formats.xlarge?.url
-                                  ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.xlarge.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                  : slide.image.data.attributes.formats.large
-                                        ?.url
-                                    ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.large.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                    : slide.image.data.attributes.formats.medium
-                                          ?.url
-                                      ? `${import.meta.env.PUBLIC_ASSET_URL}${slide.image.data.attributes.formats.medium.url} ${slide.image.data.attributes.formats.medium.width}w`
-                                      : ""
-                              }`
-                        }
-                        sizes="(max-width: 480px) 100vw, (max-width: 750px) 100vw, (max-width: 1000px) 100vw, 1000px"
+                        data-srcset={generateSrcSet(slide.image.data)}
+                        sizes="auto"
                         loading="lazy"
                       />
                     )}

@@ -1,3 +1,19 @@
+interface StrapiImageFormat {
+  name: string;
+  hash: string;
+  ext: string;
+  mime: string;
+  path: string;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
+}
+
+interface StrapiImageFormats {
+  [key: string]: StrapiImageFormat;
+}
+
 export default interface StrapiImage {
   id: number;
   attributes: {
@@ -6,63 +22,7 @@ export default interface StrapiImage {
     caption?: string;
     width: number;
     height: number;
-    formats: {
-      thumbnail: {
-        name: string;
-        hash: string;
-        ext: string;
-        mime: string;
-        path: string;
-        width: number;
-        height: number;
-        size: number;
-        url: string;
-      },
-      small: {
-        name: string;
-        hash: string;
-        ext: string;
-        mime: string;
-        path: string;
-        width: number;
-        height: number;
-        size: number;
-        url: string;
-      }
-      medium: {
-        name: string;
-        hash: string;
-        ext: string;
-        mime: string;
-        path: string;
-        width: number;
-        height: number;
-        size: number;
-        url: string;
-      },
-      large: {
-        name: string;
-        hash: string;
-        ext: string;
-        mime: string;
-        path: string;
-        width: number;
-        height: number;
-        size: number;
-        url: string;
-      },
-      xlarge: {
-        name: string;
-        hash: string;
-        ext: string;
-        mime: string;
-        path: string;
-        width: number;
-        height: number;
-        size: number;
-        url: string;
-      }
-    }
+    formats: StrapiImageFormats;
     hash: string;
     ext: string;
     mime: string;

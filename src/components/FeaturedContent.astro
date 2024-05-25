@@ -3,68 +3,81 @@ import ReadMoreButton from "./ReadMoreButton.astro";
 import type StrapiImage from "../interfaces/image";
 
 interface Props {
-  title?: string;
-  description?: string;
-  image: StrapiImage;
-  button?: {
-    id: number;
-    label: string;
-    url: string;
-    newPage?: boolean | null;
-  };
+    title?: string;
+    description?: string;
+    image: StrapiImage;
+    button?: {
+        id: number;
+        label: string;
+        url: string;
+        newPage?: boolean | null;
+    };
 }
 
 const { title, description, image, button } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 gap-6 lg:gap-20 lg:grid-cols-2">
-  <div class="aspect-square">
-    <svg
-      class="w-full h-auto"
-      viewBox="0 0 508 508"
-      preserveAspectRatio="xMinYMin slice"
-    >
-      <defs>
-        <mask id="mask">
-          <path
-            d="M506 2V435.629C506 496.865 427.502 539.831 365.636 469.397V328.592L188.165 506H2L2 309.881L169.454 142.427H72.371C11.135 142.364 -31.831 63.929 38.666 2L506 2Z"
-            fill="#FFFFFF"></path>
-        </mask>
-      </defs>
-      <image
-        class="absolute top-0 left-0 w-full h-full"
-        mask="url(#mask)"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        xlink:href={`${import.meta.env.PUBLIC_ASSET_URL}${image.attributes?.formats.xlarge?.url ?? image.attributes?.formats.large?.url ?? image.attributes?.formats.medium?.url ?? image.attributes?.formats.small?.url ?? image.attributes?.formats.thumbnail?.url}`}
-        x="0"
-        y="0"
-        width="100%"
-        height="100%"
-        preserveAspectRatio="xMidYMid slice"
-      />
-      <g class="frame-border" stroke="#FF6EB7" stroke-width="4" fill="none">
-        <path
-          d="M506 2V435.629C506 496.865 427.502 539.831 365.636 469.397V328.592L188.165 506H2L2 309.881L169.454 142.427H72.371C11.135 142.364 -31.831 63.929 38.666 2L506 2Z"
-          stroke-linecap="round"></path>
-      </g>
-    </svg>
-  </div>
-  <div>
-    {
-      title && (
-        <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">
-          {title}
-        </h3>
-      )
-    }
-    {
-      description && (
-        <div
-          class="text-xl [&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>blockquote]:px-2 [&>blockquote]:py-2.5 [&>blockquote]:bg-accent [&>blockquote]:font-display [&>blockquote]:text-2l [&>blockquote]:md:text-2xl [&>blockquote]:mb-4 em-editor-content"
-          set:html={description}
-        />
-      )
-    }
-    {button && <ReadMoreButton label={button.label} url={button.url} newPage={button.newPage} />}
-  </div>
+    <div class="aspect-square">
+        <svg
+            class="w-full h-auto"
+            viewBox="0 0 508 508"
+            preserveAspectRatio="xMinYMin slice"
+        >
+            <defs>
+                <mask id="mask">
+                    <path
+                        d="M506 2V435.629C506 496.865 427.502 539.831 365.636 469.397V328.592L188.165 506H2L2 309.881L169.454 142.427H72.371C11.135 142.364 -31.831 63.929 38.666 2L506 2Z"
+                        fill="#FFFFFF"></path>
+                </mask>
+            </defs>
+            <image
+                class="absolute top-0 left-0 w-full h-full"
+                mask="url(#mask)"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xlink:href={`${import.meta.env.PUBLIC_ASSET_URL}${image.attributes?.formats.xlarge?.url ?? image.attributes?.formats.large?.url ?? image.attributes?.formats.medium?.url ?? image.attributes?.formats.small?.url ?? image.attributes?.formats.thumbnail?.url}`}
+                x="0"
+                y="0"
+                width="100%"
+                height="100%"
+                preserveAspectRatio="xMidYMid slice"
+            />
+            <g
+                class="frame-border"
+                stroke="#FF6EB7"
+                stroke-width="4"
+                fill="none"
+            >
+                <path
+                    d="M506 2V435.629C506 496.865 427.502 539.831 365.636 469.397V328.592L188.165 506H2L2 309.881L169.454 142.427H72.371C11.135 142.364 -31.831 63.929 38.666 2L506 2Z"
+                    stroke-linecap="round"></path>
+            </g>
+        </svg>
+    </div>
+    <div>
+        {
+            title && (
+                <h3 class="mb-8 text-2xl font-bold lg:text-4xl font-display">
+                    {title}
+                </h3>
+            )
+        }
+        {
+            description && (
+                <div
+                    class="text-xl [&>p]:text-xl [&>p]:mb-4 [&>h3]:mb-4 [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>blockquote]:px-2 [&>blockquote]:py-2.5 [&>blockquote]:bg-accent [&>blockquote]:font-display [&>blockquote]:text-2l [&>blockquote]:md:text-2xl [&>blockquote]:mb-4 em-editor-content"
+                    set:html={description}
+                />
+            )
+        }
+        {
+            button && (
+                <ReadMoreButton
+                    label={button.label}
+                    url={button.url}
+                    newPage={button.newPage}
+                />
+            )
+        }
+    </div>
 </div>
