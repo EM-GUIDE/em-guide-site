@@ -39,7 +39,7 @@ const seoData = {
   titleDefault: "EM GUIDE",
   titleTemplate: "%s – Music Magazine Network",
   description: publication?.attributes?.seo?.description,
-  canonical: `${Astro.site?.href}/news/${publication?.attributes?.slug}`,
+  canonical: `${Astro.site?.href}publications/${publication?.attributes?.slug}`,
   openGraph: {
     basic: {
       title: publication?.attributes?.seo?.ogTitle ?? "EM GUIDE",
@@ -50,7 +50,7 @@ const seoData = {
               .medium?.url
           ? `${import.meta.env.PUBLIC_ASSET_URL}${publication?.attributes?.featuredImage?.data?.attributes?.formats.medium?.url}`
           : `${Astro.site}placeholder_og.png`,
-      url: `${Astro.site?.href}/news/${publication.attributes?.slug}`,
+      url: `${Astro.site?.href}publications/${publication.attributes?.slug}`,
     },
     optional: {
       description:
