@@ -15,6 +15,10 @@ export async function getStaticPaths() {
     query: {
       // @ts-ignore
       populate: ["deep"],
+      // @ts-ignore
+      pagination: {
+        pageSize: 100,
+      },
       // populate: "*"
     },
   });
