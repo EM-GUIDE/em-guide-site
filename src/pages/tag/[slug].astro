@@ -107,7 +107,7 @@ tagNewsAndPublications.forEach((item) => {
                       }`}
                       data-srcset={
                         `${import.meta.env.PUBLIC_ASSET_URL}${item.attributes.featuredImage.data.attributes.formats.thumbnail.url} ${item.attributes.featuredImage.data.attributes.formats.thumbnail.width}w, ` +
-                        `${import.meta.env.PUBLIC_ASSET_URL}${item.attributes.featuredImage.data.attributes.formats.small.url} ${item.attributes.featuredImage.data.attributes.formats.small.width}w, ` +
+                        `${item.attributes?.featuredImage.data?.attributes.formats.small?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${item.attributes.featuredImage.data.attributes.formats.small.url} ${item.attributes.featuredImage.data.attributes.formats.small.width}w, ` : ""}` +
                         `${item.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${item.attributes.featuredImage.data.attributes.formats.medium.url} ${item.attributes.featuredImage.data.attributes.formats.medium.width}w, ` : ""}` +
                         `${item.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${item.attributes.featuredImage.data.attributes.formats.large.url} ${item.attributes.featuredImage.data.attributes.formats.large.width}w, ` : ""}` +
                         `${item.attributes?.featuredImage.data?.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${item.attributes.featuredImage.data.attributes.formats.xlarge.url} ${item.attributes.featuredImage.data.attributes.formats.xlarge.width}w` : ""}`
