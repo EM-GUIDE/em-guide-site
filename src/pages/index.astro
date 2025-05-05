@@ -237,9 +237,12 @@ const seoData = {
   import "@splidejs/splide/css/core";
 
   document.addEventListener("DOMContentLoaded", function () {
-    new Splide("#image-carousel", {
-      type: "fade",
-      rewind: true,
-    }).mount();
+    const isPageWithSlides = document.getElementById("image-carousel");
+    if (isPageWithSlides) {
+      new Splide("#image-carousel", {
+        type: "fade",
+        rewind: true,
+      }).mount();
+    }
   });
 </script>

@@ -60,6 +60,7 @@ export interface SlideItem {
   id: number;
   url?: string;
   text?: string;
+  textMobileOverwrite?: string;
   image: {
     data: StrapiImage;
   }

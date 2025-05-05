@@ -104,15 +104,30 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
                           slide.image.data.attributes?.url
                         }`}
-                        data-srcset={generateSrcSet(slide.image.data, ['thumbnail', 'small', 'medium', 'large', 'xlarge'])}
+                        data-srcset={generateSrcSet(slide.image.data, [
+                          "thumbnail",
+                          "small",
+                          "medium",
+                          "large",
+                          "xlarge",
+                        ])}
                         sizes="auto"
                         loading="lazy"
                       />
                     )}
                     <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
-                      <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                        {slide.text}
-                      </h4>
+                      {!!slide.textMobileOverwrite ? (
+                        <h4 class="block sm:hidden text-xl leading-normal text-center text-white lg:text-4xl font-display">
+                          {slide.textMobileOverwrite}
+                        </h4>
+                        <h4 class="hidden sm:block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                          {slide.text}
+                        </h4>
+                      ) : (
+                      <h4 class="block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                          {slide.text}
+                        </h4>
+                      )}
                     </div>
                   </a>
                 ) : (
@@ -127,15 +142,30 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
                           slide.image.data.attributes?.url
                         }`}
-                        data-srcset={generateSrcSet(slide.image.data, ['thumbnail', 'small', 'medium', 'large', 'xlarge'])}
+                        data-srcset={generateSrcSet(slide.image.data, [
+                          "thumbnail",
+                          "small",
+                          "medium",
+                          "large",
+                          "xlarge",
+                        ])}
                         sizes="auto"
                         loading="lazy"
                       />
                     )}
                     <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
-                      <h4 class="text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                        {slide.text}
-                      </h4>
+                      {!!slide.textMobileOverwrite ? (
+                        <h4 class="block sm:hidden text-xl leading-normal text-center text-white lg:text-4xl font-display">
+                          {slide.textMobileOverwrite}
+                        </h4>
+                        <h4 class="hidden sm:block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                          {slide.text}
+                        </h4>
+                      ) : (
+                      <h4 class="block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
+                          {slide.text}
+                        </h4>
+                      )}
                     </div>
                   </>
                 )}

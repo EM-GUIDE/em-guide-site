@@ -10,22 +10,28 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/mdx": "^3.0.1",
-    "@astrojs/sitemap": "^3.1.5",
-    "@astrojs/tailwind": "^5.1.0",
-    "@fontsource-variable/dm-sans": "^5.0.6",
-    "@fontsource-variable/unbounded": "^5.0.20",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/sitemap": "^3.3.1",
+    "@astrojs/tailwind": "^5.1.4",
+    "@fontsource-variable/dm-sans": "^5.2.5",
+    "@fontsource-variable/unbounded": "^5.2.5",
     "@splidejs/splide": "^4.1.4",
-    "astro": "^4.9.2",
-    "astro-meta-tags": "^0.3.0",
+    "astro": "^5.7.10",
+    "astro-meta-tags": "^0.3.1",
     "astro-seo": "^0.8.4",
-    "qs": "^6.12.1",
-    "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5"
+    "qs": "^6.14.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.15",
-    "unlazy": "^0.11.3"
-  }
+    "@types/qs": "^6.9.18",
+    "unlazy": "^0.12.4"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "packageManager": "pnpm@8.9.2+sha1.5f2fa48d614263457cf5d7fb7be8b878da318d87"
 }
