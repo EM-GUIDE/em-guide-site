@@ -41,7 +41,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
     aria-label="Beautiful Images"
   >
     <div
-      class={`pointer-events-none absolute bottom-0 z-10 left-0 justify-between w-full px-8 pt-2 translate-y-full lg:pt-0 lg:-translate-y-1/2 splide__arrows lg:top-1/2 ${slidesWithBlurhash.length > 1 ? "flex" : "hidden"}`}
+      class={`pointer-events-none absolute bottom-0 z-10 left-0 justify-between w-full px-8 pt-2 lg:pt-0 -translate-y-[90%] sm:-translate-y-3/4 md:-translate-y-1/2 lg:-translate-y-3/4 splide__arrows top-1/2 ${slidesWithBlurhash.length > 1 ? "flex" : "hidden"}`}
     >
       <button
         class="w-16 splide__arrow splide__arrow--prev pointer-events-auto group"
@@ -56,7 +56,7 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
         >
           <path
             d="M2.99999 47.4705L42.4006 7.10655C47.9646 1.40645 59.0012 4.71391 58.2227 17.0289L45.4288 30.1356L77.6739 30.1415L94.5894 47.4705L76.7695 65.7261L46.3389 65.7261L55.1601 74.763C60.7185 80.4689 57.4957 91.7694 45.4631 90.9719L2.99999 47.4705Z"
-            class="text-accent sm:text-white group-hover:sm:text-accent transition-colors duration-200 ease-in-out"
+            class="text-white group-hover:sm:text-accent transition-colors duration-200 ease-in-out"
             stroke="currentColor"
             stroke-width="4"
             stroke-miterlimit="10"></path>
