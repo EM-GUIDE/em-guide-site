@@ -9,6 +9,8 @@ interface Props {
 
 const { slides } = Astro.props as Props;
 
+console.log(slides)
+
 const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
   const blurhashDataUri = item.image?.data?.attributes?.blurhash
     ? createPngDataUri(item.image?.data?.attributes?.blurhash)
@@ -81,13 +83,8 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
       </button>
     </div>
 
-    <ul
-      class="z-10 absolute w-[calc(100%_-_2rem)] bottom-8 splide__pagination [&>li]:flex [&>li>button]:border [&>li>button]:lg:border-2 [&>li>button]:border-white [&>li>button]:w-4 [&>li>button]:lg:w-6 [&>li>button]:h-1 [&>li]:h-1 [&>li>button]:lg:h-2 [&>li]:lg:h-2 [&>li>button.is-active]:bg-white [&>li:first-child>button]:rounded-l-2xl [&>li:last-child>button]:rounded-r-2xl"
-    >
-    </ul>
-
     <div class="splide__track">
-      <ul class="bg-white splide__list">
+      <ul class="splide__list bg-transparent">
         {
           slidesWithBlurhash.map((slide) => {
             return (
@@ -115,20 +112,6 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                         loading="lazy"
                       />
                     )}
-                    <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
-                      {!!slide.textMobileOverwrite ? (
-                        <h4 class="block sm:hidden text-xl leading-normal text-center text-white lg:text-4xl font-display">
-                          {slide.textMobileOverwrite}
-                        </h4>
-                        <h4 class="hidden sm:block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                          {slide.text}
-                        </h4>
-                      ) : (
-                      <h4 class="block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                          {slide.text}
-                        </h4>
-                      )}
-                    </div>
                   </a>
                 ) : (
                   <>
@@ -154,20 +137,39 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
                       />
                     )}
                     <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">
-                      {!!slide.textMobileOverwrite ? (
-                        <h4 class="block sm:hidden text-xl leading-normal text-center text-white lg:text-4xl font-display">
-                          {slide.textMobileOverwrite}
-                        </h4>
-                        <h4 class="hidden sm:block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                          {slide.text}
-                        </h4>
-                      ) : (
-                      <h4 class="block text-2xl leading-normal text-center text-white lg:text-4xl font-display">
-                          {slide.text}
-                        </h4>
-                      )}
                     </div>
                   </>
+                )}
+                {slide.url ? (
+                  <a href={slide.url} class="mt-5 inline-block w-full px-10 bottom-14 lg:px-28">
+                    {!!slide.textMobileOverwrite ? (
+                      <h4 class="block sm:hidden text-xl leading-normal text-center text-black lg:text-4xl font-display">
+                        {slide.textMobileOverwrite}
+                      </h4>
+                      <h4 class="hidden sm:block text-2xl leading-normal text-center text-black lg:text-4xl font-display">
+                        {slide.text}
+                      </h4>
+                    ) : (
+                    <h4 class="block text-2xl leading-normal text-center text-black lg:text-4xl font-display">
+                        {slide.text}
+                      </h4>
+                    )}
+                  </a>
+                ) : (
+                <div class="mt-5 inline-block w-full px-10 bottom-14 lg:px-28">
+                  {!!slide.textMobileOverwrite ? (
+                    <h4 class="block sm:hidden text-xl leading-normal text-center text-black lg:text-4xl font-display">
+                      {slide.textMobileOverwrite}
+                    </h4>
+                    <h4 class="hidden sm:block text-2xl leading-normal text-center text-black lg:text-4xl font-display">
+                      {slide.text}
+                    </h4>
+                  ) : (
+                  <h4 class="block text-2xl leading-normal text-center text-black lg:text-4xl font-display">
+                      {slide.text}
+                    </h4>
+                  )}
+                </div>
                 )}
               </li>
             );
