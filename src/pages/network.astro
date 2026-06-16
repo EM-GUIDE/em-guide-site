@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CmsImage from "../components/CmsImage.astro";
 import fetchApi from "../lib/strapi";
 import type NetworkMember from "../interfaces/network-member";
 import type NetworkPage from "../interfaces/network-page";
@@ -100,17 +101,15 @@ const seoData = {
                           href={member.attributes?.url}
                           target="_blank"
                         >
-                          <img
-                            loading="lazy"
-                            src={`${import.meta.env.PUBLIC_ASSET_URL}${member.attributes?.logo.data.attributes?.url}`}
+                          <CmsImage
+                            image={member.attributes.logo.data}
                             alt=""
                             class="w-40 h-auto group-hover:opacity-95 transition-opacity duration-200 ease-in-out"
                           />
                         </a>
                       ) : (
-                        <img
-                          loading="lazy"
-                          src={`${import.meta.env.PUBLIC_ASSET_URL}${member.attributes?.logo.data.attributes?.url}`}
+                        <CmsImage
+                          image={member.attributes.logo.data}
                           alt=""
                           class="w-40 h-auto"
                         />

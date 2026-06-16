@@ -1,47 +1,24 @@
 ---
-import { createPngDataUri } from "unlazy/blurhash";
+import CmsImage from "./CmsImage.astro";
 import type { SlideItem } from "../interfaces/components";
-import { generateSrcSet } from "../scripts/utils";
 
 interface Props {
   slides: SlideItem[];
 }
 
 const { slides } = Astro.props as Props;
-
-console.log(slides)
-
-const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
-  const blurhashDataUri = item.image?.data?.attributes?.blurhash
-    ? createPngDataUri(item.image?.data?.attributes?.blurhash)
-    : undefined;
-
-  return {
-    ...item,
-    image: {
-      ...item.image,
-      data: {
-        ...item.image.data,
-        attributes: {
-          ...item.image.data.attributes,
-          blurhash: blurhashDataUri,
-        },
-      },
-    },
-  };
-});
 ---
 
 <section
-  class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 md:pb-40 lg:pb-28 mb-14 md:mb-28 bg-carousel-background bg-[-50%] lg:bg-[160%] xl:bg-[120%] md:min-h-[600px] xl:min-h-[722px]"
+  class="relative bg-no-repeat bg-cover lg:bg-contain pt-14 md:pb-40 lg:pb-28 mb-14 md:mb-28 bg-carousel-background bg-position-[-50%] lg:bg-position-[160%] xl:bg-position-[120%] md:min-h-150 xl:min-h-180.5"
 >
   <div
     id="image-carousel"
-    class="max-w-screen-lg relative mx-auto px-4 splide"
+    class="max-w-5xl relative mx-auto px-4 splide"
     aria-label="Beautiful Images"
   >
     <div
-      class={`pointer-events-none absolute bottom-0 z-10 left-0 justify-between w-full px-8 pt-2 lg:pt-0 -translate-y-[90%] sm:-translate-y-3/4 md:-translate-y-1/2 lg:-translate-y-3/4 splide__arrows top-1/2 ${slidesWithBlurhash.length > 1 ? "flex" : "hidden"}`}
+      class={`pointer-events-none absolute bottom-0 z-10 left-0 justify-between w-full px-8 pt-2 lg:pt-0 translate-y-[-90%] sm:-translate-y-3/4 md:-translate-y-1/2 lg:-translate-y-3/4 splide__arrows top-1/2 ${slides.length > 1 ? "flex" : "hidden"}`}
     >
       <button
         class="w-16 splide__arrow splide__arrow--prev pointer-events-auto group"
@@ -86,54 +63,24 @@ const slidesWithBlurhash: SlideItem[] = slides.map((item: SlideItem) => {
     <div class="splide__track">
       <ul class="splide__list bg-transparent">
         {
-          slidesWithBlurhash.map((slide) => {
+          slides.map((slide: SlideItem) => {
             return (
               <li class="relative splide__slide">
                 {slide.url ? (
                   <a href={slide.url}>
                     {slide.image.data && (
-                      <img
-                        class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
-                        width={slide.image.data.attributes.width}
-                        height={slide.image.data.attributes.height}
-                        alt={slide.image.data.attributes.caption ?? "image"}
-                        src={slide.image.data.attributes.blurhash}
-                        data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                          slide.image.data.attributes?.url
-                        }`}
-                        data-srcset={generateSrcSet(slide.image.data, [
-                          "thumbnail",
-                          "small",
-                          "medium",
-                          "large",
-                          "xlarge",
-                        ])}
-                        sizes="auto"
-                        loading="lazy"
+                      <CmsImage
+                        image={slide.image.data}
+                        class="w-full h-auto object-cover aspect-5/4 lg:aspect-9/4"
                       />
                     )}
                   </a>
                 ) : (
                   <>
                     {slide.image.data && (
-                      <img
-                        class="w-full h-auto object-cover aspect-[5/4] lg:aspect-[9/4]"
-                        width={slide.image.data.attributes.width}
-                        height={slide.image.data.attributes.height}
-                        alt={slide.image.data.attributes.caption ?? "image"}
-                        src={slide.image.data.attributes.blurhash}
-                        data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                          slide.image.data.attributes?.url
-                        }`}
-                        data-srcset={generateSrcSet(slide.image.data, [
-                          "thumbnail",
-                          "small",
-                          "medium",
-                          "large",
-                          "xlarge",
-                        ])}
-                        sizes="auto"
-                        loading="lazy"
+                      <CmsImage
+                        image={slide.image.data}
+                        class="w-full h-auto object-cover aspect-5/4 lg:aspect-9/4"
                       />
                     )}
                     <div class="absolute inline-block w-full px-10 bottom-14 lg:px-28">

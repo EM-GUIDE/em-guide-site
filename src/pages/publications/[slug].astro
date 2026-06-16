@@ -1,10 +1,10 @@
 ---
-import { createPngDataUri } from "unlazy/blurhash";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ImagesWithDecoration from "../../components/ImagesWithDecoration.astro";
 import TextWithSideImage from "../../components/TextWithSideImage.astro";
 import PublishDate from "../../components/PublishDate.astro";
 import Tag from "../../components/Tag.astro";
+import CmsImage from "../../components/CmsImage.astro";
 import fetchApi from "../../lib/strapi";
 import type Publication from "../../interfaces/publication";
 
@@ -31,12 +31,6 @@ export async function getStaticPaths() {
 type Props = Publication;
 
 const publication = Astro.props;
-const blurhash = publication?.attributes?.featuredImage?.data?.attributes
-  ?.blurhash
-  ? createPngDataUri(
-      publication?.attributes?.featuredImage?.data?.attributes?.blurhash
-    )
-  : null;
 
 const seoData = {
   title: publication?.attributes?.seo?.title,
@@ -120,31 +114,12 @@ const seoData = {
             'relative mb-14',
             publication?.attributes?.useDefaultImageOverlay ? "aspect-[358/280] lg:aspect-[1120/714]" : ""
           ]}>
-          <img
-            class:list={[
+          <CmsImage
+            image={publication.attributes.featuredImage.data}
+            class={[
               "inline-block w-full",
-            publication?.attributes?.useDefaultImageOverlay ? "absolute top-0 left-0 h-full object-cover" : ""
-          ]}
-            src={blurhash}
-            alt={
-              publication.attributes?.featuredImage?.data?.attributes
-                ?.alternativeText
-            }
-            width={publication.attributes?.featuredImage.data?.attributes.width}
-            height={
-              publication.attributes?.featuredImage.data?.attributes.height
-            }
-            data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
-              publication.attributes?.featuredImage.data?.attributes?.url
-            }`}
-            data-srcset={
-              `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.url} ${publication.attributes.featuredImage.data.attributes.width}w, ` +
-              `${publication.attributes?.featuredImage.data?.attributes.formats.small?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.small.url} ${publication.attributes.featuredImage.data.attributes.formats.small.width}w, ` : ""}` +
-              `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} ${publication.attributes.featuredImage.data.attributes.formats.medium.width}w, ` : ""}` +
-              `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} ${publication.attributes.featuredImage.data.attributes.formats.large.width}w, ` : ""}` +
-              `${publication.attributes?.featuredImage.data?.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.xlarge.url} ${publication.attributes.featuredImage.data.attributes.formats.xlarge.width}w` : ""}`
-            }
-            loading="lazy"
+              publication?.attributes?.useDefaultImageOverlay ? "absolute top-0 left-0 h-full object-cover" : ""
+            ].filter(Boolean).join(" ")}
           />
           { publication.attributes?.useDefaultImageOverlay &&
           <svg

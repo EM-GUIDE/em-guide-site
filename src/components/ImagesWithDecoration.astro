@@ -1,49 +1,19 @@
 ---
-import { createPngDataUri } from "unlazy/blurhash";
+import CmsImage from "./CmsImage.astro";
 import type StrapiImage from "../interfaces/image";
 const { images } = Astro.props;
-
-const imagesWithBlurhash: StrapiImage[] = images.map((item: StrapiImage) => {
-  const blurhashDataUri = item.attributes.blurhash
-    ? createPngDataUri(item.attributes.blurhash)
-    : undefined;
-
-  // Return a new object with the updated blurhash property
-  return {
-    ...item,
-    attributes: {
-      ...item.attributes,
-      blurhash: blurhashDataUri,
-    },
-  };
-});
 ---
 
 <div class="bg-saw-long-background bg-no-repeat bg-right-top pt-16">
   <div class="max-w-screen-lg px-4 mx-auto mb-20">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        imagesWithBlurhash.map((image: StrapiImage) => (
+        images.map((image: StrapiImage) => (
           <div class="inline-block mb-8 aspect-[544/362]">
-            <img
+            <CmsImage
+              image={image}
               class="w-full h-full object-cover"
-              style="aspect-ratio: 544/362;"
-              width={image.attributes.width}
-              height={image.attributes.height}
-              alt={image.attributes.caption ?? "image"}
-              src={image.attributes.blurhash}
-              data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                image.attributes?.url
-              }`}
-              data-srcset={
-                `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.thumbnail.url} ${image.attributes.formats.thumbnail.width}w, ` +
-                `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.small.url} ${image.attributes.formats.small.width}w, ` +
-                `${image.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.medium.url} ${image.attributes.formats.medium.width}w, ` : ""}` +
-                `${image.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.large.url} ${image.attributes.formats.large.width}w` : ""}` +
-                `${image.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes.formats.xlarge.url} ${image.attributes.formats.xlarge.width}w` : ""}`
-              }
-              data-sizes="auto"
-              loading="lazy"
+              aspectRatio="544/362"
             />
           </div>
         ))

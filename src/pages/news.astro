@@ -1,9 +1,9 @@
 ---
-import { createPngDataUri } from "unlazy/blurhash";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Filter from "../components/Filter.astro";
 import PublishDate from "../components/PublishDate.astro";
 import Tag from "../components/Tag.astro";
+import CmsImage from "../components/CmsImage.astro";
 import type NewsPage from "../interfaces/news-page";
 import fetchApi from "../lib/strapi";
 import type Publication from "../interfaces/publication";
@@ -44,34 +44,6 @@ const newsPageData = await fetchApi<NewsPage>({
       "seo.twitterImage",
     ],
   },
-});
-
-const newsWithBlurhash = news?.map((item) => {
-  if (item.attributes?.featuredImage?.data) {
-    const blurhashDataUri = item.attributes.featuredImage.data.attributes
-      .blurhash
-      ? createPngDataUri(item.attributes.featuredImage.data.attributes.blurhash)
-      : undefined;
-
-    return {
-      ...item,
-      attributes: {
-        ...item.attributes,
-        featuredImage: {
-          ...item.attributes.featuredImage,
-          data: {
-            ...item.attributes.featuredImage.data,
-            attributes: {
-              ...item.attributes.featuredImage.data.attributes,
-              blurhash: blurhashDataUri,
-            },
-          },
-        },
-      },
-    };
-  }
-
-  return item;
 });
 
 const seoData = {
@@ -132,43 +104,15 @@ const seoData = {
     </ul>
     <ul class="space-y-14 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
       {
-        newsWithBlurhash?.length > 0 &&
-          newsWithBlurhash.map((publication: Publication) => (
+        news?.length > 0 &&
+          news.map((publication: Publication) => (
             <li class="leading-none">
               <a href={`/news/${publication.attributes?.slug}/`} class="group">
                 {publication.attributes?.featuredImage?.data && (
                   <div class="inline-block aspect-[9/7] mb-5 lg:mb-4 w-full">
-                    <img
+                    <CmsImage
+                      image={publication.attributes.featuredImage.data}
                       class="object-cover w-full h-full text-xl font-display group-hover:opacity-95 duration-100 ease-in-out transition-opacity"
-                      width={
-                        publication.attributes?.featuredImage.data?.attributes
-                          .width
-                      }
-                      height={
-                        publication.attributes?.featuredImage.data?.attributes
-                          .height
-                      }
-                      alt={
-                        publication.attributes?.featuredImage.data?.attributes
-                          .caption ?? "image"
-                      }
-                      src={
-                        publication.attributes?.featuredImage.data?.attributes
-                          .blurhash
-                      }
-                      data-src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                        publication.attributes?.featuredImage.data?.attributes
-                          ?.url
-                      }`}
-                      data-srcset={
-                        `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.thumbnail.url} ${publication.attributes.featuredImage.data.attributes.formats.thumbnail.width}w, ` +
-                        `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes?.featuredImage.data?.attributes.formats.small?.url} ${publication.attributes.featuredImage.data.attributes.formats.small?.width}w, ` +
-                        `${publication.attributes?.featuredImage.data?.attributes.formats.medium?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.medium.url} ${publication.attributes.featuredImage.data.attributes.formats.medium.width}w, ` : ""}` +
-                        `${publication.attributes?.featuredImage.data?.attributes.formats.large?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.large.url} ${publication.attributes.featuredImage.data.attributes.formats.large.width}w, ` : ""}` +
-                        `${publication.attributes?.featuredImage.data?.attributes.formats.xlarge?.url ? `${import.meta.env.PUBLIC_ASSET_URL}${publication.attributes.featuredImage.data.attributes.formats.xlarge.url} ${publication.attributes.featuredImage.data.attributes.formats.xlarge.width}w` : ""}`
-                      }
-                      data-sizes="auto"
-                      loading="lazy"
                     />
                   </div>
                 )}

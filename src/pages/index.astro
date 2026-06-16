@@ -6,6 +6,7 @@ import ImagesWithDecoration from "../components/ImagesWithDecoration.astro";
 import FeaturedContent from "../components/FeaturedContent.astro";
 import Slider from "../components/Slider.astro";
 import TextWithSideImage from "../components/TextWithSideImage.astro";
+import CmsImage from "../components/CmsImage.astro";
 
 import type NetworkMember from "../interfaces/network-member";
 import type HomePage from "../interfaces/home-page";
@@ -190,11 +191,8 @@ const seoData = {
                     target="_blank"
                   >
                     {member.attributes?.logo.data && (
-                      <img
-                        loading="lazy"
-                        src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                          member.attributes?.logo.data.attributes?.url
-                        }`}
+                      <CmsImage
+                        image={member.attributes.logo.data}
                         alt=""
                         class="w-auto h-auto group-hover:opacity-95 transition-opacity duration-100 ease-in-out"
                       />
@@ -208,11 +206,8 @@ const seoData = {
                 ) : (
                   <div class="flex flex-col  justify-center lg:mb-5 sm:inline-block aspect-[8/3]">
                     {member.attributes?.logo.data && (
-                      <img
-                        loading="lazy"
-                        src={`${import.meta.env.PUBLIC_ASSET_URL}${
-                          member.attributes?.logo.data.attributes?.url
-                        }`}
+                      <CmsImage
+                        image={member.attributes.logo.data}
                         alt=""
                         class="w-auto h-auto"
                       />

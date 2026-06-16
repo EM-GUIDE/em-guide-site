@@ -1,0 +1,117 @@
+---
+import { getImage } from "astro:assets";
+import { createPngDataUri } from "unlazy/blurhash";
+import type StrapiImage from "../interfaces/image";
+
+interface Props {
+  /** The Strapi image object ({ id, attributes }). */
+  image: StrapiImage;
+  /** Extra classes for the <img>. */
+  class?: string;
+  /** Inline style; merged with aspect-ratio when `aspectRatio` is set. */
+  style?: string;
+  /** CSS aspect-ratio, e.g. "544/362". */
+  aspectRatio?: string;
+  /** `sizes` attribute. "auto" lets unlazy compute it (lazy mode only). */
+  sizes?: string;
+  /** Explicit responsive widths; defaults to the widths Strapi already produced. */
+  widths?: number[];
+  /** Output format for the localized images. */
+  format?: "webp" | "avif" | "png" | "jpeg" | "jpg" | "gif";
+  /** Render eagerly without blurhash/unlazy (for above-the-fold images). */
+  eager?: boolean;
+  /** Override the alt text. Defaults to caption / alternativeText / "image". */
+  alt?: string;
+}
+
+const {
+  image,
+  class: className,
+  style,
+  aspectRatio,
+  sizes = "auto",
+  widths: widthsProp,
+  format = "webp",
+  eager = false,
+  alt: altProp,
+} = Astro.props;
+
+const attrs = image.attributes;
+const remoteUrl = `${import.meta.env.PUBLIC_ASSET_URL}${attrs.url}`;
+
+// LQIP placeholder decoded from the stored blurhash.
+const blurhash = attrs.blurhash ? createPngDataUri(attrs.blurhash) : undefined;
+
+// Reuse the widths Strapi already generated so the local responsive set
+// matches the CMS variants we used to link to.
+const formatWidths = attrs.formats
+  ? Object.values(attrs.formats)
+      .map((f) => f.width)
+      .filter(Boolean)
+  : [];
+const widths =
+  widthsProp ??
+  (formatWidths.length
+    ? Array.from(new Set([...formatWidths, attrs.width])).sort((a, b) => a - b)
+    : [attrs.width]);
+
+// Downloads + optimizes the remote CMS image into local assets at build time.
+// In a static build these are emitted under dist/_astro/, so the output has
+// no runtime dependency on the CMS.
+const optimized = await getImage({
+  src: remoteUrl,
+  inferSize: true,
+  widths,
+  format,
+});
+
+const mergedStyle = [aspectRatio ? `aspect-ratio: ${aspectRatio};` : "", style]
+  .filter(Boolean)
+  .join(" ");
+
+const alt = altProp ?? attrs.caption ?? attrs.alternativeText ?? "image";
+---
+
+{
+  eager ? (
+    /* Above-the-fold: load the real image immediately. */
+    <img
+      class={className}
+      style={mergedStyle || undefined}
+      width={attrs.width}
+      height={attrs.height}
+      alt={alt}
+      src={optimized.src}
+      srcset={optimized.srcSet.attribute}
+      sizes={sizes === "auto" ? undefined : sizes}
+      loading="eager"
+    />
+  ) : blurhash ? (
+    /* Lazy with blurhash LQIP; unlazy swaps data-src/srcset on scroll. */
+    <img
+      class={className}
+      style={mergedStyle || undefined}
+      width={attrs.width}
+      height={attrs.height}
+      alt={alt}
+      src={blurhash}
+      data-src={optimized.src}
+      data-srcset={optimized.srcSet.attribute}
+      data-sizes={sizes}
+      loading="lazy"
+    />
+  ) : (
+    /* Lazy, no blurhash available: native lazy-load the real image. */
+    <img
+      class={className}
+      style={mergedStyle || undefined}
+      width={attrs.width}
+      height={attrs.height}
+      alt={alt}
+      src={optimized.src}
+      srcset={optimized.srcSet.attribute}
+      sizes={sizes === "auto" ? undefined : sizes}
+      loading="lazy"
+    />
+  )
+}

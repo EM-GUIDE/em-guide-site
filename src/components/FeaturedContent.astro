@@ -1,4 +1,5 @@
 ---
+import { getImage } from "astro:assets";
 import ReadMoreButton from "./ReadMoreButton.astro";
 import type StrapiImage from "../interfaces/image";
 
@@ -15,6 +16,14 @@ interface Props {
 }
 
 const { title, description, image, button } = Astro.props;
+
+// Localize the masked SVG image at build time (downloaded + optimized to a
+// local asset), so it no longer points at the CMS after build.
+const featuredImage = await getImage({
+    src: `${import.meta.env.PUBLIC_ASSET_URL}${image.attributes?.url}`,
+    inferSize: true,
+    format: "webp",
+});
 ---
 
 <div class="grid grid-cols-1 gap-6 lg:gap-20 lg:grid-cols-2">
@@ -35,7 +44,7 @@ const { title, description, image, button } = Astro.props;
                 class="absolute top-0 left-0 w-full h-full"
                 mask="url(#mask)"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                xlink:href={`${import.meta.env.PUBLIC_ASSET_URL}${image.attributes?.formats.xlarge?.url ?? image.attributes?.formats.large?.url ?? image.attributes?.formats.medium?.url ?? image.attributes?.formats.small?.url ?? image.attributes?.formats.thumbnail?.url}`}
+                xlink:href={featuredImage.src}
                 x="0"
                 y="0"
                 width="100%"
